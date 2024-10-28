@@ -13,7 +13,7 @@ export default function LoginPage() {
 
   return (
     <div className="w-screen h-[85vh] flex justify-center items-center">
-      <div className="w-3/4 max-w-96 md:w-96 bg-white rounded-lg shadow-lg flex flex-col">
+      <div className="w-3/4 max-w-96 md:w-96 bg-white rounded-lg shadow-lg flex flex-col backdrop-blur-xl">
         <div className="flex mx-8 gap-4">
           <img src={ribbon} alt="Ribbon Logo" width={45} />
           <img src={binus} alt="Binus Logo" className="mt-4" />
