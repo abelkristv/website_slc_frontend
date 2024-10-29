@@ -24,22 +24,17 @@ const ParticlesBackground = () => {
       fpsLimit: 120,
       interactivity: {
         events: {
-          onClick: {
-            enable: false,
-            mode: "push",
-          },
           onHover: {
-            enable: false,
-            mode: "repulse",
+            enable: true,
+            mode: "grab",
           },
         },
         modes: {
-          push: {
-            quantity: 4,
-          },
-          repulse: {
-            distance: 20,
-            duration: 1,
+          grab: {
+            distance: 100,
+            links: {
+              opacity: 0.6,
+            },
           },
         },
       },
@@ -68,7 +63,7 @@ const ParticlesBackground = () => {
           density: {
             enable: true,
           },
-          value: 80,
+          value: 100,
         },
         opacity: {
           value: 0.5,
@@ -77,7 +72,7 @@ const ParticlesBackground = () => {
           type: "circle",
         },
         size: {
-          value: { min: 1, max: 5 },
+          value: { min: 0.5, max: 2 },
         },
       },
       detectRetina: true,
