@@ -1,5 +1,6 @@
 import React from "react";
-import { Input, InputGroup, InputLeftElement } from "@chakra-ui/react";
+import { Input } from "@chakra-ui/react";
+import { InputGroup } from "../../../components/ui/input-group";
 
 interface InputFieldProps {
   name: string;
@@ -18,19 +19,20 @@ const InputField: React.FC<InputFieldProps> = ({
   onChange,
   icon,
 }) => (
-  <InputGroup>
-    <InputLeftElement pointerEvents="none">{icon}</InputLeftElement>
+  <InputGroup flex="1" startElement={icon} width="full">
     <Input
       type={type}
       name={name}
       placeholder={placeholder}
       value={value}
       onChange={onChange}
-      variant="outline"
-      focusBorderColor="blue.500"
-      border="1px"
       borderColor="gray.400"
       _hover={{ borderColor: "blue.400" }}
+      focusRing="inside"
+      focusRingColor="blue.400"
+      outline="none"
+      borderRadius="md"
+      padding="2"
     />
   </InputGroup>
 );

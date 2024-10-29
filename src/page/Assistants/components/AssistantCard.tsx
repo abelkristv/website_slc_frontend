@@ -11,47 +11,48 @@ export default function AssistantCard({ assistant }: AssistantCardProps) {
       borderWidth="1px"
       borderRadius="lg"
       overflow="hidden"
-      boxShadow="md"
+      boxShadow="sm"
       bg="white"
       maxW="sm"
-      className="transition-transform transform hover:scale-105"
+      _hover={{ transform: "scale(1.05)" }}
       cursor="pointer"
       width={64}
       height={64}
       display="flex"
       alignItems="center"
       justifyContent="center"
+      transition="transform 0.2s"
     >
-      <VStack spacing={3} justifyContent="center">
+      <VStack gap={3} justifyContent="center">
         <Image
           src={assistant.ProfilePicture}
           alt={`${assistant.Initial} profile`}
           borderRadius="full"
           boxSize="80px"
           objectFit="cover"
-          className="shadow-lg"
+          boxShadow="lg"
         />
-        <VStack spacing={2} textAlign="center">
+        <VStack gap={2} textAlign="center">
           <Text
             fontSize="xl"
             fontWeight="bold"
             color="gray.700"
             maxHeight={16}
             width={52}
-            isTruncated
+            truncate
           >
             {assistant.FullName}
           </Text>
-          <Badge colorScheme="purple" className="text-xs py-1 px-3">
+          <Badge colorScheme="purple" fontSize="xs" py={1} px={3}>
             {assistant.Generation}
           </Badge>
-          <VStack spacing={1} textAlign="center">
+          <VStack gap={1} textAlign="center">
             <Text fontSize="sm" color="gray.600">
               Initial:{" "}
-              <span className="font-semibold">{assistant.Initial}</span>
+              <span style={{ fontWeight: "600" }}>{assistant.Initial}</span>
             </Text>
             <Text fontSize="sm" color="gray.600">
-              Role: <span className="font-semibold">Assistant</span>
+              Role: <span style={{ fontWeight: "600" }}>Assistant</span>
             </Text>
           </VStack>
         </VStack>

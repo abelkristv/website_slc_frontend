@@ -81,7 +81,22 @@ const ParticlesBackground = () => {
   );
 
   if (init) {
-    return <Particles id="tsparticles" options={options} />;
+    return (
+      <div
+        style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          zIndex: -1,
+          background: "linear-gradient(-30deg, #00d2ff, #3a7bd5)",
+          backgroundAttachment: "fixed",
+        }}
+      >
+        <Particles id="tsparticles" options={options} />
+      </div>
+    );
   }
 
   return <></>;

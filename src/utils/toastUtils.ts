@@ -1,21 +1,19 @@
-export const showErrorToast = (toast: any, message: string) => {
-  toast.closeAll();
-  toast({
+import { toaster } from "../components/ui/toaster";
+
+export const showErrorToast = (message: string) => {
+  toaster.create({
     title: "Error",
     description: message,
-    status: "error",
-    duration: 5000,
-    isClosable: true,
+    type: "error",
+    duration: 1500,
   });
 };
 
-export const showSuccessToast = (toast: any, message: string) => {
-  toast.closeAll();
-  toast({
+export const showSuccessToast = (message: string) => {
+  toaster.create({
     title: "Success",
     description: message,
-    status: "success",
-    duration: 5000,
-    isClosable: true,
+    type: "success",
+    duration: 1500,
   });
 };

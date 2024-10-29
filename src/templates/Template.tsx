@@ -1,6 +1,8 @@
+import { Box } from "@chakra-ui/react";
 import Navbar from "../components/Navbar";
 import ParticlesBackground from "./ParticlesBackground";
 import { ReactNode } from "react";
+import { Toaster } from "../components/ui/toaster";
 
 interface TemplateProps {
   children: ReactNode;
@@ -8,14 +10,15 @@ interface TemplateProps {
 
 export default function Template({ children }: TemplateProps) {
   return (
-    <div className={`min-h-screen flex flex-col overflow-x-hidden`}>
+    <Box minHeight="100vh" display="flex" flexDir="column" overflowX="hidden">
       <Navbar />
-      <div className="flex-grow bg-gradient-to-tl from-[#00d2ff] to-[#3a7bd5]">
+      <Toaster />
+      <Box flexGrow={1}>
         <ParticlesBackground />
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 z-10">
+        <Box maxW="7xl" mx="auto" px={{ base: 4, sm: 6, lg: 8 }} py={6}>
           {children}
-        </div>
-      </div>
-    </div>
+        </Box>
+      </Box>
+    </Box>
   );
 }
