@@ -1,26 +1,31 @@
 import { useState } from "react";
+import { Button, VStack, Box, HStack, IconButton } from "@chakra-ui/react";
+import { FaUser, FaLock } from "react-icons/fa";
 import binus from "../../assets/binus.png";
 import ribbon from "../../assets/ribbon.png";
-import { Button, Link, VStack, Text, Box, HStack } from "@chakra-ui/react";
-import { useNavigate } from "react-router-dom";
-import { FaUser, FaLock } from "react-icons/fa";
 import InputField from "./components/InputField";
 import { showErrorToast, showSuccessToast } from "../../utils/toastUtils";
 import { loginUser } from "../../services/AuthService";
+import {
+  DialogActionTrigger,
+  DialogBody,
+  DialogCloseTrigger,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogRoot,
+  DialogTrigger,
+} from "../../components/ui/dialog";
+import { MdQuestionMark } from "react-icons/md";
 
 export default function LoginPage() {
-  const navigate = useNavigate();
-
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    if (name === "username") {
-      setUsername(value);
-    } else if (name === "password") {
-      setPassword(value);
-    }
+    name === "username" ? setUsername(value) : setPassword(value);
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLDivElement>) => {
@@ -60,7 +65,7 @@ export default function LoginPage() {
           />
           <img src={binus} alt="Binus Logo" style={{ marginTop: "1rem" }} />
         </HStack>
-        <Box as="form" onSubmit={handleSubmit} width="full" p={8}>
+        <Box as="form" onSubmit={handleSubmit} width="full" px={8} py={6}>
           <VStack gap={4}>
             <InputField
               name="username"
@@ -86,16 +91,51 @@ export default function LoginPage() {
             >
               Login
             </Button>
-            <Text fontSize="sm">
-              SLC Alumni?{" "}
-              <Link
-                color="blue.500"
-                _hover={{ textDecoration: "underline" }}
-                onClick={() => navigate("/register")}
-              >
-                Click here
-              </Link>
-            </Text>
+            <DialogRoot>
+              <DialogTrigger asChild>
+                <IconButton
+                  aria-label="Default Password Info"
+                  variant="outline"
+                  rounded="full"
+                  px={4}
+                  borderColor="gray.300"
+                >
+                  <MdQuestionMark /> How to Login
+                </IconButton>
+              </DialogTrigger>
+              <DialogContent>
+                <DialogHeader>
+                  <DialogTitle>How to Login</DialogTitle>
+                </DialogHeader>
+                <DialogBody>
+                  <p>
+                    This login is for assistants and alumni of Software
+                    Laboratory Center:
+                  </p>
+                  <ul style={{ paddingLeft: "20px", listStyleType: "disc" }}>
+                    <li>
+                      <strong>Username Format:</strong> Use your{" "}
+                      <em>initial</em> and <em>generation</em> (e.g.,{" "}
+                      <strong>DT23-2</strong>).
+                    </li>
+                    <li>
+                      <strong>Default Password:</strong> Your birthdate in the
+                      format <strong>slc-DDMMYYYY</strong>.
+                    </li>
+                  </ul>
+                  <p style={{ marginTop: "10px" }}>
+                    <em>Example:</em> If your birthdate is June 23, 2003, your
+                    default password would be <strong>slc-23062003</strong>.
+                  </p>
+                </DialogBody>
+                <DialogFooter>
+                  <DialogActionTrigger asChild>
+                    <Button variant="outline">Close</Button>
+                  </DialogActionTrigger>
+                </DialogFooter>
+                <DialogCloseTrigger />
+              </DialogContent>
+            </DialogRoot>
           </VStack>
         </Box>
       </VStack>

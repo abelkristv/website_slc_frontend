@@ -1,7 +1,9 @@
 import { Link, useLocation } from "react-router-dom";
 import { Box, Flex, HStack, Image, Button } from "@chakra-ui/react";
+import { FaUserPlus } from "react-icons/fa";
 import binus from "../assets/binus.png";
 import ribbon from "../assets/ribbon.png";
+import { MdLogin } from "react-icons/md";
 
 export default function Navbar() {
   const location = useLocation();
@@ -21,12 +23,12 @@ export default function Navbar() {
             <Image src={binus} alt="Binus" height={16} pt={2} />
           </HStack>
 
-          <HStack gap={4} display={{ base: "none", md: "flex" }}>
+          <HStack gap={2} display={{ base: "none", md: "flex" }}>
             {menuItems.map((item) => (
               <Link key={item.name} to={item.path}>
                 <Button
                   variant="ghost"
-                  size="xl"
+                  size="sm"
                   color={
                     location.pathname === item.path ? "#3a7bd5" : "gray.700"
                   }
@@ -37,30 +39,33 @@ export default function Navbar() {
             ))}
           </HStack>
 
-          <HStack gap={4}>
+          <HStack gap={2}>
             <Link to="/register">
               <Button
-                variant="outline"
+                variant="solid"
                 colorScheme="blue"
-                color="#3a7bd5"
-                borderColor="#3a7bd5"
-                rounded="full"
+                color="white"
+                rounded="md"
                 size="sm"
-                _hover={{ bg: "blue.50" }}
+                bg="#3a7bd5"
+                _hover={{ bg: "#336ab3" }}
               >
-                Become a Part of Us
+                <FaUserPlus />
+                Sign Up
               </Button>
             </Link>
             <Link to="/login">
               <Button
-                colorScheme="blue"
-                bg="#3a7bd5"
-                color="white"
-                rounded="full"
+                colorScheme="teal"
+                variant="outline"
+                borderColor="#4a90e2"
+                color="#4a90e2"
+                rounded="md"
                 size="sm"
-                _hover={{ bg: "#336ab3" }}
+                _hover={{ bg: "blue.50" }}
               >
-                Login for Assistant
+                <MdLogin />
+                Login
               </Button>
             </Link>
           </HStack>
