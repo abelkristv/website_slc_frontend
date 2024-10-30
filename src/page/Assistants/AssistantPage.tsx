@@ -56,6 +56,7 @@ export default function AssistantPage() {
 
   useEffect(() => {
     fetchData();
+    window.scrollTo(0, 0);
   }, [generation, orderby, status, page]);
 
   useEffect(() => {
@@ -88,10 +89,11 @@ export default function AssistantPage() {
       {!loading && assistants.length === 0 ? (
         <EmptyState
           icon={<GoPeople />}
-          title="No results found"
+          title="No assistants found"
           description="Try adjusting your search"
           bg={"white"}
           borderRadius={"md"}
+          py={8}
           mt={-4}
         >
           <List.Root variant="marker">
