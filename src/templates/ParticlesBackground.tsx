@@ -3,16 +3,22 @@ import Particles, { initParticlesEngine } from "@tsparticles/react";
 import { loadSlim } from "@tsparticles/slim";
 import { ISourceOptions } from "@tsparticles/engine";
 
-const ParticlesBackground = () => {
+interface ParticlesBackgroundProps {
+  onLoad: () => void;
+}
+
+const ParticlesBackground: React.FC<ParticlesBackgroundProps> = ({
+  onLoad,
+}) => {
   const [init, setInit] = useState(false);
 
   useEffect(() => {
     initParticlesEngine(async (engine) => {
       await loadSlim(engine);
-    }).then(() => {
       setInit(true);
+      onLoad();
     });
-  }, []);
+  }, [onLoad]);
 
   const options: ISourceOptions = useMemo(
     () => ({
@@ -47,7 +53,7 @@ const ParticlesBackground = () => {
           distance: 150,
           enable: true,
           opacity: 0.5,
-          width: 1,
+          width: 2,
         },
         move: {
           direction: "none",
