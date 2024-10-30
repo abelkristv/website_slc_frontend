@@ -11,4 +11,5 @@ export type Assistant = {
   Generation: string;
   CarrerPath: string | null;
   Award: string | null;
+  Status: string;
 };

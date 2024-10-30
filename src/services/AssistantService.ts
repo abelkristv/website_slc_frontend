@@ -1,36 +1,41 @@
 import axios from "axios";
 import { Assistant } from "../models/Assistant";
 
+interface AssistantData {
+  users: Assistant[];
+  total_count: number;
+  total_pages: number;
+}
+
 export const getAssistantData = async (
   generation?: string,
   name?: string,
-  orderBy?: string,
-  order?: "asc" | "desc"
-): Promise<Assistant[]> => {
+  orderby?: string,
+  status?: string,
+  page?: string
+): Promise<AssistantData> => {
   try {
     const params: Record<string, string> = {};
 
     if (generation) {
       params.generation = generation;
     }
-
     if (name) {
       params.name = name;
     }
-
-    if (orderBy) {
-      params.orderBy = orderBy;
+    if (orderby) {
+      params.orderby = orderby;
+    }
+    if (status) {
+      params.status = status;
+    }
+    if (page) {
+      params.page = page;
     }
 
-    if (order) {
-      params.order = order;
-    }
-
-    const response = await axios.get<Assistant[]>(
+    const response = await axios.get<AssistantData>(
       `${import.meta.env.VITE_BACKEND_URL}/assistants`,
-      {
-        params,
-      }
+      { params }
     );
 
     return response.data;

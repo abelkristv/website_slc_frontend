@@ -13,11 +13,11 @@ export default function AssistantCard({ assistant }: AssistantCardProps) {
       overflow="hidden"
       boxShadow="sm"
       bg="white"
-      maxW="sm"
       _hover={{ transform: "scale(1.05)" }}
       cursor="pointer"
-      width={64}
-      height={64}
+      width={"full"}
+      height={"full"}
+      py={6}
       display="flex"
       alignItems="center"
       justifyContent="center"
@@ -34,11 +34,11 @@ export default function AssistantCard({ assistant }: AssistantCardProps) {
         />
         <VStack gap={2} textAlign="center">
           <Text
-            fontSize="xl"
+            fontSize="lg"
             fontWeight="bold"
             color="gray.700"
             maxHeight={16}
-            width={52}
+            width={60}
             truncate
           >
             {assistant.FullName}
@@ -52,7 +52,10 @@ export default function AssistantCard({ assistant }: AssistantCardProps) {
               <span style={{ fontWeight: "600" }}>{assistant.Initial}</span>
             </Text>
             <Text fontSize="sm" color="gray.600">
-              Role: <span style={{ fontWeight: "600" }}>Assistant</span>
+              Position:{" "}
+              <span style={{ fontWeight: "600" }}>
+                {assistant.Status == "active" ? "Assistant" : "Inactive"}
+              </span>
             </Text>
           </VStack>
         </VStack>

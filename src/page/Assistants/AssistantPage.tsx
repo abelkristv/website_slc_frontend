@@ -1,40 +1,42 @@
-import {
-  VStack,
-  Text,
-  SimpleGrid,
-  Box,
-  Skeleton,
-  Badge,
-  HStack,
-  Flex,
-  createListCollection,
-} from "@chakra-ui/react";
+import { VStack, Text, Flex, List } from "@chakra-ui/react";
 import { useEffect, useRef, useState } from "react";
 import { Assistant } from "../../models/Assistant";
 import {
   getAssistantData,
   getGenerations,
 } from "../../services/AssistantService";
-import AssistantCard from "./components/AssistantCard";
-import { SkeletonCircle } from "../../components/ui/skeleton";
-import InputField from "../../components/InputField";
-import { IoSearch } from "react-icons/io5";
-import {
-  SelectContent,
-  SelectItem,
-  SelectRoot,
-  SelectTrigger,
-  SelectValueText,
-} from "../../components/ui/select";
+import { EmptyState } from "../../components/ui/empty-state";
+import { GoPeople } from "react-icons/go";
+import AssistantFilters from "./components/AssistantFilters";
+import AssistantPagination from "./components/AssistantPagination";
+import AssistantGrid from "./components/AssistantGrid";
 
 export default function AssistantPage() {
   const [assistants, setAssistants] = useState<Assistant[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState<boolean>(true);
   const [generations, setGenerations] = useState<string[]>([]);
-  const [selectedGeneration, setSelectedGeneration] = useState<string>("");
-  const [orderBy, setOrderBy] = useState<string>("");
-  const [order, setOrder] = useState<"asc" | "desc">("asc");
+  const [generation, setGeneration] = useState<string>("");
+  const [orderby, setOrderby] = useState<string>("");
+  const [status, setStatus] = useState<string>("");
+  const [count, setCount] = useState<number>(1);
+  const [page, setPage] = useState<number>(1);
   const searchInputRef = useRef<HTMLInputElement>(null);
+
+  const fetchData = async () => {
+    setLoading(true);
+    const name = searchInputRef.current?.value || "";
+    const data = await getAssistantData(
+      generation,
+      name,
+      orderby,
+      status,
+      page.toString()
+    );
+
+    setAssistants(data.users);
+    setCount(data.total_count);
+    setLoading(false);
+  };
 
   useEffect(() => {
     const fetchGenerations = async () => {
@@ -42,139 +44,66 @@ export default function AssistantPage() {
       setGenerations(data);
     };
 
-    const fetchData = async () => {
-      setLoading(true);
-      const name = searchInputRef.current?.value || "";
-      const data = await getAssistantData(
-        selectedGeneration,
-        name,
-        orderBy,
-        order
-      );
-      setAssistants(data);
-      setLoading(false);
-    };
-
     fetchGenerations();
+
+    const searchElement = searchInputRef.current;
+    searchElement?.addEventListener("input", fetchData);
+
+    return () => {
+      searchElement?.removeEventListener("input", fetchData);
+    };
+  }, []);
+
+  useEffect(() => {
     fetchData();
-  }, [selectedGeneration, orderBy, order]);
+  }, [generation, orderby, status, page]);
 
-  const handleSubmit = (event: React.FormEvent) => {
-    event.preventDefault();
-    const searchTerm = searchInputRef.current?.value || "";
-    console.log("Search Term:", searchTerm);
-  };
-
-  const generationCollection = createListCollection({
-    items: generations.map((gen) => ({ label: gen, value: gen })),
-  });
-
-  const orderCollection = createListCollection({
-    items: [
-      { label: "Name", value: "name" },
-      { label: "Generation", value: "generation" },
-    ],
-  });
+  useEffect(() => {
+    setPage(1);
+  }, [generation, orderby, status]);
 
   return (
-    <div className="flex justify-center items-center">
-      <VStack gap={4}>
-        <Text
-          fontSize="4xl"
-          fontWeight="bold"
-          color="white"
-          textShadow="2px 2px 4px rgba(0, 0, 0, 0.6)"
+    <VStack gap={4}>
+      <Text
+        fontSize="4xl"
+        fontWeight="bold"
+        color="white"
+        textShadow="1px 1px 2px rgba(0, 0, 0, 0.4)"
+      >
+        Our Assistants
+      </Text>
+
+      <Flex direction="column" alignItems="start" gap={4} width="100%">
+        <AssistantFilters
+          searchInputRef={searchInputRef}
+          setStatus={setStatus}
+          setGeneration={setGeneration}
+          setOrderby={setOrderby}
+          generations={generations}
+        />
+      </Flex>
+
+      <AssistantGrid assistants={assistants} loading={loading} />
+
+      {!loading && assistants.length === 0 ? (
+        <EmptyState
+          icon={<GoPeople />}
+          title="No results found"
+          description="Try adjusting your search"
+          bg={"white"}
+          borderRadius={"md"}
+          mt={-4}
         >
-          Our Assistants
-        </Text>
-
-        <HStack as="form" onSubmit={handleSubmit}>
-          <InputField
-            ref={searchInputRef}
-            name="username"
-            placeholder="Search"
-            icon={<IoSearch color="gray.300" />}
-          />
-          <Flex justifyContent="space-between" gap="5" width="320px">
-            <SelectRoot
-              collection={generationCollection}
-              variant="outline"
-              outline="none"
-              borderRadius="md"
-              bgColor="white"
-              width="full"
-              shadow="xs"
-              onValueChange={(value) => setSelectedGeneration(value as any)}
-            >
-              <SelectTrigger>
-                <SelectValueText placeholder="All Generations" />
-              </SelectTrigger>
-              <SelectContent>
-                {generationCollection.items.map((gen) => (
-                  <SelectItem item={gen} key={gen.value}>
-                    {gen.label}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </SelectRoot>
-            <SelectRoot
-              collection={orderCollection}
-              variant="outline"
-              outline="none"
-              borderRadius="md"
-              bgColor="white"
-              width="full"
-              shadow="xs"
-              onValueChange={(value) => setOrderBy(value as any)}
-            >
-              <SelectTrigger>
-                <SelectValueText placeholder="Order By" />
-              </SelectTrigger>
-              <SelectContent>
-                {orderCollection.items.map((item) => (
-                  <SelectItem item={item} key={item.value}>
-                    {item.label}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </SelectRoot>
-          </Flex>
-        </HStack>
-
-        <SimpleGrid columns={{ base: 1, md: 2, lg: 3, xl: 4 }} gap={4}>
-          {loading
-            ? Array.from({ length: 12 }).map((_, index) => (
-                <Box
-                  key={index}
-                  borderWidth="1px"
-                  borderRadius="lg"
-                  overflow="hidden"
-                  boxShadow="md"
-                  p={4}
-                  bg="white"
-                  width={64}
-                  height={64}
-                >
-                  <VStack gap={3}>
-                    <SkeletonCircle size="80px" />
-                    <VStack gap={2} textAlign="center">
-                      <Skeleton height="20px" width="60%" />
-                      <Badge colorScheme="purple" fontSize="xs" py={1} px={3}>
-                        <Skeleton height="10px" width="40px" />
-                      </Badge>
-                      <VStack gap={1} textAlign="center">
-                        <Skeleton height="14px" width="50%" />
-                        <Skeleton height="14px" width="50%" />
-                      </VStack>
-                    </VStack>
-                  </VStack>
-                </Box>
-              ))
-            : assistants.map((assistant) => (
-                <AssistantCard key={assistant.ID} assistant={assistant} />
-              ))}
-        </SimpleGrid>
-      </VStack>
-    </div>
+          <List.Root variant="marker">
+            <List.Item>Try removing filters</List.Item>
+            <List.Item>Try different keywords</List.Item>
+          </List.Root>
+        </EmptyState>
+      ) : (
+        assistants.length > 0 && (
+          <AssistantPagination count={count} page={page} setPage={setPage} />
+        )
+      )}
+    </VStack>
   );
 }

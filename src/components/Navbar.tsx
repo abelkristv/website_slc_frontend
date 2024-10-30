@@ -51,7 +51,7 @@ export default function Navbar() {
                 _hover={{ bg: "#336ab3" }}
               >
                 <FaUserPlus />
-                Sign Up
+                Join Us
               </Button>
             </Link>
             <Link to="/login">
