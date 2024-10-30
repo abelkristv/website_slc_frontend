@@ -1,9 +1,9 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import "./App.css";
 import Template from "./templates/Template";
 import LoginPage from "./page/Login/LoginPage";
 import AssistantPage from "./page/Assistants/AssistantPage";
-import ErrorPage from "./page/ErrorPage";
+import ErrorPage from "./page/Error/ErrorPage";
+import AssistantDetailPage from "./page/AssistantDetail/AssistantDetailPage";
 
 function App() {
   return (
@@ -12,6 +12,7 @@ function App() {
         <Routes>
           <Route path="/login" element={<LoginPage />} />
           <Route path="/assistants" element={<AssistantPage />} />
+          <Route path="/assistants/:id" element={<AssistantDetailPage />} />
           <Route path="/*" element={<ErrorPage />} />
         </Routes>
       </Template>

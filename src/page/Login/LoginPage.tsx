@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { Button, VStack, Box, HStack } from "@chakra-ui/react";
+import { Button, VStack, HStack, Flex } from "@chakra-ui/react";
 import { FaUser, FaLock } from "react-icons/fa";
 import binus from "../../assets/binus.png";
 import ribbon from "../../assets/ribbon.png";
@@ -20,19 +20,13 @@ export default function LoginPage() {
       await loginUser(username, password);
       showSuccessToast("Login successful");
     } catch (err: any) {
-      const errorMessage =
-        err.response?.data.message || "An unknown error occurred";
+      const errorMessage = err.response?.data.message || "Login failed";
       showErrorToast(errorMessage);
     }
   };
 
   return (
-    <Box
-      height="80vh"
-      display="flex"
-      justifyContent="center"
-      alignItems="center"
-    >
+    <Flex height="80vh" justifyContent="center" alignItems="center">
       <VStack
         width="90%"
         maxW="384px"
@@ -51,34 +45,39 @@ export default function LoginPage() {
           />
           <img src={binus} alt="Binus Logo" style={{ marginTop: "1rem" }} />
         </HStack>
-        <Box as="form" onSubmit={handleSubmit} width="full" px={8} py={6}>
-          <VStack gap={4}>
-            <InputField
-              ref={usernameRef}
-              name="username"
-              placeholder="Initial"
-              icon={<FaUser color="gray.300" />}
-            />
-            <InputField
-              ref={passwordRef}
-              name="password"
-              type="password"
-              placeholder="Password"
-              icon={<FaLock color="gray.300" />}
-            />
-            <Button
-              type="submit"
-              bg="#3a7bd5"
-              color="white"
-              _hover={{ bg: "#336ab3" }}
-              width="full"
-            >
-              Login
-            </Button>
-            <HowToLoginDialog />
-          </VStack>
-        </Box>
+        <VStack
+          as="form"
+          onSubmit={handleSubmit}
+          width="full"
+          px={8}
+          py={6}
+          gap={4}
+        >
+          <InputField
+            ref={usernameRef}
+            name="username"
+            placeholder="Initial"
+            icon={<FaUser color="gray.300" />}
+          />
+          <InputField
+            ref={passwordRef}
+            name="password"
+            type="password"
+            placeholder="Password"
+            icon={<FaLock color="gray.300" />}
+          />
+          <Button
+            type="submit"
+            bg="#3a7bd5"
+            color="white"
+            _hover={{ bg: "#336ab3" }}
+            width="full"
+          >
+            Login
+          </Button>
+          <HowToLoginDialog />
+        </VStack>
       </VStack>
-    </Box>
+    </Flex>
   );
 }

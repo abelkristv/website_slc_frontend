@@ -43,7 +43,6 @@ export default function Navbar() {
             <Link to="/register">
               <Button
                 variant="solid"
-                colorScheme="blue"
                 color="white"
                 rounded="md"
                 size="sm"
@@ -56,7 +55,6 @@ export default function Navbar() {
             </Link>
             <Link to="/login">
               <Button
-                colorScheme="teal"
                 variant="outline"
                 borderColor="#4a90e2"
                 color="#4a90e2"

@@ -22,7 +22,7 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
         borderRadius="sm"
         variant="outline"
         bgColor="white"
-        shadow="sm"
+        shadow="xs"
       />
     </InputGroup>
   )
