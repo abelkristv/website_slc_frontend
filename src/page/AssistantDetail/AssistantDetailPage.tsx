@@ -2,7 +2,10 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Assistant } from "../../models/Assistant";
 import { getAssistantById } from "../../services/AssistantService";
-import { Box, Image, Text, VStack, Stack, Badge } from "@chakra-ui/react";
+import { Box, Image, Text, VStack, Stack, Badge, Flex } from "@chakra-ui/react";
+import CareerJourney from "./components/CareerJourney";
+import TeachingHistory from "./components/TeachingHistory";
+import Achievements from "./components/Achievements";
 
 export default function AssistantDetailPage() {
   const { id } = useParams<{ id: string }>();
@@ -27,16 +30,20 @@ export default function AssistantDetailPage() {
   }
 
   return (
-    <VStack gap={6} align="center" width="full">
+    <Flex
+      direction={{ base: "column", lg: "row" }} // Change direction at lg breakpoint
+      gap={4}
+      alignItems="start"
+      width="full"
+    >
       <Box
         borderWidth="1px"
         borderRadius="lg"
         overflow="hidden"
         boxShadow="lg"
         bg="white"
-        width={{ base: "90%", md: "60%", lg: "50%" }}
+        width={{ base: "100%", lg: "30%" }} // Responsive width
         p={8}
-        textAlign="center"
       >
         <VStack gap={4}>
           <Image
@@ -48,7 +55,12 @@ export default function AssistantDetailPage() {
             boxShadow="lg"
           />
           <Stack align="center">
-            <Text fontSize="3xl" fontWeight="bold" color="gray.700">
+            <Text
+              fontSize="xl"
+              fontWeight="bold"
+              color="gray.700"
+              textAlign={"center"}
+            >
               {assistant.FullName}
             </Text>
             <Badge fontSize="md" py={1} px={4} colorScheme="blue">
@@ -62,6 +74,12 @@ export default function AssistantDetailPage() {
           </Stack>
         </VStack>
       </Box>
-    </VStack>
+
+      <Box width={{ base: "100%", lg: "68%" }}>
+        <CareerJourney />
+        <TeachingHistory />
+        <Achievements />
+      </Box>
+    </Flex>
   );
 }

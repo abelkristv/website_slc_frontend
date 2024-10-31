@@ -2,6 +2,10 @@
   width: 8px;
 }
 
+::-webkit-scrollbar:horizontal {
+  height: 8px;
+}
+
 ::-webkit-scrollbar-thumb {
   background-color: #646464;
 }

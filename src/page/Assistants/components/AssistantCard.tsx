@@ -15,7 +15,7 @@ export default function AssistantCard({ assistant }: AssistantCardProps) {
         overflow="hidden"
         boxShadow="sm"
         bg="white"
-        _hover={{ transform: "scale(1.05)" }}
+        _hover={{ transform: "scale(1.04)" }}
         cursor="pointer"
         width={"full"}
         height={"full"}
