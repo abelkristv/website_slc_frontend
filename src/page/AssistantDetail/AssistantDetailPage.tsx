@@ -3,9 +3,9 @@ import { useParams } from "react-router-dom";
 import { Assistant } from "../../models/Assistant";
 import { getAssistantById } from "../../services/AssistantService";
 import { Box, Image, Text, VStack, Stack, Badge, Flex } from "@chakra-ui/react";
-import CareerJourney from "./components/CareerJourney";
-import TeachingHistory from "./components/TeachingHistory";
-import Achievements from "./components/Achievements";
+import CareerJourneySection from "./components/CareerJourneySection";
+import TeachingHistorySection from "./components/TeachingHistorySection";
+import AchievementsSection from "./components/AchievementsSection";
 
 export default function AssistantDetailPage() {
   const { id } = useParams<{ id: string }>();
@@ -31,7 +31,7 @@ export default function AssistantDetailPage() {
 
   return (
     <Flex
-      direction={{ base: "column", lg: "row" }} // Change direction at lg breakpoint
+      direction={{ base: "column", lg: "row" }}
       gap={4}
       alignItems="start"
       width="full"
@@ -42,7 +42,7 @@ export default function AssistantDetailPage() {
         overflow="hidden"
         boxShadow="lg"
         bg="white"
-        width={{ base: "100%", lg: "30%" }} // Responsive width
+        width={{ base: "100%", lg: "30%" }}
         p={8}
       >
         <VStack gap={4}>
@@ -76,9 +76,11 @@ export default function AssistantDetailPage() {
       </Box>
 
       <Box width={{ base: "100%", lg: "68%" }}>
-        <CareerJourney />
-        <TeachingHistory />
-        <Achievements />
+        <CareerJourneySection />
+        <TeachingHistorySection
+          username={`${assistant.Initial}${assistant.Generation}`}
+        />
+        <AchievementsSection />
       </Box>
     </Flex>
   );

@@ -1,6 +1,6 @@
 import { Box, Text } from "@chakra-ui/react";
 
-const Achievements = () => {
+export default function AchievementsSection() {
   return (
     <Box
       mb={8}
@@ -20,6 +20,4 @@ const Achievements = () => {
       </Text>
     </Box>
   );
-};
-
-export default Achievements;
+}

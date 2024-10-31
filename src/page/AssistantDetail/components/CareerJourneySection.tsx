@@ -8,7 +8,7 @@ import {
   TimelineTitle,
 } from "../../../components/ui/timeline";
 
-const CareerJourney = () => {
+export default function CareerJourneySection() {
   return (
     <Box
       mb={4}
@@ -95,6 +95,4 @@ const CareerJourney = () => {
       </TimelineRoot>
     </Box>
   );
-};
-
-export default CareerJourney;
+}
