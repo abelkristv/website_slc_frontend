@@ -50,9 +50,15 @@ export default function AssistantCard({ assistant }: AssistantCardProps) {
             </Badge>
             <VStack gap={1} textAlign="center">
               <Text fontSize="sm" color="gray.600" fontWeight={600}>
-                {assistant.Status == "active"
-                  ? "Laboratory Assistant"
-                  : "Inactive"}
+                {assistant.Status == "active" ? (
+                  <Badge variant={"plain"} colorPalette="blue" size={"md"}>
+                    Laboratory Assistant
+                  </Badge>
+                ) : (
+                  <Badge variant={"plain"} colorPalette="red" size={"md"}>
+                    Inactive
+                  </Badge>
+                )}
               </Text>
             </VStack>
           </VStack>

@@ -9,7 +9,7 @@ import {
 } from "../../../components/ui/accordion";
 import Slider from "react-slick";
 import { Assistant } from "../../../models/Assistant";
-import { NextArrow, PrevArrow } from "../../../components/CarouselArrows";
+import { PrevArrow, NextArrow } from "../../../components/CarouselArrows";
 
 interface TeachingHistoryProps {
   assistant: Assistant;
@@ -18,27 +18,32 @@ interface TeachingHistoryProps {
 export default function TeachingHistorySection({
   assistant,
 }: TeachingHistoryProps) {
-  const [value, setValue] = useState<number>(0);
+  const [currentSlide, setCurrentSlide] = useState<number>(0);
   const teachingHistories: TeachingHistory[] =
     assistant.TeachingHistories || [];
 
   const handleTabChange = (tabValue: number) => {
-    setValue(tabValue);
+    setCurrentSlide(tabValue);
   };
 
   const sliderSettings = {
     infinite: false,
     speed: 500,
-    slidesToShow: 3,
+    slidesToShow: teachingHistories.length > 2 ? 3 : 1,
     slidesToScroll: 1,
-    prevArrow: <PrevArrow />,
-    nextArrow: <NextArrow />,
+    prevArrow: <PrevArrow currentSlide={currentSlide} />,
+    nextArrow: (
+      <NextArrow
+        currentSlide={currentSlide}
+        slideCount={teachingHistories.length}
+      />
+    ),
     swipeToSlide: true,
     responsive: [
       {
         breakpoint: 1200,
         settings: {
-          slidesToShow: 2,
+          slidesToShow: teachingHistories.length > 2 ? 2 : 1,
           slidesToScroll: 1,
         },
       },
@@ -47,10 +52,12 @@ export default function TeachingHistorySection({
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
-          afterChange: (current: number) => setValue(current),
+          afterChange: (current: number) => setCurrentSlide(current),
         },
       },
     ],
+    beforeChange: (_: number, next: number) => setCurrentSlide(next),
+    variableWidth: teachingHistories.length > 2 ? false : true,
   };
 
   return (
@@ -66,25 +73,27 @@ export default function TeachingHistorySection({
         Teaching History
       </Text>
 
-      <Box p={8} pt={2}>
+      <Box p={7} pt={2}>
         {teachingHistories.length > 0 ? (
           <div className="slider-container">
             <Slider {...sliderSettings}>
               {teachingHistories.map((history, index) => (
                 <div key={index} onClick={() => handleTabChange(index)}>
                   <Box
-                    minWidth="14rem"
                     py={3}
-                    mr={1}
+                    px={8}
+                    mx={"2px"}
                     borderWidth="1px"
                     borderRadius="full"
-                    bg={value === index ? "blue.600" : "gray.100"}
-                    color={value === index ? "white" : "blue.600"}
+                    bg={currentSlide === index ? "blue.600" : "gray.100"}
+                    color={currentSlide === index ? "white" : "blue.600"}
                     textAlign="center"
                     fontSize="sm"
                     fontWeight="semibold"
                     transition="background 0.3s ease, color 0.3s ease"
-                    _hover={{ bg: value === index ? "blue.600" : "gray.200" }}
+                    _hover={{
+                      bg: currentSlide === index ? "blue.600" : "gray.200",
+                    }}
                     cursor="pointer"
                   >
                     <Text>{history.PeriodTitle}</Text>
@@ -99,10 +108,11 @@ export default function TeachingHistorySection({
           </Text>
         )}
 
-        <Flex wrap="wrap" gap={4}>
-          {teachingHistories.length > 0 && teachingHistories[value]?.Courses ? (
+        <Flex wrap="wrap" gap={4} p={2}>
+          {teachingHistories.length > 0 &&
+          teachingHistories[currentSlide]?.Courses ? (
             <AccordionRoot multiple>
-              {teachingHistories[value].Courses.map((course, index) => (
+              {teachingHistories[currentSlide].Courses.map((course, index) => (
                 <AccordionItem
                   key={index}
                   value={`${course.CourseCode}${index}`}
