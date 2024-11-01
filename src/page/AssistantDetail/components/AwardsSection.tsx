@@ -44,7 +44,7 @@ export default function AwardsSection() {
       </Text>
       <SimpleGrid columns={{ base: 1, md: 2, lg: 2 }} gap={4}>
         {awards.map((award) => (
-          <DialogRoot key={award.id} size={"xl"}>
+          <DialogRoot key={award.id} size={"xl"} placement={"center"}>
             <DialogTrigger asChild>
               <Box
                 position="relative"

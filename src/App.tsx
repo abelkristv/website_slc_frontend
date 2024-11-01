@@ -4,6 +4,8 @@ import LoginPage from "./page/Login/LoginPage";
 import AssistantPage from "./page/Assistants/AssistantPage";
 import ErrorPage from "./page/Error/ErrorPage";
 import AssistantDetailPage from "./page/AssistantDetail/AssistantDetailPage";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 function App() {
   return (

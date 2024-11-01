@@ -11,7 +11,6 @@ import {
 export default function CareerJourneySection() {
   return (
     <Box
-      mb={4}
       borderWidth="1px"
       borderRadius="lg"
       overflow="hidden"

@@ -1,6 +1,6 @@
 import { Course } from "./Course";
 
 export type TeachingHistory = {
-  periodName: string;
-  courses: Course[];
+  PeriodTitle: string;
+  Courses: Course[];
 };

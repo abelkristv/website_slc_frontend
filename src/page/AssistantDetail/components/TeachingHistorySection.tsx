@@ -1,6 +1,5 @@
 import { Box, Text, Flex } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
-import { getAssistantTeachingHistory } from "../../../services/TeachingHistoryService";
+import { useState } from "react";
 import { TeachingHistory } from "../../../models/TeachingHistory";
 import {
   AccordionItem,
@@ -8,34 +7,54 @@ import {
   AccordionItemTrigger,
   AccordionRoot,
 } from "../../../components/ui/accordion";
+import Slider from "react-slick";
+import { Assistant } from "../../../models/Assistant";
+import { NextArrow, PrevArrow } from "../../../components/CarouselArrows";
 
 interface TeachingHistoryProps {
-  username: string;
+  assistant: Assistant;
 }
 
 export default function TeachingHistorySection({
-  username,
+  assistant,
 }: TeachingHistoryProps) {
   const [value, setValue] = useState<number>(0);
-  const [teachingHistories, setTeachingHistories] = useState<TeachingHistory[]>(
-    []
-  );
-
-  useEffect(() => {
-    const fetchTeachingHistories = async () => {
-      const data = await getAssistantTeachingHistory(username);
-      setTeachingHistories(data || []);
-    };
-    fetchTeachingHistories();
-  }, [username]);
+  const teachingHistories: TeachingHistory[] =
+    assistant.TeachingHistories || [];
 
   const handleTabChange = (tabValue: number) => {
     setValue(tabValue);
   };
 
+  const sliderSettings = {
+    infinite: false,
+    speed: 500,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    prevArrow: <PrevArrow />,
+    nextArrow: <NextArrow />,
+    swipeToSlide: true,
+    responsive: [
+      {
+        breakpoint: 1200,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          afterChange: (current: number) => setValue(current),
+        },
+      },
+    ],
+  };
+
   return (
     <Box
-      mb={4}
       borderWidth="1px"
       borderRadius="lg"
       overflow="hidden"
@@ -47,51 +66,47 @@ export default function TeachingHistorySection({
         Teaching History
       </Text>
 
-      <Box p={8} pt={4}>
-        <Flex
-          mb={4}
-          gap={2}
-          direction={{ base: "column", md: "row" }}
-          overflowX={{ base: "hidden", md: "auto" }}
-        >
-          {teachingHistories.length ? (
-            teachingHistories.map((history, index) => (
-              <Box
-                key={index}
-                minWidth="8rem"
-                p={3}
-                cursor="pointer"
-                onClick={() => handleTabChange(index)}
-                borderWidth="1px"
-                borderRadius="full"
-                bg={value === index ? "blue.600" : "gray.100"}
-                color={value === index ? "white" : "blue.600"}
-                textAlign="center"
-                fontSize="sm"
-                fontWeight="semibold"
-                transition="background 0.3s ease, color 0.3s ease"
-                _hover={{
-                  bg: value === index ? "blue.600" : "gray.200",
-                }}
-              >
-                {history.periodName}
-              </Box>
-            ))
-          ) : (
-            <Text fontSize="md" color="gray.500">
-              No teaching history available.
-            </Text>
-          )}
-        </Flex>
+      <Box p={8} pt={2}>
+        {teachingHistories.length > 0 ? (
+          <div className="slider-container">
+            <Slider {...sliderSettings}>
+              {teachingHistories.map((history, index) => (
+                <div key={index} onClick={() => handleTabChange(index)}>
+                  <Box
+                    minWidth="14rem"
+                    py={3}
+                    mr={1}
+                    borderWidth="1px"
+                    borderRadius="full"
+                    bg={value === index ? "blue.600" : "gray.100"}
+                    color={value === index ? "white" : "blue.600"}
+                    textAlign="center"
+                    fontSize="sm"
+                    fontWeight="semibold"
+                    transition="background 0.3s ease, color 0.3s ease"
+                    _hover={{ bg: value === index ? "blue.600" : "gray.200" }}
+                    cursor="pointer"
+                  >
+                    <Text>{history.PeriodTitle}</Text>
+                  </Box>
+                </div>
+              ))}
+            </Slider>
+          </div>
+        ) : (
+          <Text fontSize="md" color="gray.500" textAlign="center" py={8}>
+            No teaching history available.
+          </Text>
+        )}
 
         <Flex wrap="wrap" gap={4}>
-          {teachingHistories[value]?.courses ? (
+          {teachingHistories.length > 0 && teachingHistories[value]?.Courses ? (
             <AccordionRoot multiple>
-              {teachingHistories[value].courses.map((course, index) => (
+              {teachingHistories[value].Courses.map((course, index) => (
                 <AccordionItem
                   key={index}
-                  value={`course-${index}`}
-                  mb={2}
+                  value={`${course.CourseCode}${index}`}
+                  mt={2}
                   border="none"
                 >
                   <AccordionItemTrigger
@@ -100,7 +115,7 @@ export default function TeachingHistorySection({
                     borderRadius="lg"
                     bg="gray.50"
                     shadow="xs"
-                    cursor={"pointer"}
+                    cursor="pointer"
                   >
                     <Box minWidth="100%">
                       <Text fontSize="md" fontWeight="bold" color="gray.700">
@@ -112,17 +127,22 @@ export default function TeachingHistorySection({
                     </Box>
                   </AccordionItemTrigger>
                   <AccordionItemContent>
-                    <Text fontSize="sm" color="gray.500" p={4}>
-                      Additional information about {course.CourseTitle}.
-                    </Text>
+                    <Text
+                      fontSize="sm"
+                      color="gray.500"
+                      p={4}
+                      pt={2}
+                      pb={0}
+                      dangerouslySetInnerHTML={{
+                        __html: course.CourseDescription,
+                      }}
+                    />
                   </AccordionItemContent>
                 </AccordionItem>
               ))}
             </AccordionRoot>
           ) : (
-            <Text fontSize="md" color="gray.500" mb={2}>
-              No courses available.
-            </Text>
+            <Box />
           )}
         </Flex>
       </Box>

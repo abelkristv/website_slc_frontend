@@ -1,3 +1,5 @@
+import { TeachingHistory } from "./TeachingHistory";
+
 export type Assistant = {
   ID: number;
   CreatedAt: string;
@@ -12,4 +14,5 @@ export type Assistant = {
   CarrerPath: string | null;
   Award: string | null;
   Status: string;
+  TeachingHistories: TeachingHistory[];
 };
