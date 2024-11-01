@@ -7,7 +7,6 @@ import CareerJourneySection from "./components/CareerJourneySection";
 import TeachingHistorySection from "./components/TeachingHistorySection";
 import AwardsSection from "./components/AwardsSection";
 import ProfileSection from "./components/ProfileSection";
-import SocialMediaSection from "./components/SocialMediaSection";
 
 export default function AssistantDetailPage() {
   const { id } = useParams<{ id: string }>();
@@ -44,7 +43,6 @@ export default function AssistantDetailPage() {
         flexDirection={"column"}
       >
         <ProfileSection assistant={assistant} />
-        <SocialMediaSection assistant={assistant} />
       </Flex>
 
       <Flex
