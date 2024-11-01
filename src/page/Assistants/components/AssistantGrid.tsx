@@ -18,25 +18,25 @@ export default function AssistantGrid({
         ? Array.from({ length: 12 }).map((_, index) => (
             <Box
               key={index}
-              borderWidth="1px"
-              borderRadius="lg"
-              overflow="hidden"
-              boxShadow="md"
+              borderWidth={"1px"}
+              borderRadius={"lg"}
+              overflow={"hidden"}
+              boxShadow={"md"}
               p={4}
-              bg="white"
+              bg={"white"}
               width={"full"}
               height={"full"}
             >
               <VStack gap={3}>
-                <SkeletonCircle size="80px" />
-                <VStack gap={2} textAlign="center">
-                  <Skeleton height="20px" width="60%" />
-                  <Badge colorScheme="purple" fontSize="xs" py={1} px={3}>
-                    <Skeleton height="10px" width="40px" />
+                <SkeletonCircle size={"80px"} />
+                <VStack gap={2} textAlign={"center"}>
+                  <Skeleton height={"20px"} width={"60%"} />
+                  <Badge colorScheme={"purple"} fontSize={"xs"} py={1} px={3}>
+                    <Skeleton height={"10px"} width={"40px"} />
                   </Badge>
-                  <VStack gap={1} textAlign="center">
-                    <Skeleton height="14px" width="50%" />
-                    <Skeleton height="14px" width="50%" />
+                  <VStack gap={1} textAlign={"center"}>
+                    <Skeleton height={"14px"} width={"50%"} />
+                    <Skeleton height={"14px"} width={"50%"} />
                   </VStack>
                 </VStack>
               </VStack>

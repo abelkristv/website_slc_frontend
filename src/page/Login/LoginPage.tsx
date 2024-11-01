@@ -68,9 +68,9 @@ export default function LoginPage() {
           />
           <Button
             type="submit"
-            bg="#3a7bd5"
+            bg="blue.600"
             color="white"
-            _hover={{ bg: "#336ab3" }}
+            _hover={{ bg: "blue.700" }}
             width="full"
           >
             Login

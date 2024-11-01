@@ -5,7 +5,7 @@ import { getAssistantById } from "../../services/AssistantService";
 import { Box, Image, Text, VStack, Stack, Badge, Flex } from "@chakra-ui/react";
 import CareerJourneySection from "./components/CareerJourneySection";
 import TeachingHistorySection from "./components/TeachingHistorySection";
-import AchievementsSection from "./components/AchievementsSection";
+import AwardsSection from "./components/AwardsSection";
 
 export default function AssistantDetailPage() {
   const { id } = useParams<{ id: string }>();
@@ -80,7 +80,7 @@ export default function AssistantDetailPage() {
         <TeachingHistorySection
           username={`${assistant.Initial}${assistant.Generation}`}
         />
-        <AchievementsSection />
+        <AwardsSection />
       </Box>
     </Flex>
   );

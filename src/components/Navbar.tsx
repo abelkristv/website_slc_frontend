@@ -30,7 +30,7 @@ export default function Navbar() {
                   variant="ghost"
                   size="sm"
                   color={
-                    location.pathname === item.path ? "#3a7bd5" : "gray.700"
+                    location.pathname === item.path ? "blue.600" : "gray.700"
                   }
                 >
                   {item.name}
@@ -46,8 +46,8 @@ export default function Navbar() {
                 color="white"
                 rounded="md"
                 size="sm"
-                bg="#3a7bd5"
-                _hover={{ bg: "#336ab3" }}
+                bg="blue.600"
+                _hover={{ bg: "blue.700" }}
               >
                 <FaUserPlus />
                 Join Us
@@ -56,8 +56,8 @@ export default function Navbar() {
             <Link to="/login">
               <Button
                 variant="outline"
-                borderColor="#4a90e2"
-                color="#4a90e2"
+                borderColor="blue.600"
+                color="blue.600"
                 rounded="md"
                 size="sm"
                 _hover={{ bg: "blue.50" }}

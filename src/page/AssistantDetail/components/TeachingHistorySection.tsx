@@ -64,7 +64,7 @@ export default function TeachingHistorySection({
                 onClick={() => handleTabChange(index)}
                 borderWidth="1px"
                 borderRadius="full"
-                bg={value === index ? "blue.500" : "gray.100"}
+                bg={value === index ? "blue.600" : "gray.100"}
                 color={value === index ? "white" : "blue.600"}
                 textAlign="center"
                 fontSize="sm"
