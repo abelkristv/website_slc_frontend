@@ -2,11 +2,20 @@ import { Box, Heading, Text } from "@chakra-ui/react";
 
 export default function ErrorPage() {
   return (
-    <Box bg="bg" p={6} borderRadius="lg" boxShadow="lg" textAlign="center">
-      <Heading as="h1" size="lg" color="secondary" mb={4}>
+    <Box bg="primary" p={6} borderRadius="lg" boxShadow="lg" textAlign="center">
+      <Heading
+        as="h1"
+        size="lg"
+        color={{ base: "gray.900", _dark: "gray.200" }}
+        mb={4}
+      >
         Oops! Something went wrong.
       </Heading>
-      <Text fontSize="lg" color="secondary" mb={2}>
+      <Text
+        fontSize="lg"
+        color={{ base: "gray.700", _dark: "gray.400" }}
+        mb={2}
+      >
         An unexpected error has occurred.
       </Text>
       <Text color="gray.500" fontStyle="italic" mb={2}>
