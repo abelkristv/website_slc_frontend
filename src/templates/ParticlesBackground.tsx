@@ -8,10 +8,14 @@ interface ParticlesBackgroundProps {
   onLoad: () => void;
 }
 
-const ParticlesBackground: React.FC<ParticlesBackgroundProps> = ({
+export default function ParticlesBackground({
   onLoad,
-}) => {
+}: ParticlesBackgroundProps) {
   const [init, setInit] = useState(false);
+  const backgroundImage = useColorModeValue(
+    "linear-gradient(-30deg, #00d2ff, #3a7bd5)",
+    "linear-gradient(-30deg, #18181b, black)"
+  );
 
   useEffect(() => {
     initParticlesEngine(async (engine) => {
@@ -97,10 +101,7 @@ const ParticlesBackground: React.FC<ParticlesBackgroundProps> = ({
           width: "100%",
           height: "100%",
           zIndex: -1,
-          background: useColorModeValue(
-            "linear-gradient(-30deg, #00d2ff, #3a7bd5)",
-            "linear-gradient(-30deg, #18181b, black)"
-          ),
+          backgroundImage,
           backgroundAttachment: "fixed",
         }}
       >
@@ -110,6 +111,4 @@ const ParticlesBackground: React.FC<ParticlesBackgroundProps> = ({
   }
 
   return <></>;
-};
-
-export default ParticlesBackground;
+}

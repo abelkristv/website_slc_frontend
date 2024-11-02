@@ -3,10 +3,7 @@ import Navbar from "../components/Navbar";
 import ParticlesBackground from "./ParticlesBackground";
 import { ReactNode, useState } from "react";
 import { Toaster } from "../components/ui/toaster";
-import {
-  ColorModeButton,
-  useColorModeValue,
-} from "../components/ui/color-mode";
+import { useColorModeValue } from "../components/ui/color-mode";
 import Scrollbar from "./Scrollbar";
 
 interface TemplateProps {
@@ -43,7 +40,6 @@ export default function Template({ children }: TemplateProps) {
         <Box maxW="7xl" mx="auto" px={{ base: 4, sm: 6, lg: 8 }} py={6}>
           {children}
         </Box>
-        <ColorModeButton position={"absolute"} top={5} right={5} />
       </Box>
     </>
   );

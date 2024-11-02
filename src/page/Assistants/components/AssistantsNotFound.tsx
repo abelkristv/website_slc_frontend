@@ -8,7 +8,7 @@ export default function AssistantsNotFound() {
       icon={<GoPeople />}
       title="No assistants found"
       description="Try adjusting your search"
-      bg={"white"}
+      bg={"primary"}
       borderRadius={"md"}
       py={8}
       mt={-4}

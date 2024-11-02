@@ -5,7 +5,7 @@ import binus from "../assets/binus.png";
 import binus_dark from "../assets/binus_dark.png";
 import ribbon from "../assets/ribbon.png";
 import { MdLogin } from "react-icons/md";
-import { useColorModeValue } from "./ui/color-mode";
+import { ColorModeButton, useColorModeValue } from "./ui/color-mode";
 
 export default function Navbar() {
   const location = useLocation();
@@ -78,6 +78,7 @@ export default function Navbar() {
                 Login
               </Button>
             </Link>
+            <ColorModeButton rounded={"full"} ml={2} />
           </HStack>
         </Flex>
       </Box>
