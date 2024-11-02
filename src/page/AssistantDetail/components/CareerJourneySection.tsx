@@ -15,18 +15,18 @@ export default function CareerJourneySection() {
       borderRadius="lg"
       overflow="hidden"
       boxShadow="lg"
-      bg="white"
+      bg="primary"
       width="100%"
       p={8}
       pb={4}
     >
-      <Text fontSize="xl" fontWeight="bold" color={"gray.800"} mb={4}>
+      <Text fontSize="xl" fontWeight="bold" color="secondary" mb={4}>
         Career Journey
       </Text>
       <TimelineRoot>
         <TimelineItem>
-          <TimelineConnector bgColor={"blue.600"}>
-            <Box width="12px" height="12px" borderRadius="full" bg="white" />
+          <TimelineConnector bg={"bluejack.100"}>
+            <Box width="12px" height="12px" borderRadius="full" bg="primary" />
           </TimelineConnector>
           <TimelineContent>
             <TimelineTitle fontWeight="bold">
@@ -43,8 +43,8 @@ export default function CareerJourneySection() {
         </TimelineItem>
 
         <TimelineItem>
-          <TimelineConnector bgColor={"blue.600"}>
-            <Box width="12px" height="12px" borderRadius="full" bg="white" />
+          <TimelineConnector bg={"bluejack.100"}>
+            <Box width="12px" height="12px" borderRadius="full" bg="primary" />
           </TimelineConnector>
           <TimelineContent>
             <TimelineTitle fontWeight="bold">Subject Coordinator</TimelineTitle>
@@ -59,8 +59,8 @@ export default function CareerJourneySection() {
         </TimelineItem>
 
         <TimelineItem>
-          <TimelineConnector bgColor={"blue.600"}>
-            <Box width="12px" height="12px" borderRadius="full" bg="white" />
+          <TimelineConnector bg={"bluejack.100"}>
+            <Box width="12px" height="12px" borderRadius="full" bg="primary" />
           </TimelineConnector>
           <TimelineContent>
             <TimelineTitle fontWeight="bold">
@@ -77,8 +77,8 @@ export default function CareerJourneySection() {
         </TimelineItem>
 
         <TimelineItem>
-          <TimelineConnector bgColor={"blue.600"}>
-            <Box width="12px" height="12px" borderRadius="full" bg="white" />
+          <TimelineConnector bg={"bluejack.100"}>
+            <Box width="12px" height="12px" borderRadius="full" bg="primary" />
           </TimelineConnector>
           <TimelineContent>
             <TimelineTitle fontWeight="bold">Deloitte</TimelineTitle>

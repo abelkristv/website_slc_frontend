@@ -5,6 +5,7 @@ import {
   SelectTrigger,
   SelectValueText,
 } from "../components/ui/select";
+import { useColorModeValue } from "./ui/color-mode";
 
 interface SelectFieldProps {
   collection: any;
@@ -25,7 +26,7 @@ const SelectField: React.FC<SelectFieldProps> = ({
       variant="outline"
       outline="none"
       borderRadius="md"
-      bgColor="white"
+      bg="primary"
       width={width}
       shadow="xs"
       onValueChange={(e) => onChange(e.value[0])}
@@ -38,7 +39,7 @@ const SelectField: React.FC<SelectFieldProps> = ({
           <SelectItem
             item={item}
             key={item.value}
-            _hover={{ backgroundColor: "gray.100" }}
+            _hover={{ bg: useColorModeValue("gray.100", "gray.800") }}
           >
             {item.label}
           </SelectItem>

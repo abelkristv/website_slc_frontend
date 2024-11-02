@@ -18,10 +18,10 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
         name={name}
         placeholder={placeholder}
         focusRing="inside"
-        focusRingColor="blue.400"
+        focusRingColor="bluejack.100"
         borderRadius="sm"
         variant="outline"
-        bgColor="white"
+        bg="primary"
         shadow="xs"
       />
     </InputGroup>

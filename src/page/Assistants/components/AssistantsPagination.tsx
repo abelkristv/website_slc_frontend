@@ -7,24 +7,24 @@ import {
   PaginationRoot,
 } from "../../../components/ui/pagination";
 
-interface AssistantPaginationProps {
+interface AssistantsPaginationProps {
   count: number;
   page: number;
   setPage: (page: number) => void;
 }
 
-export default function AssistantPagination({
+export default function AssistantsPagination({
   count,
   page,
   setPage,
-}: AssistantPaginationProps) {
+}: AssistantsPaginationProps) {
   return (
     <Flex>
       <PaginationRoot
         count={count}
         pageSize={24}
         page={page}
-        bgColor="white"
+        bg="primary"
         borderRadius="sm"
         variant="subtle"
         onPageChange={(e) => setPage(e.page)}
@@ -40,7 +40,7 @@ export default function AssistantPagination({
       <PaginationRoot
         count={count}
         pageSize={24}
-        bgColor="white"
+        bg="primary"
         borderRadius="sm"
         variant="subtle"
         onPageChange={(e) => setPage(e.page)}

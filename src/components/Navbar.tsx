@@ -2,8 +2,10 @@ import { Link, useLocation } from "react-router-dom";
 import { Box, Flex, HStack, Image, Button } from "@chakra-ui/react";
 import { FaUserPlus } from "react-icons/fa";
 import binus from "../assets/binus.png";
+import binus_dark from "../assets/binus_dark.png";
 import ribbon from "../assets/ribbon.png";
 import { MdLogin } from "react-icons/md";
+import { useColorModeValue } from "./ui/color-mode";
 
 export default function Navbar() {
   const location = useLocation();
@@ -15,12 +17,17 @@ export default function Navbar() {
   ];
 
   return (
-    <Box as="nav" boxShadow="lg" bgColor="white">
+    <Box as="nav" boxShadow="lg" bg="primary">
       <Box maxW="7xl" mx="auto" px={{ base: 4, md: 6, lg: 8 }}>
         <Flex justify="space-between" align="center">
           <HStack gap={4} mb={3}>
             <Image src={ribbon} alt="Ribbon" height={16} />
-            <Image src={binus} alt="Binus" height={16} pt={2} />
+            <Image
+              src={useColorModeValue(binus, binus_dark)}
+              alt="Binus"
+              height={16}
+              pt={2}
+            />
           </HStack>
 
           <HStack gap={2} display={{ base: "none", md: "flex" }}>
@@ -30,7 +37,9 @@ export default function Navbar() {
                   variant="ghost"
                   size="sm"
                   color={
-                    location.pathname === item.path ? "blue.600" : "gray.700"
+                    location.pathname === item.path
+                      ? "bluejack.100"
+                      : "secondary"
                   }
                 >
                   {item.name}
@@ -46,8 +55,8 @@ export default function Navbar() {
                 color="white"
                 rounded="md"
                 size="sm"
-                bg="blue.600"
-                _hover={{ bg: "blue.700" }}
+                bg="bluejack.100"
+                _hover={{ bg: "bluejack.200" }}
               >
                 <FaUserPlus />
                 Join Us
@@ -56,11 +65,14 @@ export default function Navbar() {
             <Link to="/login">
               <Button
                 variant="outline"
-                borderColor="blue.600"
-                color="blue.600"
+                borderColor="bluejack.100"
+                color="bluejack.100"
                 rounded="md"
                 size="sm"
-                _hover={{ bg: "blue.50" }}
+                _hover={useColorModeValue(
+                  { bg: "blue.50" },
+                  { bg: "gray.800" }
+                )}
               >
                 <MdLogin />
                 Login

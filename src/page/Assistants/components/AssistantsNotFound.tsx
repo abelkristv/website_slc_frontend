@@ -2,7 +2,7 @@ import { EmptyState } from "../../../components/ui/empty-state";
 import { GoPeople } from "react-icons/go";
 import { List } from "@chakra-ui/react";
 
-export default function AssistantNotFound() {
+export default function AssistantsNotFound() {
   return (
     <EmptyState
       icon={<GoPeople />}

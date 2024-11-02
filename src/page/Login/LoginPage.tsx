@@ -2,11 +2,13 @@ import { useRef } from "react";
 import { Button, VStack, HStack, Flex } from "@chakra-ui/react";
 import { FaUser, FaLock } from "react-icons/fa";
 import binus from "../../assets/binus.png";
+import binus_dark from "../../assets/binus_dark.png";
 import ribbon from "../../assets/ribbon.png";
 import InputField from "../../components/InputField";
 import { showErrorToast, showSuccessToast } from "../../utils/toastUtils";
 import { loginUser } from "../../services/AuthService";
 import HowToLoginDialog from "./components/HowToLoginDialog";
+import { useColorModeValue } from "../../components/ui/color-mode";
 
 export default function LoginPage() {
   const usernameRef = useRef<HTMLInputElement>(null);
@@ -30,7 +32,7 @@ export default function LoginPage() {
       <VStack
         width="90%"
         maxW="384px"
-        bg="white"
+        bg="primary"
         borderRadius="lg"
         alignItems="center"
         gap={2}
@@ -43,7 +45,11 @@ export default function LoginPage() {
             width={45}
             style={{ marginLeft: "2rem" }}
           />
-          <img src={binus} alt="Binus Logo" style={{ marginTop: "1rem" }} />
+          <img
+            src={useColorModeValue(binus, binus_dark)}
+            alt="Binus Logo"
+            style={{ marginTop: "1rem" }}
+          />
         </HStack>
         <VStack
           as="form"
@@ -68,9 +74,9 @@ export default function LoginPage() {
           />
           <Button
             type="submit"
-            bg="blue.600"
+            bg="bluejack.100"
             color="white"
-            _hover={{ bg: "blue.700" }}
+            _hover={{ bg: "bluejack.200" }}
             width="full"
           >
             Login

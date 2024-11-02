@@ -28,6 +28,10 @@ const awards = [
 export default function AwardsSection() {
   const [selectedImage, setSelectedImage] = useState("");
 
+  if (awards.length === 0) {
+    return null;
+  }
+
   return (
     <Box
       mb={8}
@@ -35,11 +39,11 @@ export default function AwardsSection() {
       borderRadius="lg"
       overflow="hidden"
       boxShadow="lg"
-      bg="white"
+      bg="primary"
       width="100%"
       p={8}
     >
-      <Text fontSize="xl" fontWeight="bold" color="gray.800" mb={4}>
+      <Text fontSize="xl" fontWeight="bold" color="secondary" mb={4}>
         Awards
       </Text>
       <SimpleGrid columns={{ base: 1, md: 2, lg: 2 }} gap={4}>
@@ -50,7 +54,7 @@ export default function AwardsSection() {
                 position="relative"
                 borderWidth="1px"
                 borderRadius="lg"
-                bg="gray.50"
+                bg="card"
                 shadow="xs"
                 overflow="hidden"
                 onClick={() => setSelectedImage(award.imageUrl)}
@@ -81,10 +85,10 @@ export default function AwardsSection() {
                   position="relative"
                   zIndex={1}
                 >
-                  <Text fontSize="md" fontWeight="bold" color="gray.700">
+                  <Text fontSize="md" fontWeight="bold" color="secondary">
                     {award.title}
                   </Text>
-                  <Text fontSize="sm" color="gray.600">
+                  <Text fontSize="sm" color="secondary">
                     {award.semester}
                   </Text>
                 </VStack>
@@ -99,7 +103,7 @@ export default function AwardsSection() {
                   objectFit="contain"
                 />
               </DialogBody>
-              <DialogCloseTrigger color={"white"} bgColor={"transparent"} />
+              <DialogCloseTrigger color={"white"} bg={"transparent"} />
             </DialogContent>
           </DialogRoot>
         ))}

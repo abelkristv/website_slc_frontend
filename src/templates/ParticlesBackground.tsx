@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import Particles, { initParticlesEngine } from "@tsparticles/react";
 import { loadSlim } from "@tsparticles/slim";
 import { ISourceOptions } from "@tsparticles/engine";
+import { useColorModeValue } from "../components/ui/color-mode";
 
 interface ParticlesBackgroundProps {
   onLoad: () => void;
@@ -96,7 +97,10 @@ const ParticlesBackground: React.FC<ParticlesBackgroundProps> = ({
           width: "100%",
           height: "100%",
           zIndex: -1,
-          background: "linear-gradient(-30deg, #00d2ff, #3a7bd5)",
+          background: useColorModeValue(
+            "linear-gradient(-30deg, #00d2ff, #3a7bd5)",
+            "linear-gradient(-30deg, #18181b, black)"
+          ),
           backgroundAttachment: "fixed",
         }}
       >

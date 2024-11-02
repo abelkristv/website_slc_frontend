@@ -16,6 +16,7 @@ import {
   HiMiniEllipsisHorizontal,
 } from "react-icons/hi2";
 import { LinkButton } from "./link-button";
+import { useColorModeValue } from "./color-mode";
 
 interface ButtonVariantMap {
   current: ButtonProps["variant"];
@@ -88,7 +89,9 @@ export const PaginationItem = forwardRef<
 
   const current = page === props.value;
   const variant = current ? variantMap.current : variantMap.default;
-  const bgColor = current ? "blue.200" : "transparent";
+  const bgColor = current
+    ? useColorModeValue("blue.200", "bluejack.100")
+    : "transparent";
 
   if (getHref) {
     return (
@@ -136,7 +139,7 @@ export const PaginationPrevTrigger = forwardRef<
       ref={ref}
       asChild
       {...props}
-      _hover={{ bg: "#bfdbfe" }}
+      _hover={{ bg: useColorModeValue("blue.200", "bluejack.100") }}
     >
       <IconButton variant={variantMap.default} size={size}>
         <HiChevronLeft />
@@ -169,7 +172,7 @@ export const PaginationNextTrigger = forwardRef<
       <IconButton
         variant={variantMap.default}
         size={size}
-        _hover={{ bg: "#bfdbfe" }}
+        _hover={{ bg: useColorModeValue("blue.200", "bluejack.100") }}
       >
         <HiChevronRight />
       </IconButton>
@@ -189,7 +192,7 @@ export const PaginationItems = (props: React.HTMLAttributes<HTMLElement>) => {
               key={index}
               type="page"
               value={page.value}
-              _hover={{ bg: "#bfdbfe" }}
+              _hover={{ bg: useColorModeValue("blue.200", "bluejack.100") }}
               {...props}
             />
           );

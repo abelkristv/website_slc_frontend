@@ -6,9 +6,9 @@ import {
   createGenerationsCollection,
   createOrderCollection,
   createStatusCollection,
-} from "../utils/FilterCollections";
+} from "../utils/AssistantsFilterCollections";
 
-interface AssistantFiltersProps {
+interface AssistantsFiltersProps {
   searchInputRef: React.RefObject<HTMLInputElement>;
   generations: string[];
   setGeneration: (generation: string) => void;
@@ -16,13 +16,13 @@ interface AssistantFiltersProps {
   setStatus: (status: string) => void;
 }
 
-export default function AssistantFilters({
+export default function AssistanstFilters({
   searchInputRef,
   generations,
   setGeneration,
   setOrderby,
   setStatus,
-}: AssistantFiltersProps) {
+}: AssistantsFiltersProps) {
   return (
     <Flex
       direction={{ base: "column", md: "row" }}

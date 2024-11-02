@@ -1,10 +1,13 @@
 import { createRoot } from "react-dom/client";
-import "./index.css";
 import App from "./App.tsx";
-import { ChakraProvider, defaultSystem } from "@chakra-ui/react";
+import { ChakraProvider } from "@chakra-ui/react";
+import { system } from "./theme.ts";
+import { ColorModeProvider } from "./components/ui/color-mode.tsx";
 
 createRoot(document.getElementById("root")!).render(
-  <ChakraProvider value={defaultSystem}>
-    <App />
+  <ChakraProvider value={system}>
+    <ColorModeProvider>
+      <App />
+    </ColorModeProvider>
   </ChakraProvider>
 );

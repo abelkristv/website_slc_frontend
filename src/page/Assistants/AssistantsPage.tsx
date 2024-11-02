@@ -5,12 +5,12 @@ import {
   getAssistantData,
   getGenerations,
 } from "../../services/AssistantService";
-import AssistantFilters from "./components/AssistantFilters";
-import AssistantPagination from "./components/AssistantPagination";
-import AssistantGrid from "./components/AssistantGrid";
-import AssistantNotFound from "./components/AssistantNotFound";
+import AssistantsFilters from "./components/AssistantsFilters";
+import AssistantsPagination from "./components/AssistantsPagination";
+import AssistantsGrid from "./components/AssistantsGrid";
+import AssistantsNotFound from "./components/AssistantsNotFound";
 
-export default function AssistantPage() {
+export default function AssistantsPage() {
   const [assistants, setAssistants] = useState<Assistant[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [generations, setGenerations] = useState<string[]>([]);
@@ -74,7 +74,7 @@ export default function AssistantPage() {
       </Text>
 
       <Flex direction="column" alignItems="start" gap={4} width="100%">
-        <AssistantFilters
+        <AssistantsFilters
           searchInputRef={searchInputRef}
           setStatus={setStatus}
           setGeneration={setGeneration}
@@ -83,13 +83,13 @@ export default function AssistantPage() {
         />
       </Flex>
 
-      <AssistantGrid assistants={assistants} loading={loading} />
+      <AssistantsGrid assistants={assistants} loading={loading} />
 
       {!loading && assistants.length === 0 ? (
-        <AssistantNotFound />
+        <AssistantsNotFound />
       ) : (
         assistants.length > 0 && (
-          <AssistantPagination count={count} page={page} setPage={setPage} />
+          <AssistantsPagination count={count} page={page} setPage={setPage} />
         )
       )}
     </VStack>

@@ -2,11 +2,11 @@ import { Box, Image, Text, VStack, Badge } from "@chakra-ui/react";
 import { Assistant } from "../../../models/Assistant";
 import { Link } from "react-router-dom";
 
-interface AssistantCardProps {
+interface AssistantsCardProps {
   assistant: Assistant;
 }
 
-export default function AssistantCard({ assistant }: AssistantCardProps) {
+export default function AssistantsCard({ assistant }: AssistantsCardProps) {
   return (
     <Link to={`/assistants/${assistant.ID}`}>
       <Box
@@ -14,7 +14,7 @@ export default function AssistantCard({ assistant }: AssistantCardProps) {
         borderRadius="lg"
         overflow="hidden"
         boxShadow="sm"
-        bg="white"
+        bg="primary"
         _hover={{ transform: "scale(1.04)" }}
         cursor="pointer"
         width={"full"}
@@ -38,14 +38,19 @@ export default function AssistantCard({ assistant }: AssistantCardProps) {
             <Text
               fontSize="lg"
               fontWeight="bold"
-              color="gray.700"
+              color="secondary"
               maxHeight={16}
               width={60}
               truncate
             >
               {assistant.FullName}
             </Text>
-            <Badge fontSize="xs" py={1} px={3}>
+            <Badge
+              fontSize="xs"
+              py={1}
+              px={3}
+              bg={{ base: "gray.200", _dark: "gray.800" }}
+            >
               {assistant.Initial} {assistant.Generation}
             </Badge>
             <VStack gap={1} textAlign="center">

@@ -7,22 +7,9 @@ import {
   Stack,
   Text,
   VStack,
-  Button,
 } from "@chakra-ui/react";
 import { Assistant } from "../../../models/Assistant";
-import {
-  ClipboardIconButton,
-  ClipboardInput,
-  ClipboardRoot,
-} from "../../../components/ui/clipboard";
-import { InputGroup } from "../../../components/ui/input-group";
-import {
-  FaGithub,
-  FaInstagram,
-  FaLine,
-  FaLinkedin,
-  FaWhatsapp,
-} from "react-icons/fa";
+import { FaGithub, FaInstagram, FaLinkedin, FaWhatsapp } from "react-icons/fa";
 
 interface ProfileProps {
   assistant: Assistant;
@@ -45,14 +32,9 @@ const socialMediaData = [
     link: "https://github.com",
   },
   {
-    name: "Line",
-    logo: <FaLine color="#00C300" />,
-    contact: "line_user_id",
-  },
-  {
     name: "WhatsApp",
     logo: <FaWhatsapp color="#25D366" />,
-    contact: "089513263889",
+    link: "https://wa.me/6289513263889",
   },
 ];
 
@@ -63,7 +45,7 @@ export default function ProfileSection({ assistant }: ProfileProps) {
       borderRadius="lg"
       overflow="hidden"
       boxShadow="lg"
-      bg="white"
+      bg="primary"
       p={4}
     >
       <VStack gap={4}>
@@ -80,12 +62,17 @@ export default function ProfileSection({ assistant }: ProfileProps) {
           <Text
             fontSize="xl"
             fontWeight="bold"
-            color="gray.700"
+            color="secondary"
             textAlign="center"
           >
             {assistant.FullName}
           </Text>
-          <Badge fontSize="md" py={1} px={4} colorScheme="blue">
+          <Badge
+            fontSize="md"
+            py={1}
+            px={4}
+            bg={{ base: "gray.200", _dark: "gray.800" }}
+          >
             {assistant.Initial} {assistant.Generation}
           </Badge>
           <Text fontSize="md" color="gray.500" fontWeight={600}>
@@ -103,7 +90,7 @@ export default function ProfileSection({ assistant }: ProfileProps) {
             borderRadius="lg"
             overflow="hidden"
             boxShadow="sm"
-            bg="gray.50"
+            bg="card"
             py={2}
             px={6}
             alignItems="center"
@@ -112,29 +99,14 @@ export default function ProfileSection({ assistant }: ProfileProps) {
             minHeight={14}
           >
             {media.logo}
-            {media.link ? (
-              <Link
-                href={media.link}
-                target="_blank"
-                fontSize={"sm"}
-                fontWeight={"semibold"}
-              >
-                Visit {media.name}
-              </Link>
-            ) : (
-              <ClipboardRoot value={media.contact}>
-                <InputGroup
-                  backgroundColor={"white"}
-                  width="full"
-                  endElement={<ClipboardIconButton backgroundColor={"white"} />}
-                >
-                  <ClipboardInput
-                    placeholder={`Copy ${media.name} ID`}
-                    backgroundColor={"white"}
-                  />
-                </InputGroup>
-              </ClipboardRoot>
-            )}
+            <Link
+              href={media.link}
+              target="_blank"
+              fontSize={"sm"}
+              fontWeight={"semibold"}
+            >
+              Visit {media.name}
+            </Link>
           </Flex>
         ))}
       </VStack>
