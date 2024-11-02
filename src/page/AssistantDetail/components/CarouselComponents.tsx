@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { IoChevronBack, IoChevronForward } from "react-icons/io5";
 import { TeachingHistory } from "../../../models/TeachingHistory";
-import { useColorModeValue } from "../../../components/ui/color-mode";
 
 interface ArrowProps {
   onClick?: () => void;
@@ -12,13 +11,9 @@ interface ArrowProps {
 export const PrevArrow = ({ onClick, currentSlide }: ArrowProps) => (
   <IoChevronBack
     onClick={currentSlide > 0 ? onClick : undefined}
-    color={
-      currentSlide > 0
-        ? useColorModeValue("transparent", "white")
-        : useColorModeValue("transparent", "black")
-    }
     style={{
-      cursor: currentSlide > 0 ? "pointer" : "",
+      opacity: currentSlide > 0 ? 1 : 0,
+      cursor: currentSlide > 0 ? "pointer" : "default",
       position: "absolute",
       left: -19,
       top: 14,
@@ -55,13 +50,10 @@ export const NextArrow = ({
       onClick={
         currentSlide < (slideCount || 1) + slideLimit ? onClick : undefined
       }
-      color={
-        currentSlide < (slideCount || 1) + slideLimit
-          ? useColorModeValue("transparent", "white")
-          : useColorModeValue("transparent", "black")
-      }
       style={{
-        cursor: currentSlide < (slideCount || 1) + slideLimit ? "pointer" : "",
+        opacity: currentSlide < (slideCount || 1) + slideLimit ? 1 : 0,
+        cursor:
+          currentSlide < (slideCount || 1) + slideLimit ? "pointer" : "default",
         position: "absolute",
         right: -19,
         bottom: 16.5,
