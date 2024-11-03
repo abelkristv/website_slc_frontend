@@ -1,5 +1,6 @@
 import { VStack, Text, Flex } from "@chakra-ui/react";
 import { useEffect, useRef, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Assistant } from "../../models/Assistant";
 import {
   getAssistantData,
@@ -17,50 +18,81 @@ export default function AssistantsPage() {
   const [generation, setGeneration] = useState<string>("");
   const [orderby, setOrderby] = useState<string>("");
   const [status, setStatus] = useState<string>("");
+  const [searchTerm, setSearchTerm] = useState<string>("");
   const [count, setCount] = useState<number>(1);
   const [page, setPage] = useState<number>(1);
   const searchInputRef = useRef<HTMLInputElement>(null);
+  const fetchDataTimeoutRef = useRef<number>(0);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const fetchData = async () => {
     setLoading(true);
-    const name = searchInputRef.current?.value || "";
     const data = await getAssistantData(
       generation,
-      name,
+      searchTerm,
       orderby,
       status,
       page.toString()
     );
-
     setAssistants(data.users);
     setCount(data.total_count);
     setLoading(false);
   };
 
   useEffect(() => {
-    const fetchGenerations = async () => {
-      const data = await getGenerations();
-      setGenerations(data);
-    };
+    const params = new URLSearchParams();
+    if (generation) params.set("generation", generation);
+    if (orderby) params.set("orderby", orderby);
+    if (status) params.set("status", status);
+    if (searchTerm) params.set("search", searchTerm);
+    params.set("page", page.toString());
+    navigate(`?${params.toString()}`, { replace: true });
+  }, [generation, orderby, status, page, searchTerm]);
 
-    fetchGenerations();
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    setGeneration(params.get("generation") || "");
+    setOrderby(params.get("orderby") || "");
+    setStatus(params.get("status") || "");
+    setSearchTerm(params.get("search") || "");
+    setPage(parseInt(params.get("page") || "1"));
 
     const searchElement = searchInputRef.current;
-    searchElement?.addEventListener("input", fetchData);
+
+    const handleInput = () => {
+      if (fetchDataTimeoutRef.current) {
+        clearTimeout(fetchDataTimeoutRef.current);
+      }
+      fetchDataTimeoutRef.current = setTimeout(() => {
+        setSearchTerm(searchElement?.value || "");
+      }, 600);
+    };
+
+    searchElement?.addEventListener("input", handleInput);
 
     return () => {
-      searchElement?.removeEventListener("input", fetchData);
+      searchElement?.removeEventListener("input", handleInput);
+      clearTimeout(fetchDataTimeoutRef.current);
     };
   }, []);
 
   useEffect(() => {
     fetchData();
     window.scrollTo(0, 0);
-  }, [generation, orderby, status, page]);
+  }, [generation, orderby, status, page, searchTerm]);
 
   useEffect(() => {
     setPage(1);
   }, [generation, orderby, status]);
+
+  useEffect(() => {
+    const fetchGenerations = async () => {
+      const data = await getGenerations();
+      setGenerations(data);
+    };
+    fetchGenerations();
+  }, []);
 
   return (
     <VStack gap={4}>
@@ -80,6 +112,10 @@ export default function AssistantsPage() {
           setGeneration={setGeneration}
           setOrderby={setOrderby}
           generations={generations}
+          searchTerm={searchTerm}
+          generation={generation}
+          status={status}
+          orderby={orderby}
         />
       </Flex>
 

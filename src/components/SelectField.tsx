@@ -12,6 +12,7 @@ interface SelectFieldProps {
   placeholder: string;
   onChange: (value: string) => void;
   width?: string;
+  value: string;
 }
 
 const SelectField: React.FC<SelectFieldProps> = ({
@@ -19,7 +20,13 @@ const SelectField: React.FC<SelectFieldProps> = ({
   placeholder,
   onChange,
   width = "full",
+  value,
 }) => {
+  function createValue(value: string): string[] {
+    const arr = collection.items.filter((item: any) => item.value === value);
+    return arr.map((item: any) => item.value);
+  }
+
   return (
     <SelectRoot
       collection={collection}
@@ -29,6 +36,7 @@ const SelectField: React.FC<SelectFieldProps> = ({
       bg="primary"
       width={width}
       shadow="xs"
+      value={createValue(value)}
       onValueChange={(e) => onChange(e.value[0])}
     >
       <SelectTrigger clearable>

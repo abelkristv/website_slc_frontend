@@ -53,19 +53,17 @@ export default function AssistantsCard({ assistant }: AssistantsCardProps) {
             >
               {assistant.Initial} {assistant.Generation}
             </Badge>
-            <VStack gap={1} textAlign="center">
-              <Text fontSize="sm" color="gray.600" fontWeight={600}>
-                {assistant.Status == "active" ? (
-                  <Badge variant={"plain"} colorPalette="blue" size={"md"}>
-                    Laboratory Assistant
-                  </Badge>
-                ) : (
-                  <Badge variant={"plain"} colorPalette="red" size={"md"}>
-                    Inactive
-                  </Badge>
-                )}
-              </Text>
-            </VStack>
+            <Box textAlign="center">
+              {assistant.Status == "active" ? (
+                <Badge variant={"plain"} colorPalette="blue" size={"md"}>
+                  Laboratory Assistant
+                </Badge>
+              ) : (
+                <Badge variant={"plain"} colorPalette="red" size={"md"}>
+                  Inactive
+                </Badge>
+              )}
+            </Box>
           </VStack>
         </VStack>
       </Box>

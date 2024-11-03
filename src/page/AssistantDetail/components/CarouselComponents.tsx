@@ -70,7 +70,7 @@ export const getSliderSettings = (
   infinite: false,
   speed: 500,
   slidesToShow: teachingHistories.length > 2 ? 3 : 1,
-  slidesToScroll: 1,
+  slidesToScroll: 3,
   prevArrow: <PrevArrow currentSlide={currentSlide} />,
   nextArrow: (
     <NextArrow
@@ -84,7 +84,7 @@ export const getSliderSettings = (
       breakpoint: 1200,
       settings: {
         slidesToShow: teachingHistories.length > 2 ? 2 : 1,
-        slidesToScroll: 1,
+        slidesToScroll: 2,
       },
     },
     {

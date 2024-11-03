@@ -25,7 +25,7 @@ export default function Template({ children }: TemplateProps) {
         position="relative"
         zIndex={1}
         minHeight="100vh"
-        bg={particlesLoaded ? "transparent" : "black"}
+        bg={particlesLoaded ? "transparent" : ""}
         background={
           particlesLoaded
             ? "transparent"

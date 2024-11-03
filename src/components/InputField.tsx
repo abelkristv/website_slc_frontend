@@ -3,19 +3,18 @@ import { Input } from "@chakra-ui/react";
 import { InputGroup } from "./ui/input-group";
 
 interface InputFieldProps {
-  name: string;
   type?: string;
   placeholder: string;
   icon: React.ReactNode;
+  value?: string;
 }
 
 const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
-  ({ name, type = "text", placeholder, icon }, ref) => (
+  ({ type = "text", placeholder, icon, value }, ref) => (
     <InputGroup flex="1" startElement={icon} width="full">
       <Input
         ref={ref}
         type={type}
-        name={name}
         placeholder={placeholder}
         focusRing="inside"
         focusRingColor="bluejack.100"
@@ -23,6 +22,7 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
         variant="outline"
         bg="primary"
         shadow="xs"
+        defaultValue={value}
       />
     </InputGroup>
   )

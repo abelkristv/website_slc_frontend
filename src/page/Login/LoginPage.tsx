@@ -61,13 +61,11 @@ export default function LoginPage() {
         >
           <InputField
             ref={usernameRef}
-            name="username"
             placeholder="Initial"
             icon={<FaUser color="gray.300" />}
           />
           <InputField
             ref={passwordRef}
-            name="password"
             type="password"
             placeholder="Password"
             icon={<FaLock color="gray.300" />}

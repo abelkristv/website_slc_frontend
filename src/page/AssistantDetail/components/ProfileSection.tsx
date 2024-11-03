@@ -75,11 +75,17 @@ export default function ProfileSection({ assistant }: ProfileProps) {
           >
             {assistant.Initial} {assistant.Generation}
           </Badge>
-          <Text fontSize="md" color="gray.500" fontWeight={600}>
-            {assistant.Status === "active"
-              ? "Laboratory Assistant"
-              : "Inactive"}
-          </Text>
+          <Box textAlign="center">
+            {assistant.Status == "active" ? (
+              <Badge variant={"plain"} colorPalette="blue" size={"md"}>
+                Laboratory Assistant
+              </Badge>
+            ) : (
+              <Badge variant={"plain"} colorPalette="red" size={"md"}>
+                Inactive
+              </Badge>
+            )}
+          </Box>
         </Stack>
       </VStack>
       <VStack gap={2} mt={4} width="full">

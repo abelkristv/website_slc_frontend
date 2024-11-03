@@ -11,14 +11,22 @@ import {
 interface AssistantsFiltersProps {
   searchInputRef: React.RefObject<HTMLInputElement>;
   generations: string[];
+  searchTerm: string;
+  generation: string;
+  status: string;
+  orderby: string;
   setGeneration: (generation: string) => void;
   setOrderby: (orderby: string) => void;
   setStatus: (status: string) => void;
 }
 
-export default function AssistanstFilters({
+export default function AssistantsFilters({
   searchInputRef,
   generations,
+  searchTerm,
+  generation,
+  status,
+  orderby,
   setGeneration,
   setOrderby,
   setStatus,
@@ -33,27 +41,30 @@ export default function AssistanstFilters({
     >
       <InputField
         ref={searchInputRef}
-        name="username"
         placeholder="Search"
         icon={<IoSearch color="gray.400" />}
+        value={searchTerm}
       />
       <Flex gap={4} width={{ base: "100%", md: "60%" }}>
         <SelectField
           collection={createStatusCollection()}
           placeholder="All Statuses"
           onChange={setStatus}
+          value={status}
           width="33%"
         />
         <SelectField
           collection={createGenerationsCollection(generations)}
           placeholder="All Generations"
           onChange={setGeneration}
+          value={generation}
           width="33%"
         />
         <SelectField
           collection={createOrderCollection()}
           placeholder="Order By"
           onChange={setOrderby}
+          value={orderby}
           width="33%"
         />
       </Flex>
