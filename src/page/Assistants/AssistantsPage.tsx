@@ -51,6 +51,12 @@ export default function AssistantsPage() {
   }, [generation, orderby, status, page, searchTerm]);
 
   useEffect(() => {
+    const fetchGenerations = async () => {
+      const data = await getGenerations();
+      setGenerations(data);
+    };
+    fetchGenerations();
+
     const params = new URLSearchParams(location.search);
     setGeneration(params.get("generation") || "");
     setOrderby(params.get("orderby") || "");
@@ -85,14 +91,6 @@ export default function AssistantsPage() {
   useEffect(() => {
     setPage(1);
   }, [generation, orderby, status]);
-
-  useEffect(() => {
-    const fetchGenerations = async () => {
-      const data = await getGenerations();
-      setGenerations(data);
-    };
-    fetchGenerations();
-  }, []);
 
   return (
     <VStack gap={4}>
