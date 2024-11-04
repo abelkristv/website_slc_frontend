@@ -112,7 +112,7 @@ export default function Navbar() {
           </HStack>
 
           <HStack gap={2}>
-            <Link to="/register">
+            <Link to="/join-us">
               <Button
                 variant="solid"
                 color="white"

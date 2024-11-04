@@ -5,6 +5,7 @@ import { ReactNode, useState } from "react";
 import { Toaster } from "../components/ui/toaster";
 import { useColorModeValue } from "../components/ui/color-mode";
 import Scrollbar from "./Scrollbar";
+import { useLocation } from "react-router-dom";
 
 interface TemplateProps {
   children: ReactNode;
@@ -12,6 +13,8 @@ interface TemplateProps {
 
 export default function Template({ children }: TemplateProps) {
   const [particlesLoaded, setParticlesLoaded] = useState(false);
+  const location = useLocation();
+  const isJoinUsPage = location.pathname === "/join-us";
 
   const handleParticlesLoad = () => {
     setParticlesLoaded(true);
@@ -37,7 +40,12 @@ export default function Template({ children }: TemplateProps) {
       >
         <Navbar />
         <Toaster />
-        <Box maxW="7xl" mx="auto" px={{ base: 4, sm: 6, lg: 8 }} py={6}>
+        <Box
+          maxW={isJoinUsPage ? "" : "7xl"}
+          mx="auto"
+          px={isJoinUsPage ? 0 : { base: 4, sm: 6, lg: 8 }}
+          py={isJoinUsPage ? 0 : 6}
+        >
           {children}
         </Box>
       </Box>
