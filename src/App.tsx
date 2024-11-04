@@ -6,6 +6,7 @@ import ErrorPage from "./page/Error/ErrorPage";
 import AssistantDetailPage from "./page/AssistantDetail/AssistantDetailPage";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import ContactUsPage from "./page/ContactUs/ContactUsPage";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/assistants" element={<AssistantsPage />} />
           <Route path="/assistants/:id" element={<AssistantDetailPage />} />
+          <Route path="/contact-us" element={<ContactUsPage />} />
           <Route path="/*" element={<ErrorPage />} />
         </Routes>
       </Template>

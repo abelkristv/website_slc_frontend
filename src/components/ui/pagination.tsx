@@ -89,9 +89,10 @@ export const PaginationItem = forwardRef<
 
   const current = page === props.value;
   const variant = current ? variantMap.current : variantMap.default;
-  const bgColor = current
-    ? useColorModeValue("blue.200", "bluejack.100")
-    : "transparent";
+  const bgColor = useColorModeValue(
+    current ? "blue.200" : "transparent",
+    current ? "bluejack.100" : "transparent"
+  );
 
   if (getHref) {
     return (
