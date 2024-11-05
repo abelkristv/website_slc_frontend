@@ -3,6 +3,7 @@ import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "../../../components/ui/button";
+import { FaUserPlus } from "react-icons/fa";
 
 const phases = [
   {
@@ -13,7 +14,6 @@ const phases = [
         <p>Programming Test</p>
       </>
     ),
-    animation: "slide-from-right-full 0.6s",
   },
   {
     title: "Pre Training",
@@ -24,7 +24,6 @@ const phases = [
         <p>Database</p>
       </>
     ),
-    animation: "slide-from-right-full 0.8s",
   },
   {
     title: "Interview",
@@ -34,7 +33,6 @@ const phases = [
         <p>Presentation</p>
       </>
     ),
-    animation: "slide-from-right-full 1s",
   },
   {
     title: "Core Training",
@@ -46,7 +44,6 @@ const phases = [
         <p>Evaluation</p>
       </>
     ),
-    animation: "slide-from-right-full 1.2s",
   },
 ];
 
@@ -94,9 +91,9 @@ export default function PhasesSection() {
           gap={6}
           maxW="1280px"
         >
-          {phases.map((item, i) => (
+          {phases.map((item, index) => (
             <Flex
-              key={i}
+              key={index}
               bg="card"
               borderRadius="md"
               px={6}
@@ -109,7 +106,11 @@ export default function PhasesSection() {
               transition="transform 0.2s, box-shadow 0.2s"
               cursor={"default"}
               height={"100%"}
-              animation={isInView ? item.animation : ""}
+              animation={
+                isInView
+                  ? `slide-from-right-full ${index * 0.05 + 0.6}s ease`
+                  : ""
+              }
               _hover={{
                 transform: "translateY(-5%)",
                 boxShadow: "xl",
@@ -128,7 +129,20 @@ export default function PhasesSection() {
                 alignItems={"center"}
                 fontWeight={"bold"}
               >
-                {i + 1}
+                <Box
+                  fontSize={{ base: "4xl", md: "6xl" }}
+                  color={"secondary"}
+                  bgColor={"card"}
+                  width={{ base: "70px", md: "75px" }}
+                  height={{ base: "70px", md: "75px" }}
+                  rounded={"full"}
+                  display={"flex"}
+                  justifyContent={"center"}
+                  alignItems={"center"}
+                  fontWeight={"bold"}
+                >
+                  {index + 1}
+                </Box>
               </Box>
               <Heading
                 fontSize="2xl"
@@ -141,7 +155,7 @@ export default function PhasesSection() {
               <Box fontSize="lg" color={"secondary"}>
                 {item.text}
               </Box>
-              {i === 0 && (
+              {index === 0 && (
                 <Link to="https://bluejack.binus.ac.id/nar/" target="_blank">
                   <Button
                     variant="solid"
@@ -152,8 +166,9 @@ export default function PhasesSection() {
                     _hover={{ bg: "bluejack.200" }}
                     mt={5}
                   >
+                    <FaUserPlus />
                     <Box as="span" ml={1}>
-                      Join
+                      Join Us
                     </Box>
                   </Button>
                 </Link>

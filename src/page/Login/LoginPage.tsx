@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { Button, VStack, HStack, Flex, Spinner } from "@chakra-ui/react";
+import { Button, VStack, HStack, Flex, Spinner, Image } from "@chakra-ui/react";
 import { FaUser, FaLock } from "react-icons/fa";
 import binus from "../../assets/binus.png";
 import binus_dark from "../../assets/binus_dark.png";
@@ -44,15 +44,16 @@ export default function LoginPage() {
         boxShadow="lg"
       >
         <HStack width="full" gap={4} zIndex={10}>
-          <img
+          <Image
             src={ribbon}
             alt="Ribbon Logo"
-            width={45}
+            width={{ base: "35px", md: "50px" }}
             style={{ marginLeft: "2rem" }}
           />
-          <img
+          <Image
             src={useColorModeValue(binus, binus_dark)}
             alt="Binus Logo"
+            width={{ base: "135px", md: "175px" }}
             style={{ marginTop: "1rem" }}
           />
         </HStack>

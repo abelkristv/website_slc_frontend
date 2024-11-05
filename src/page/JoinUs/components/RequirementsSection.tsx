@@ -9,19 +9,16 @@ const requirements = [
     title: "Binusian",
     text: "Must be an active student of Binus University",
     icon: <FaUserGraduate />,
-    animation: "slide-from-bottom-full 0.6s",
   },
   {
     title: "Contract",
     text: "Must be willing to sign a contract for 2 years",
     icon: <FaFileContract />,
-    animation: "slide-from-bottom-full 0.8s",
   },
   {
     title: "Grade",
     text: "Minimum Grade B in Algorithm and Programming",
     icon: <GrScorecard />,
-    animation: "slide-from-bottom-full 1s",
   },
   {
     title: "Majors",
@@ -34,7 +31,6 @@ const requirements = [
       </>
     ),
     icon: <FaUniversity />,
-    animation: "slide-from-bottom-full 1.2s",
   },
 ];
 
@@ -84,9 +80,9 @@ export default function RequirementsSection() {
           maxW="1280px"
           w="full"
         >
-          {requirements.map((item, i) => (
+          {requirements.map((item, index) => (
             <Flex
-              key={i}
+              key={index}
               bg="card"
               borderRadius="md"
               px={{ base: 4, md: 6 }}
@@ -99,7 +95,11 @@ export default function RequirementsSection() {
               transition="transform 0.2s, box-shadow 0.2s"
               cursor="default"
               height="100%"
-              animation={isInView ? item.animation : ""}
+              animation={
+                isInView
+                  ? `slide-from-bottom-full ${index * 0.05 + 0.6}s ease`
+                  : ""
+              }
               _hover={{
                 transform: "translateY(-5%)",
                 boxShadow: "xl",
