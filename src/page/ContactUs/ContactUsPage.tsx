@@ -66,23 +66,23 @@ export default function ContactUsPage() {
         onSubmit={handleSubmit}
         width={formWidth}
         maxW="100%"
-        px={{ base: 4, md: 8 }}
-        py={8}
+        px={{ base: 6, md: 8 }}
+        py={10}
         borderRadius="lg"
-        boxShadow="lg"
+        boxShadow="xl"
         bg="primary"
       >
         {!isSubmitted ? (
           <>
-            <Text fontSize="4xl" fontWeight="bold" textAlign="center">
+            <Text fontSize="4xl" fontWeight="extrabold" color="bluejack.100">
               Contact Us
             </Text>
             <Text
-              fontSize={{ base: "sm", md: "md" }}
+              fontSize={{ base: "md", md: "lg" }}
               color="gray.500"
               textAlign="center"
             >
-              Fill out the form below. We will reach out to you as soon as
+              Fill out the form below and we'll reach out to you as soon as
               possible.
             </Text>
 
@@ -116,19 +116,10 @@ export default function ContactUsPage() {
               color="white"
               _hover={{ bg: "bluejack.200" }}
               width="full"
-              mt={4}
+              mt={6}
               disabled={isLoading}
             >
-              {isLoading ? (
-                <Spinner
-                  borderWidth={"3px"}
-                  size={"sm"}
-                  animationDuration="1s"
-                />
-              ) : (
-                ""
-              )}
-              Submit
+              {isLoading ? <Spinner size="sm" color="white" /> : "Submit"}
             </Button>
           </>
         ) : (

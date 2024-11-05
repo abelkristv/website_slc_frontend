@@ -66,9 +66,9 @@ export default function RequirementsSection() {
         px={{ base: 4, lg: 8 }}
       >
         <Heading
-          fontSize={{ base: "5xl", lg: "6xl" }}
+          fontSize={{ base: "4xl", lg: "6xl" }}
           fontWeight="bold"
-          mb={5}
+          mb={{ base: 0, lg: 6 }}
           textShadow="1px 1px 1px rgba(30, 30, 30, 0.3)"
         >
           Requirements

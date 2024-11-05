@@ -60,7 +60,7 @@ export default function LoginPage() {
           as="form"
           onSubmit={handleSubmit}
           width="full"
-          px={8}
+          px={{ base: 6, md: 8 }}
           py={6}
           gap={4}
         >

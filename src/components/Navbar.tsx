@@ -1,22 +1,12 @@
 import { Link, useLocation } from "react-router-dom";
-import { Box, Flex, HStack, Image, Button, Text } from "@chakra-ui/react";
+import { Box, Flex, HStack, Image, Button } from "@chakra-ui/react";
 import { FaUserPlus } from "react-icons/fa";
 import binus from "../assets/binus.png";
 import binus_dark from "../assets/binus_dark.png";
 import ribbon from "../assets/ribbon.png";
 import { MdLogin } from "react-icons/md";
 import { ColorModeButton, useColorModeValue } from "./ui/color-mode";
-import {
-  DrawerActionTrigger,
-  DrawerBackdrop,
-  DrawerBody,
-  DrawerCloseTrigger,
-  DrawerContent,
-  DrawerHeader,
-  DrawerRoot,
-  DrawerTrigger,
-} from "./ui/drawer";
-import { FiMenu } from "react-icons/fi";
+import MobileDrawer from "./MobileDrawer";
 
 export default function Navbar() {
   const location = useLocation();
@@ -30,12 +20,8 @@ export default function Navbar() {
   return (
     <Box as="nav" boxShadow="lg" bg="primary">
       <Box maxW="7xl" mx="auto" px={{ base: 4, md: 6, lg: 8 }}>
-        <Flex
-          justify="space-between"
-          align="center"
-          py={{ base: "4.5", md: 0 }}
-        >
-          <HStack gap={4} mb={3} display={{ base: "none", md: "flex" }}>
+        <Flex justify="space-between" align="center">
+          <HStack gap={4} mb={3}>
             <Image src={ribbon} alt="Ribbon" height={16} />
             <Image
               src={useColorModeValue(binus, binus_dark)}
@@ -44,54 +30,6 @@ export default function Navbar() {
               pt={2}
             />
           </HStack>
-          <Box display={{ base: "block", md: "none" }}>
-            <DrawerRoot placement={"start"}>
-              <DrawerBackdrop />
-              <DrawerTrigger asChild>
-                <Button variant="outline" aria-label="Open Menu" size="md">
-                  <FiMenu />
-                </Button>
-              </DrawerTrigger>
-              <DrawerContent>
-                <DrawerHeader>
-                  <HStack mt={-6} alignItems={"start"}>
-                    <Image src={ribbon} alt="Ribbon" height={12} />
-                    <Image
-                      src={useColorModeValue(binus, binus_dark)}
-                      alt="Binus"
-                      height={16}
-                      mt={2}
-                    />
-                  </HStack>
-                </DrawerHeader>
-                <DrawerBody>
-                  <DrawerActionTrigger w={"full"}>
-                    {menuItems.map((item) => (
-                      <Link key={item.name} to={item.path}>
-                        <Text
-                          color={
-                            location.pathname === item.path
-                              ? "bluejack.100"
-                              : "secondary"
-                          }
-                          w="full"
-                          mt={2}
-                          mb={6}
-                          ml={10}
-                          textAlign={"left"}
-                          fontSize={"md"}
-                          fontWeight={"semibold"}
-                        >
-                          {item.name}
-                        </Text>
-                      </Link>
-                    ))}
-                  </DrawerActionTrigger>
-                </DrawerBody>
-                <DrawerCloseTrigger />
-              </DrawerContent>
-            </DrawerRoot>
-          </Box>
 
           <HStack gap={2} display={{ base: "none", md: "flex" }}>
             {menuItems.map((item) => (
@@ -114,6 +52,7 @@ export default function Navbar() {
           <HStack gap={2}>
             <Link to="/join-us">
               <Button
+                display={{ base: "none", md: "flex" }}
                 variant="solid"
                 color="white"
                 rounded="md"
@@ -129,6 +68,7 @@ export default function Navbar() {
             </Link>
             <Link to="/login">
               <Button
+                display={{ base: "none", md: "flex" }}
                 variant="outline"
                 borderColor="bluejack.100"
                 color="bluejack.100"
@@ -146,6 +86,9 @@ export default function Navbar() {
               </Button>
             </Link>
             <ColorModeButton rounded="full" ml={1} />
+            <Box display={{ base: "block", md: "none" }}>
+              <MobileDrawer menuItems={menuItems} />
+            </Box>
           </HStack>
         </Flex>
       </Box>
