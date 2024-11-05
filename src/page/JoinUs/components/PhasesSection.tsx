@@ -133,8 +133,8 @@ export default function PhasesSection() {
                   fontSize={{ base: "4xl", md: "6xl" }}
                   color={"secondary"}
                   bgColor={"card"}
-                  width={{ base: "70px", md: "75px" }}
-                  height={{ base: "70px", md: "75px" }}
+                  width={{ base: "55px", md: "75px" }}
+                  height={{ base: "55px", md: "75px" }}
                   rounded={"full"}
                   display={"flex"}
                   justifyContent={"center"}
