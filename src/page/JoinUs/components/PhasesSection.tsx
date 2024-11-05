@@ -116,12 +116,12 @@ export default function PhasesSection() {
               }}
             >
               <Box
-                fontSize={"6xl"}
+                fontSize={{ base: "4xl", md: "6xl" }}
                 mb={4}
                 color={"white"}
                 bgColor={"bluejack.100"}
-                width={"100px"}
-                height={"100px"}
+                width={{ base: "75px", md: "100px" }}
+                height={{ base: "75px", md: "100px" }}
                 rounded={"full"}
                 display={"flex"}
                 justifyContent={"center"}

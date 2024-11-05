@@ -104,8 +104,8 @@ export default function BenefitsSection() {
             <Box
               key={index}
               position="relative"
-              w="100px"
-              h="100px"
+              width={{ base: "75px", md: "100px" }}
+              height={{ base: "75px", md: "100px" }}
               border={useColorModeValue(
                 "1px solid white",
                 "1px solid rgba(255, 255, 255, 0.2)"
@@ -113,7 +113,7 @@ export default function BenefitsSection() {
               rounded="full"
               backdropFilter="blur(10px)"
               bgColor={useColorModeValue("rgba(255, 255, 255, 0.4)", "black")}
-              p={6}
+              p={{ base: 4, md: 6 }}
               display="inline-block"
               flexShrink={0}
               className="group"
