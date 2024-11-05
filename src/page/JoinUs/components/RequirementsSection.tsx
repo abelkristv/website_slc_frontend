@@ -57,7 +57,7 @@ export default function RequirementsSection() {
       <VStack
         justifyContent="center"
         alignItems="center"
-        gap={5}
+        gap={6}
         textAlign="center"
         minHeight="91.5vh"
         style={{ translate: "0 -2rem" }}

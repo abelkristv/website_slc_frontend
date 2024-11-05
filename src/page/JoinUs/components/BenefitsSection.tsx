@@ -171,7 +171,7 @@ export default function BenefitsSection() {
         <Heading
           fontSize={{ base: "5xl", lg: "6xl" }}
           fontWeight="bold"
-          mb={5}
+          mb={6}
           textShadow="1px 1px 1px rgba(30, 30, 30, 0.3)"
         >
           Benefits
