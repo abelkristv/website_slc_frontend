@@ -50,7 +50,7 @@ export default function AssistantDetailPage() {
         gap={4}
         flexDirection={"column"}
       >
-        <CareerJourneySection />
+        <CareerJourneySection assistant={assistant} />
         <TeachingHistorySection assistant={assistant} />
         <AwardsSection />
       </Flex>

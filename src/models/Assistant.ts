@@ -1,3 +1,4 @@
+import { Position } from "./Position";
 import { TeachingHistory } from "./TeachingHistory";
 
 export type Assistant = {
@@ -15,4 +16,5 @@ export type Assistant = {
   Award: string | null;
   Status: string;
   TeachingHistories: TeachingHistory[];
+  Positions: Position[];
 };
