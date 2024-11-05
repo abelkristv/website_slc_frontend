@@ -1,5 +1,5 @@
-import { useRef } from "react";
-import { Button, VStack, HStack, Flex } from "@chakra-ui/react";
+import { useRef, useState } from "react";
+import { Button, VStack, HStack, Flex, Spinner } from "@chakra-ui/react";
 import { FaUser, FaLock } from "react-icons/fa";
 import binus from "../../assets/binus.png";
 import binus_dark from "../../assets/binus_dark.png";
@@ -13,17 +13,22 @@ import { useColorModeValue } from "../../components/ui/color-mode";
 export default function LoginPage() {
   const usernameRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLDivElement>) => {
     e.preventDefault();
     const username = usernameRef.current?.value || "";
     const password = passwordRef.current?.value || "";
+    setIsLoading(true);
+
     try {
       await loginUser(username, password);
       showSuccessToast("Login successful");
     } catch (err: any) {
       const errorMessage = err.response?.data.message || "Login failed";
       showErrorToast(errorMessage);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -76,7 +81,13 @@ export default function LoginPage() {
             color="white"
             _hover={{ bg: "bluejack.200" }}
             width="full"
+            disabled={isLoading}
           >
+            {isLoading ? (
+              <Spinner borderWidth={"3px"} size={"sm"} animationDuration="1s" />
+            ) : (
+              ""
+            )}
             Login
           </Button>
           <HowToLoginDialog />

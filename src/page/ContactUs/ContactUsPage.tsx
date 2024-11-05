@@ -1,17 +1,25 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import {
   Button,
   VStack,
   Flex,
   Text,
   useBreakpointValue,
+  Box,
+  Spinner,
 } from "@chakra-ui/react";
-import { FaEnvelope, FaUser, FaWhatsapp } from "react-icons/fa";
+import {
+  FaEnvelope,
+  FaUser,
+  FaWhatsapp,
+  FaRegCheckCircle,
+} from "react-icons/fa";
 import InputField from "../../components/InputField";
-import { showErrorToast, showSuccessToast } from "../../utils/toastUtils";
-import { loginUser } from "../../services/AuthService";
+import { showErrorToast } from "../../utils/toastUtils";
 import { Field } from "../../components/ui/field";
 import TextAreaField from "../../components/TextAreaField";
+import { createContactUs } from "../../services/ContactUsService";
+import { useNavigate } from "react-router";
 
 export default function ContactUsPage() {
   const nameRef = useRef<HTMLInputElement>(null);
@@ -23,21 +31,32 @@ export default function ContactUsPage() {
     md: "80%",
     lg: "600px",
   });
+  const navigate = useNavigate();
+
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLDivElement>) => {
     e.preventDefault();
-    const name = nameRef.current?.value || "";
-    const email = emailRef.current?.value || "";
-    const phone = phoneRef.current?.value || "";
-    const message = messageRef.current?.value || "";
+    const Name = nameRef.current?.value || "";
+    const Email = emailRef.current?.value || "";
+    const Phone = phoneRef.current?.value || "";
+    const Message = messageRef.current?.value || "";
 
+    setIsLoading(true);
     try {
-      await loginUser(email, message);
-      showSuccessToast("Message sent! We'll contact you soon.");
+      await createContactUs({ Name, Email, Phone, Message });
+      setIsSubmitted(true);
     } catch (err: any) {
       const errorMessage = err.response?.data.message || "Submission failed";
       showErrorToast(errorMessage);
+    } finally {
+      setIsLoading(false);
     }
+  };
+
+  const handleBackToHome = () => {
+    navigate("/");
   };
 
   return (
@@ -53,51 +72,87 @@ export default function ContactUsPage() {
         boxShadow="lg"
         bg="primary"
       >
-        <Text fontSize="4xl" fontWeight="bold" textAlign="center">
-          Contact Us
-        </Text>
-        <Text
-          fontSize={{ base: "sm", md: "md" }}
-          color="gray.500"
-          textAlign="center"
-        >
-          Fill out the form below. We will reach out to you as soon as possible.
-        </Text>
+        {!isSubmitted ? (
+          <>
+            <Text fontSize="4xl" fontWeight="bold" textAlign="center">
+              Contact Us
+            </Text>
+            <Text
+              fontSize={{ base: "sm", md: "md" }}
+              color="gray.500"
+              textAlign="center"
+            >
+              Fill out the form below. We will reach out to you as soon as
+              possible.
+            </Text>
 
-        <Field label="Full Name" required mt={4}>
-          <InputField
-            ref={nameRef}
-            placeholder="Full Name"
-            icon={<FaUser color="gray.300" />}
-          />
-        </Field>
-        <Field label="Email Address" required>
-          <InputField
-            ref={emailRef}
-            placeholder="Email Address"
-            icon={<FaEnvelope color="gray.300" />}
-          />
-        </Field>
-        <Field label="WhatsApp Number" required>
-          <InputField
-            ref={phoneRef}
-            placeholder="WhatsApp Number"
-            icon={<FaWhatsapp color="gray.300" />}
-          />
-        </Field>
-        <Field label="Message" required>
-          <TextAreaField ref={messageRef} placeholder="Your message..." />
-        </Field>
-        <Button
-          type="submit"
-          bg="bluejack.100"
-          color="white"
-          _hover={{ bg: "bluejack.200" }}
-          width="full"
-          mt={4}
-        >
-          Submit
-        </Button>
+            <Field label="Full Name" required mt={4}>
+              <InputField
+                ref={nameRef}
+                placeholder="Full Name"
+                icon={<FaUser color="gray.300" />}
+              />
+            </Field>
+            <Field label="Email Address" required>
+              <InputField
+                ref={emailRef}
+                placeholder="Email Address"
+                icon={<FaEnvelope color="gray.300" />}
+              />
+            </Field>
+            <Field label="WhatsApp Number" required>
+              <InputField
+                ref={phoneRef}
+                placeholder="WhatsApp Number"
+                icon={<FaWhatsapp color="gray.300" />}
+              />
+            </Field>
+            <Field label="Message" required>
+              <TextAreaField ref={messageRef} placeholder="Your message..." />
+            </Field>
+            <Button
+              type="submit"
+              bg="bluejack.100"
+              color="white"
+              _hover={{ bg: "bluejack.200" }}
+              width="full"
+              mt={4}
+              disabled={isLoading}
+            >
+              {isLoading ? (
+                <Spinner
+                  borderWidth={"3px"}
+                  size={"sm"}
+                  animationDuration="1s"
+                />
+              ) : (
+                ""
+              )}
+              Submit
+            </Button>
+          </>
+        ) : (
+          <>
+            <Box fontSize={"3rem"} color={"green.500"}>
+              <FaRegCheckCircle />
+            </Box>
+
+            <Text fontSize="2xl" fontWeight="bold" textAlign="center">
+              Message Sent!
+            </Text>
+            <Text textAlign="center" mb={4}>
+              Thank you for contacting us. We'll get back to you soon.
+            </Text>
+            <Button
+              onClick={handleBackToHome}
+              bg="bluejack.100"
+              color="white"
+              _hover={{ bg: "bluejack.200" }}
+            >
+              Back to Home
+            </Button>
+          </>
+        )}
       </VStack>
     </Flex>
   );

@@ -153,7 +153,7 @@ export default function PhasesSection() {
                     mt={5}
                   >
                     <Box as="span" ml={1}>
-                      Go
+                      Join
                     </Box>
                   </Button>
                 </Link>
