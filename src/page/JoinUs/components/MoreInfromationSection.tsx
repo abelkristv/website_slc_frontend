@@ -38,7 +38,11 @@ export default function MoreInformationSection() {
   return (
     <motion.section
       ref={ref}
-      style={{ scrollSnapAlign: "start" }}
+      style={{
+        scrollSnapAlign: "start",
+        scrollBehavior: "smooth",
+        scrollSnapType: "y mandatory",
+      }}
       initial={{ opacity: 0 }}
       animate={isInView ? { opacity: 1 } : {}}
     >

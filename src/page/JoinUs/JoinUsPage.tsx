@@ -11,6 +11,7 @@ export default function JoinUsPage() {
       overflowY="scroll"
       height="91.5vh"
       scrollSnapType="y mandatory"
+      scrollBehavior={"smooth"}
       gap={12}
       color={"white"}
       overflowX={"hidden"}

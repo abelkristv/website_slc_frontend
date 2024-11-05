@@ -45,7 +45,12 @@ export default function RequirementsSection() {
   return (
     <motion.section
       ref={ref}
-      style={{ scrollSnapAlign: "start" }}
+      style={{
+        scrollSnapAlign: "start",
+        margin: "0 0 25% 0",
+        scrollBehavior: "smooth",
+        scrollSnapType: "y mandatory",
+      }}
       initial={{ opacity: 0 }}
       animate={isInView ? { opacity: 1 } : {}}
     >

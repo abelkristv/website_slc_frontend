@@ -1,9 +1,7 @@
 import { Box } from "@chakra-ui/react";
 import Navbar from "../components/Navbar";
-import ParticlesBackground from "./ParticlesBackground";
-import { ReactNode, useState } from "react";
+import { ReactNode } from "react";
 import { Toaster } from "../components/ui/toaster";
-import { useColorModeValue } from "../components/ui/color-mode";
 import Scrollbar from "./Scrollbar";
 import { useLocation } from "react-router-dom";
 
@@ -12,32 +10,13 @@ interface TemplateProps {
 }
 
 export default function Template({ children }: TemplateProps) {
-  const [particlesLoaded, setParticlesLoaded] = useState(false);
   const location = useLocation();
   const isJoinUsPage = location.pathname === "/join-us";
 
-  const handleParticlesLoad = () => {
-    setParticlesLoaded(true);
-  };
-
   return (
     <>
-      <ParticlesBackground onLoad={handleParticlesLoad} />
       <Scrollbar />
-      <Box
-        position="relative"
-        zIndex={1}
-        minHeight="100vh"
-        bg={particlesLoaded ? "transparent" : ""}
-        background={
-          particlesLoaded
-            ? "transparent"
-            : useColorModeValue(
-                "linear-gradient(-30deg, #00d2ff, #3a7bd5)",
-                "linear-gradient(-30deg, #18181b, #111111)"
-              )
-        }
-      >
+      <Box position="relative" zIndex={1} minHeight="100vh">
         <Navbar />
         <Toaster />
         <Box

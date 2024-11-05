@@ -4,13 +4,7 @@ import { loadSlim } from "@tsparticles/slim";
 import { ISourceOptions } from "@tsparticles/engine";
 import { useColorModeValue } from "../components/ui/color-mode";
 
-interface ParticlesBackgroundProps {
-  onLoad: () => void;
-}
-
-export default function ParticlesBackground({
-  onLoad,
-}: ParticlesBackgroundProps) {
+export default function ParticlesBackground() {
   const [init, setInit] = useState(false);
   const backgroundImage = useColorModeValue(
     "linear-gradient(-30deg, #00d2ff, #3a7bd5)",
@@ -21,9 +15,8 @@ export default function ParticlesBackground({
     initParticlesEngine(async (engine) => {
       await loadSlim(engine);
       setInit(true);
-      onLoad();
     });
-  }, [onLoad]);
+  }, []);
 
   const options: ISourceOptions = useMemo(
     () => ({

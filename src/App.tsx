@@ -8,10 +8,12 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import ContactUsPage from "./page/ContactUs/ContactUsPage";
 import JoinUsPage from "./page/JoinUs/JoinUsPage";
+import ParticlesBackground from "./templates/ParticlesBackground";
 
 function App() {
   return (
     <Router>
+      <ParticlesBackground />
       <Template>
         <Routes>
           <Route path="/login" element={<LoginPage />} />
