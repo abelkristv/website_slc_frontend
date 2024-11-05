@@ -50,7 +50,7 @@ const phases = [
   },
 ];
 
-export default function RegistrationSection() {
+export default function PhasesSection() {
   const ref = useRef(null);
   const isInView = useInView(ref);
 
@@ -59,11 +59,10 @@ export default function RegistrationSection() {
       ref={ref}
       style={{
         scrollSnapAlign: "start",
-        margin: "0 0 25% 0",
+        margin: "0 0 50% 0",
         scrollBehavior: "smooth",
         scrollSnapType: "y mandatory",
       }}
-      initial={{ opacity: 0 }}
       animate={isInView ? { opacity: 1 } : {}}
     >
       <VStack
@@ -73,9 +72,12 @@ export default function RegistrationSection() {
         textAlign="center"
         minHeight="91.5vh"
         style={{ translate: "0 -2rem" }}
+        pt={{ base: 20, lg: 0 }}
+        pb={{ base: 12, lg: 0 }}
+        px={{ base: 4, lg: 8 }}
       >
         <Heading
-          fontSize="6xl"
+          fontSize={{ base: "5xl", lg: "6xl" }}
           fontWeight="bold"
           mb={5}
           textShadow="1px 1px 1px rgba(30, 30, 30, 0.3)"
@@ -83,7 +85,12 @@ export default function RegistrationSection() {
           Phases
         </Heading>
         <Grid
-          templateColumns="repeat(auto-fit, minmax(240px, 1fr))"
+          templateColumns={{
+            base: "repeat(1, 1fr)",
+            sm: "repeat(2, 1fr)",
+            md: "repeat(2, 1fr)",
+            lg: "repeat(4, 1fr)",
+          }}
           gap={6}
           maxW="1280px"
         >
@@ -146,7 +153,7 @@ export default function RegistrationSection() {
                     mt={5}
                   >
                     <Box as="span" ml={1}>
-                      Register
+                      Go
                     </Box>
                   </Button>
                 </Link>

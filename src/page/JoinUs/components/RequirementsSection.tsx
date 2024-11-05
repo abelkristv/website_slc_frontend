@@ -47,7 +47,7 @@ export default function RequirementsSection() {
       ref={ref}
       style={{
         scrollSnapAlign: "start",
-        margin: "0 0 25% 0",
+        margin: "0 0 50% 0",
         scrollBehavior: "smooth",
         scrollSnapType: "y mandatory",
       }}
@@ -61,9 +61,12 @@ export default function RequirementsSection() {
         textAlign="center"
         minHeight="91.5vh"
         style={{ translate: "0 -2rem" }}
+        pt={{ base: 20, lg: 0 }}
+        pb={{ base: 12, lg: 0 }}
+        px={{ base: 4, lg: 8 }}
       >
         <Heading
-          fontSize="6xl"
+          fontSize={{ base: "5xl", lg: "6xl" }}
           fontWeight="bold"
           mb={5}
           textShadow="1px 1px 1px rgba(30, 30, 30, 0.3)"
@@ -71,43 +74,53 @@ export default function RequirementsSection() {
           Requirements
         </Heading>
         <Grid
-          templateColumns="repeat(auto-fit, minmax(240px, 1fr))"
-          gap={6}
+          templateColumns={{
+            base: "repeat(1, 1fr)",
+            sm: "repeat(2, 1fr)",
+            md: "repeat(2, 1fr)",
+            lg: "repeat(4, 1fr)",
+          }}
+          gap={{ base: 4, md: 6 }}
           maxW="1280px"
+          w="full"
         >
           {requirements.map((item, i) => (
             <Flex
               key={i}
               bg="card"
               borderRadius="md"
-              px={6}
-              py={8}
+              px={{ base: 4, md: 6 }}
+              py={{ base: 6, md: 8 }}
               mt={4}
               boxShadow="lg"
               direction="column"
               align="center"
-              justifyContent={"center"}
+              justifyContent="center"
               transition="transform 0.2s, box-shadow 0.2s"
-              cursor={"default"}
-              height={"100%"}
+              cursor="default"
+              height="100%"
               animation={isInView ? item.animation : ""}
               _hover={{
                 transform: "translateY(-5%)",
                 boxShadow: "xl",
               }}
             >
-              <Box fontSize={"6xl"} mb={4} color={"bluejack.100"}>
+              <Box
+                fontSize={{ base: "4xl", md: "5xl", lg: "6xl" }}
+                mb={4}
+                color="bluejack.100"
+              >
                 {item.icon}
               </Box>
               <Heading
-                fontSize="2xl"
+                fontSize={{ base: "xl", md: "2xl" }}
                 fontWeight="bold"
                 mb={3}
-                color={"secondary"}
+                color="secondary"
               >
                 {item.title}
               </Heading>
-              <Box fontSize="lg" color={"secondary"}>
+              <Box fontSize={{ base: "md", md: "lg" }} color="secondary">
                 {item.text}
               </Box>
             </Flex>

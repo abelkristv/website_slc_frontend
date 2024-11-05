@@ -66,7 +66,7 @@ const skillsData = {
   ],
 };
 
-const BenefitsSection: React.FC = () => {
+export default function BenefitsSection() {
   const ref = useRef<HTMLDivElement | null>(null);
   const isInView = useInView(ref);
 
@@ -77,7 +77,7 @@ const BenefitsSection: React.FC = () => {
     direction: string
   ) => (
     <VStack>
-      <Heading fontSize="3xl">{title}</Heading>
+      <Heading fontSize={{ base: "2xl", lg: "3xl" }}>{title}</Heading>
       <motion.div
         className="scrolling-container"
         style={{
@@ -153,7 +153,7 @@ const BenefitsSection: React.FC = () => {
       ref={ref}
       style={{
         scrollSnapAlign: "start",
-        margin: "0 0 25% 0",
+        margin: "0 0 50% 0",
         scrollBehavior: "smooth",
         scrollSnapType: "y mandatory",
       }}
@@ -169,7 +169,7 @@ const BenefitsSection: React.FC = () => {
         animation={isInView ? "fade-in 1.5s" : ""}
       >
         <Heading
-          fontSize="6xl"
+          fontSize={{ base: "5xl", lg: "6xl" }}
           fontWeight="bold"
           mb={5}
           textShadow="1px 1px 1px rgba(30, 30, 30, 0.3)"
@@ -218,6 +218,4 @@ const BenefitsSection: React.FC = () => {
       </style>
     </motion.section>
   );
-};
-
-export default BenefitsSection;
+}

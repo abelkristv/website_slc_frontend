@@ -53,9 +53,12 @@ export default function MoreInformationSection() {
         textAlign="center"
         minHeight="91.5vh"
         style={{ translate: "0 -2rem" }}
+        pt={{ base: 20, lg: 0 }}
+        pb={{ base: 12, lg: 0 }}
+        px={{ base: 4, lg: 8 }}
       >
         <Heading
-          fontSize="6xl"
+          fontSize={{ base: "5xl", lg: "6xl" }}
           fontWeight="bold"
           mb={5}
           textShadow="1px 1px 1px rgba(30, 30, 30, 0.3)"
@@ -64,7 +67,7 @@ export default function MoreInformationSection() {
         </Heading>
         <Box
           maxW="700px"
-          fontSize="xl"
+          fontSize={{ base: "lg", lg: "xl" }}
           px={6}
           textShadow="1px 1px 1px rgba(30, 30, 30, 0.3)"
         >
@@ -73,14 +76,18 @@ export default function MoreInformationSection() {
           <p>[021] 5345830 ext 1762 - Room 724</p>
         </Box>
         <Grid
-          templateColumns="repeat(auto-fit, minmax(240px, 1fr))"
-          gap={6}
+          templateColumns={{
+            base: "repeat(1, 1fr)",
+            sm: "repeat(2, 1fr)",
+            md: "repeat(2, 1fr)",
+            lg: "repeat(4, 1fr)",
+          }}
+          gap={{ base: 4, md: 6 }}
           maxW="1280px"
         >
           {links.map((link, index) => (
-            <Link to={link.link} target="_blank">
+            <Link to={link.link} target="_blank" key={index}>
               <Flex
-                key={index}
                 bg="card"
                 borderRadius="md"
                 px={6}

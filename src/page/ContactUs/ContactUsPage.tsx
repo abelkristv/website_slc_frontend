@@ -53,11 +53,7 @@ export default function ContactUsPage() {
         boxShadow="lg"
         bg="primary"
       >
-        <Text
-          fontSize={{ base: "2xl", md: "3xl" }}
-          fontWeight="bold"
-          textAlign="center"
-        >
+        <Text fontSize="4xl" fontWeight="bold" textAlign="center">
           Contact Us
         </Text>
         <Text

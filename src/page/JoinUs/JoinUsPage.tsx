@@ -1,8 +1,8 @@
 import { VStack } from "@chakra-ui/react";
 import RequirementsSection from "./components/RequirementsSection";
-import RegistrationSection from "./components/RegistrationSection";
 import MoreInformationSection from "./components/MoreInfromationSection";
 import BenefitsSection from "./components/BenefitsSection";
+import PhasesSection from "./components/PhasesSection";
 
 export default function JoinUsPage() {
   return (
@@ -18,7 +18,7 @@ export default function JoinUsPage() {
     >
       <RequirementsSection />
       <BenefitsSection />
-      <RegistrationSection />
+      <PhasesSection />
       <MoreInformationSection />
     </VStack>
   );
