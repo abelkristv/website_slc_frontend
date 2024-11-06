@@ -8,7 +8,7 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react";
-import { Assistant } from "../../../models/Assistant";
+import { Assistant } from "../../../types/Assistant";
 import { FaGithub, FaInstagram, FaLinkedin, FaWhatsapp } from "react-icons/fa";
 
 interface ProfileProps {

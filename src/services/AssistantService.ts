@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Assistant } from "../models/Assistant";
+import { Assistant } from "../types/Assistant";
 
 interface AssistantData {
   users: Assistant[];

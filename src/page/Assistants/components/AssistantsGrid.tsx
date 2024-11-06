@@ -1,5 +1,5 @@
 import { SimpleGrid, Box, VStack, Skeleton, Badge } from "@chakra-ui/react";
-import { Assistant } from "../../../models/Assistant";
+import { Assistant } from "../../../types/Assistant";
 import AssistantCard from "./AssistantsCard";
 import { SkeletonCircle } from "../../../components/ui/skeleton";
 

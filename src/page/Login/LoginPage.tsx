@@ -6,14 +6,17 @@ import binus_dark from "../../assets/binus_dark.png";
 import ribbon from "../../assets/ribbon.png";
 import InputField from "../../components/InputField";
 import { showErrorToast, showSuccessToast } from "../../utils/toastUtils";
-import { loginUser } from "../../services/AuthService";
 import HowToLoginDialog from "./components/HowToLoginDialog";
 import { useColorModeValue } from "../../components/ui/color-mode";
+import { useUser } from "../../contexts/UserContext";
+import { useNavigate } from "react-router";
 
 export default function LoginPage() {
   const usernameRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const { login } = useUser();
+  const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent<HTMLDivElement>) => {
     e.preventDefault();
@@ -22,8 +25,9 @@ export default function LoginPage() {
     setIsLoading(true);
 
     try {
-      await loginUser(username, password);
+      await login(username, password);
       showSuccessToast("Login successful");
+      navigate("/");
     } catch (err: any) {
       const errorMessage = err.response?.data.message || "Login failed";
       showErrorToast(errorMessage);

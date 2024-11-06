@@ -1,5 +1,5 @@
 import { Box, Image, Text, VStack, Badge } from "@chakra-ui/react";
-import { Assistant } from "../../../models/Assistant";
+import { Assistant } from "../../../types/Assistant";
 import { Link } from "react-router-dom";
 
 interface AssistantsCardProps {

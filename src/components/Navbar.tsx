@@ -1,5 +1,5 @@
-import { Link, useLocation } from "react-router-dom";
-import { Box, Flex, HStack, Image, Button } from "@chakra-ui/react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Box, Flex, HStack, Image, Button, Text } from "@chakra-ui/react";
 import { FaUserPlus } from "react-icons/fa";
 import binus from "../assets/binus.png";
 import binus_dark from "../assets/binus_dark.png";
@@ -7,6 +7,11 @@ import ribbon from "../assets/ribbon.png";
 import { MdLogin } from "react-icons/md";
 import { ColorModeButton, useColorModeValue } from "./ui/color-mode";
 import MobileDrawer from "./MobileDrawer";
+import { useEffect } from "react";
+import { useUser } from "../contexts/UserContext";
+import { Avatar } from "./ui/avatar";
+import { MenuContent, MenuItem, MenuRoot, MenuTrigger } from "./ui/menu";
+import { showErrorToast, showSuccessToast } from "../utils/toastUtils";
 
 export default function Navbar() {
   const location = useLocation();
@@ -16,6 +21,24 @@ export default function Navbar() {
     { name: "Events", path: "/events" },
     { name: "Contact Us", path: "/contact-us" },
   ];
+  const { user, getCurrentUser, logout } = useUser();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    getCurrentUser();
+  }, []);
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+      showSuccessToast("Logout successful");
+      navigate("/");
+    } catch (err: any) {
+      const errorMessage = err.response?.data.message || "Logout failed";
+      showErrorToast(errorMessage);
+    } finally {
+    }
+  };
 
   return (
     <Box as="nav" boxShadow="lg" bg="primary">
@@ -49,47 +72,97 @@ export default function Navbar() {
             ))}
           </HStack>
 
-          <HStack gap={2}>
-            <Link to="/join-us">
-              <Button
-                display={{ base: "none", md: "flex" }}
-                variant="solid"
-                color="white"
-                rounded="md"
-                size={"sm"}
-                bg="bluejack.100"
-                _hover={{ bg: "bluejack.200" }}
-              >
-                <FaUserPlus />
-                <Box as="span" ml={1}>
-                  Join Us
-                </Box>
-              </Button>
-            </Link>
-            <Link to="/login">
-              <Button
-                display={{ base: "none", md: "flex" }}
-                variant="outline"
-                borderColor="bluejack.100"
-                color="bluejack.100"
-                rounded="md"
-                size={"sm"}
-                _hover={useColorModeValue(
-                  { bg: "blue.50" },
-                  { bg: "gray.800" }
-                )}
-              >
-                <MdLogin />
-                <Box as="span" ml={1}>
-                  Login
-                </Box>
-              </Button>
-            </Link>
-            <ColorModeButton rounded="full" ml={1} />
-            <Box display={{ base: "block", md: "none" }}>
-              <MobileDrawer menuItems={menuItems} />
-            </Box>
-          </HStack>
+          {!user ? (
+            <HStack gap={2}>
+              <Link to="/join-us">
+                <Button
+                  display={{ base: "none", md: "flex" }}
+                  variant="solid"
+                  color="white"
+                  rounded="md"
+                  size={"sm"}
+                  bg="bluejack.100"
+                  _hover={{ bg: "bluejack.200" }}
+                >
+                  <FaUserPlus />
+                  <Box as="span" ml={1}>
+                    Join Us
+                  </Box>
+                </Button>
+              </Link>
+              <Link to="/login">
+                <Button
+                  display={{ base: "none", md: "flex" }}
+                  variant="outline"
+                  borderColor="bluejack.100"
+                  color="bluejack.100"
+                  rounded="md"
+                  size={"sm"}
+                  _hover={useColorModeValue(
+                    { bg: "blue.50" },
+                    { bg: "gray.800" }
+                  )}
+                >
+                  <MdLogin />
+                  <Box as="span" ml={1}>
+                    Login
+                  </Box>
+                </Button>
+              </Link>
+              <ColorModeButton rounded="full" ml={1} />
+              <Box display={{ base: "block", md: "none" }}>
+                <MobileDrawer menuItems={menuItems} />
+              </Box>
+            </HStack>
+          ) : (
+            <HStack gap={0}>
+              <MenuRoot>
+                <MenuTrigger
+                  outline={"none"}
+                  border={"none"}
+                  cursor={"pointer"}
+                >
+                  <HStack
+                    gap={4}
+                    px={4}
+                    py={2}
+                    rounded={"md"}
+                    _hover={{ bg: "card" }}
+                  >
+                    <Avatar
+                      name={user.Assistant.Initial}
+                      colorPalette="pink"
+                      src={user.Assistant.ProfilePicture}
+                      size={"xs"}
+                      css={{
+                        outlineWidth: "2px",
+                        outlineColor: "bluejack.100",
+                        outlineOffset: "2px",
+                        outlineStyle: "solid",
+                      }}
+                    />
+                    <Text fontSize={"md"} fontWeight={"medium"}>
+                      {user.Assistant.Initial} {user.Assistant.Generation}
+                    </Text>
+                  </HStack>
+                </MenuTrigger>
+                <MenuContent p={0}>
+                  <MenuItem
+                    value="logout"
+                    cursor={"pointer"}
+                    py={2}
+                    onClick={handleLogout}
+                  >
+                    Logout
+                  </MenuItem>
+                </MenuContent>
+              </MenuRoot>
+              <ColorModeButton rounded="full" />
+              <Box display={{ base: "block", md: "none" }}>
+                <MobileDrawer menuItems={menuItems} />
+              </Box>
+            </HStack>
+          )}
         </Flex>
       </Box>
     </Box>

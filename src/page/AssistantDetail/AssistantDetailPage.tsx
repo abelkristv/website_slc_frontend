@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Assistant } from "../../models/Assistant";
+import { Assistant } from "../../types/Assistant";
 import { getAssistantById } from "../../services/AssistantService";
 import { Text, Flex } from "@chakra-ui/react";
 import CareerJourneySection from "./components/CareerJourneySection";

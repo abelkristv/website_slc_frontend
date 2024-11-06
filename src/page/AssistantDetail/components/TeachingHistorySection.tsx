@@ -1,6 +1,6 @@
 import { Box, Text, Flex } from "@chakra-ui/react";
 import { useState } from "react";
-import { TeachingHistory } from "../../../models/TeachingHistory";
+import { TeachingHistory } from "../../../types/TeachingHistory";
 import {
   AccordionItem,
   AccordionItemContent,
@@ -8,7 +8,7 @@ import {
   AccordionRoot,
 } from "../../../components/ui/accordion";
 import Slider from "react-slick";
-import { Assistant } from "../../../models/Assistant";
+import { Assistant } from "../../../types/Assistant";
 import { getSliderSettings } from "./CarouselComponents";
 
 interface TeachingHistoryProps {

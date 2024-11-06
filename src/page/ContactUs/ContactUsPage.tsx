@@ -74,7 +74,7 @@ export default function ContactUsPage() {
       >
         {!isSubmitted ? (
           <>
-            <Text fontSize="4xl" fontWeight="extrabold" color="bluejack.100">
+            <Text fontSize="4xl" fontWeight="bold" color="bluejack.100">
               Contact Us
             </Text>
             <Text

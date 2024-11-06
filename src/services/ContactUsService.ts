@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ContactUs } from "../models/ContactUs";
+import { ContactUs } from "../types/ContactUs";
 
 export const createContactUs = async (
   contact: ContactUs

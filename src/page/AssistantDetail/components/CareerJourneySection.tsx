@@ -7,7 +7,7 @@ import {
   TimelineRoot,
   TimelineTitle,
 } from "../../../components/ui/timeline";
-import { Assistant } from "../../../models/Assistant";
+import { Assistant } from "../../../types/Assistant";
 
 interface CareerJourneyProps {
   assistant: Assistant;

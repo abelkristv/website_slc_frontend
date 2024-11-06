@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { IoChevronBack, IoChevronForward } from "react-icons/io5";
-import { TeachingHistory } from "../../../models/TeachingHistory";
+import { TeachingHistory } from "../../../types/TeachingHistory";
 
 interface ArrowProps {
   onClick?: () => void;

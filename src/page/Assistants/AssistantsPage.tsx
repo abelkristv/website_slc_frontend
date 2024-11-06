@@ -1,7 +1,7 @@
 import { VStack, Text, Flex } from "@chakra-ui/react";
 import { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { Assistant } from "../../models/Assistant";
+import { Assistant } from "../../types/Assistant";
 import {
   getAssistantData,
   getGenerations,
