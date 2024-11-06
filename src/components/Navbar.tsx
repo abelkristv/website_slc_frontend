@@ -161,7 +161,7 @@ export default function Navbar() {
                     cursor={"pointer"}
                     py={2}
                     px={4}
-                    onClick={handleLogout}
+                    onClick={() => navigate("/user/my-profile")}
                   >
                     <MdOutlinePerson />
                     My Profile

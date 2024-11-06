@@ -108,7 +108,7 @@ export default function PhasesSection() {
               height={"100%"}
               animation={
                 isInView
-                  ? `slide-from-right-full ${index * 0.05 + 0.6}s ease`
+                  ? `slide-from-right-full ${index * 0.1 + 0.8}s ease`
                   : ""
               }
               _hover={{

@@ -100,7 +100,7 @@ export default function MoreInformationSection() {
                 transition="transform 0.2s, box-shadow 0.2s"
                 animation={
                   isInView
-                    ? `slide-from-left-full ${index * 0.05 + 0.6}s ease`
+                    ? `slide-from-left-full ${index * 0.1 + 0.8}s ease`
                     : ""
                 }
                 cursor={"pointer"}
