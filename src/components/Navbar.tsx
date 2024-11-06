@@ -4,7 +4,13 @@ import { FaUserPlus } from "react-icons/fa";
 import binus from "../assets/binus.png";
 import binus_dark from "../assets/binus_dark.png";
 import ribbon from "../assets/ribbon.png";
-import { MdLogin } from "react-icons/md";
+import {
+  MdElectricBolt,
+  MdLockOpen,
+  MdLogin,
+  MdLogout,
+  MdOutlinePerson,
+} from "react-icons/md";
 import { ColorModeButton, useColorModeValue } from "./ui/color-mode";
 import MobileDrawer from "./MobileDrawer";
 import { useEffect } from "react";
@@ -122,37 +128,72 @@ export default function Navbar() {
                   border={"none"}
                   cursor={"pointer"}
                 >
-                  <HStack
-                    gap={4}
+                  <Box
                     px={4}
                     py={2}
                     rounded={"md"}
-                    _hover={{ bg: "card" }}
+                    _hover={{ bg: useColorModeValue("gray.100", "gray.900") }}
+                    transition={"background 0.3s"}
                   >
-                    <Avatar
-                      name={user.Assistant.Initial}
-                      colorPalette="pink"
-                      src={user.Assistant.ProfilePicture}
-                      size={"xs"}
-                      css={{
-                        outlineWidth: "2px",
-                        outlineColor: "bluejack.100",
-                        outlineOffset: "2px",
-                        outlineStyle: "solid",
-                      }}
-                    />
-                    <Text fontSize={"md"} fontWeight={"medium"}>
-                      {user.Assistant.Initial} {user.Assistant.Generation}
-                    </Text>
-                  </HStack>
+                    {" "}
+                    <HStack gap={4}>
+                      <Avatar
+                        name={user.Assistant.Initial}
+                        colorPalette="pink"
+                        src={user.Assistant.ProfilePicture}
+                        size={"xs"}
+                        css={{
+                          outlineWidth: "2px",
+                          outlineColor: "bluejack.100",
+                          outlineOffset: "2px",
+                          outlineStyle: "solid",
+                        }}
+                      />
+                      <Text fontSize={"md"} fontWeight={"medium"}>
+                        {user.Assistant.Initial} {user.Assistant.Generation}
+                      </Text>
+                    </HStack>
+                  </Box>
                 </MenuTrigger>
-                <MenuContent p={0}>
+                <MenuContent p={0} width={"44"}>
+                  <MenuItem
+                    value="profile"
+                    cursor={"pointer"}
+                    py={2}
+                    px={4}
+                    onClick={handleLogout}
+                  >
+                    <MdOutlinePerson />
+                    My Profile
+                  </MenuItem>
+                  <MenuItem
+                    value="nar"
+                    cursor={"pointer"}
+                    py={2}
+                    px={4}
+                    onClick={() => navigate("/join-us")}
+                  >
+                    <MdElectricBolt />
+                    NAR Page
+                  </MenuItem>
+                  <MenuItem
+                    value="change-password"
+                    cursor={"pointer"}
+                    py={2}
+                    px={4}
+                    onClick={() => navigate("/user/change-password")}
+                  >
+                    <MdLockOpen />
+                    Change Password
+                  </MenuItem>
                   <MenuItem
                     value="logout"
                     cursor={"pointer"}
                     py={2}
+                    px={4}
                     onClick={handleLogout}
                   >
+                    <MdLogout />
                     Logout
                   </MenuItem>
                 </MenuContent>

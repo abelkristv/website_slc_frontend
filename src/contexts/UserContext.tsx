@@ -1,10 +1,11 @@
 import { createContext, useState, useContext, useEffect } from "react";
 import axios from "axios";
 import { User } from "../types/User";
+import { Login } from "../types/Login";
 
 interface UserContextType {
   user: User | null;
-  login: (username: string, password: string) => Promise<void>;
+  login: (login: Login) => Promise<void>;
   getCurrentUser: () => Promise<void>;
   logout: () => Promise<void>;
 }
@@ -18,16 +19,15 @@ export default function UserProvider({
 }) {
   const [user, setUser] = useState<User | null>(null);
 
-  const login = async (username: string, password: string) => {
+  const login = async (login: Login) => {
     try {
-      await axios.post(
-        `${import.meta.env.VITE_BACKEND_URL}/login`,
-        { username, password },
-        { withCredentials: true }
-      );
+      await axios.post(`${import.meta.env.VITE_BACKEND_URL}/login`, login, {
+        withCredentials: true,
+      });
       getCurrentUser();
     } catch (error) {
       console.error("Login failed:", error);
+      throw error;
     }
   };
 

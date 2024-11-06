@@ -20,16 +20,17 @@ export default function LoginPage() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLDivElement>) => {
     e.preventDefault();
-    const username = usernameRef.current?.value || "";
-    const password = passwordRef.current?.value || "";
+    const Username = usernameRef.current?.value || "";
+    const Password = passwordRef.current?.value || "";
     setIsLoading(true);
 
     try {
-      await login(username, password);
+      await login({ Username, Password });
       showSuccessToast("Login successful");
       navigate("/");
     } catch (err: any) {
-      const errorMessage = err.response?.data.message || "Login failed";
+      console.log(err);
+      const errorMessage = err.response?.data || "Login failed";
       showErrorToast(errorMessage);
     } finally {
       setIsLoading(false);
