@@ -150,7 +150,7 @@ export default function ProfileSection({ assistant }: ProfileProps) {
       </VStack>
       <VStack gap={4} mt={4} width="full">
         {socialMediaData.map((media) => (
-          <Field key={media.name} label={`${media.name} (${media.type})`}>
+          <Field key={media.name} label={`${media.name} ${media.type}`}>
             <InputField
               value={socialMedia[media.field]}
               ref={socialMediaRefs[media.name]}
