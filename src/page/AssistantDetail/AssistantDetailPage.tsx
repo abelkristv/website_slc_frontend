@@ -2,11 +2,12 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Assistant } from "../../types/Assistant";
 import { getAssistantById } from "../../services/AssistantService";
-import { Text, Flex } from "@chakra-ui/react";
-import CareerJourneySection from "./components/CareerJourneySection";
+import { Flex } from "@chakra-ui/react";
 import TeachingHistorySection from "./components/TeachingHistorySection";
 import AwardsSection from "./components/AwardsSection";
 import ProfileSection from "./components/ProfileSection";
+import ExperiencesSection from "./components/ExperiencesSection";
+import { Skeleton } from "../../components/ui/skeleton";
 
 export default function AssistantDetailPage() {
   const { id } = useParams<{ id: string }>();
@@ -24,9 +25,28 @@ export default function AssistantDetailPage() {
 
   if (!assistant) {
     return (
-      <Text fontSize="lg" color="gray.500">
-        Loading...
-      </Text>
+      <Flex
+        direction={{ base: "column", lg: "row" }}
+        gap={4}
+        alignItems="start"
+        width="full"
+      >
+        <Flex
+          width={{ base: "100%", lg: "30%" }}
+          gap={4}
+          flexDirection="column"
+        >
+          <Skeleton height="324px" borderRadius="md" />
+        </Flex>
+
+        <Flex
+          width={{ base: "100%", lg: "68%" }}
+          gap={4}
+          flexDirection="column"
+        >
+          <Skeleton height="85vh" borderRadius="md" />
+        </Flex>
+      </Flex>
     );
   }
 
@@ -50,7 +70,7 @@ export default function AssistantDetailPage() {
         gap={4}
         flexDirection={"column"}
       >
-        <CareerJourneySection assistant={assistant} />
+        <ExperiencesSection assistant={assistant} />
         <TeachingHistorySection assistant={assistant} />
         <AwardsSection />
       </Flex>

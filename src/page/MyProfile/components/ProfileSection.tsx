@@ -22,6 +22,7 @@ import { useRef, useState } from "react";
 import { SocialMedia } from "../../../types/SocialMedia";
 import { updateSocialMedia } from "../../../services/SocialMediaService";
 import { showErrorToast, showSuccessToast } from "../../../utils/toastUtils";
+import { useUser } from "../../../contexts/UserContext";
 
 interface ProfileProps {
   assistant: Assistant;
@@ -73,6 +74,7 @@ export default function ProfileSection({ assistant }: ProfileProps) {
   }, {} as Record<string, React.RefObject<HTMLInputElement>>);
 
   const [isLoading, setIsLoading] = useState(false);
+  const { getCurrentUser } = useUser();
 
   const handleSubmit = async () => {
     const socialMedia: SocialMedia = {
@@ -87,6 +89,7 @@ export default function ProfileSection({ assistant }: ProfileProps) {
 
     try {
       await updateSocialMedia(socialMedia);
+      await getCurrentUser();
       showSuccessToast("Social media links updated successfully");
     } catch (error: any) {
       console.error("Failed to update social media links:", error);
@@ -167,8 +170,9 @@ export default function ProfileSection({ assistant }: ProfileProps) {
           {isLoading ? (
             <Spinner borderWidth={"3px"} size={"sm"} animationDuration="1s" />
           ) : (
-            "Save Changes"
+            ""
           )}
+          Save Changes
         </Button>
       </VStack>
     </Box>

@@ -11,13 +11,11 @@ import { Assistant } from "../../../types/Assistant";
 import { formatCareerDate } from "../../../utils/dateUtils";
 import { Position } from "../../../types/Position";
 
-interface CareerJourneyProps {
+interface ExperiencesProps {
   assistant: Assistant;
 }
 
-export default function CareerJourneySection({
-  assistant,
-}: CareerJourneyProps) {
+export default function ExperiencesSection({ assistant }: ExperiencesProps) {
   const positions: Position[] = assistant.Positions || [];
   if (positions.length === 0) {
     return null;
@@ -38,7 +36,7 @@ export default function CareerJourneySection({
         Career Journey
       </Text>
       <TimelineRoot>
-        {positions.map((position, index) => (
+        {positions.reverse().map((position, index) => (
           <TimelineItem key={index}>
             <TimelineConnector bg={"bluejack.100"}>
               <Box

@@ -7,32 +7,24 @@ import {
   DrawerHeader,
   DrawerRoot,
   DrawerTrigger,
-} from "./ui/drawer";
+} from "../../ui/drawer";
 import { HStack, Image, Text, Button } from "@chakra-ui/react";
 import { FiMenu } from "react-icons/fi";
 import { Link, useLocation } from "react-router-dom";
-import binus from "../assets/binus.png";
-import binus_dark from "../assets/binus_dark.png";
-import ribbon from "../assets/ribbon.png";
-import { useColorModeValue } from "./ui/color-mode";
+import binus from "../../../assets/binus.png";
+import binus_dark from "../../../assets/binus_dark.png";
+import ribbon from "../../../assets/ribbon.png";
+import { useColorModeValue } from "../../ui/color-mode";
+import { menuLinks } from "../../data/menuLinks";
 
-interface MenuItem {
-  name: string;
-  path: string;
-}
-
-interface MobileDrawerProps {
-  menuItems: MenuItem[];
-}
-
-export default function MobileDrawer({ menuItems }: MobileDrawerProps) {
+export default function UserDrawer() {
   const location = useLocation();
 
   return (
     <DrawerRoot placement={"end"}>
       <DrawerBackdrop />
       <DrawerTrigger asChild>
-        <Button variant="outline" aria-label="Open Menu" size="md">
+        <Button variant="outline" aria-label="Open Menu" size="md" ml={2}>
           <FiMenu />
         </Button>
       </DrawerTrigger>
@@ -49,8 +41,8 @@ export default function MobileDrawer({ menuItems }: MobileDrawerProps) {
           </HStack>
         </DrawerHeader>
         <DrawerBody>
-          <DrawerActionTrigger w={"full"}>
-            {menuItems.map((item) => (
+          <DrawerActionTrigger w={"full"} overflowX={"hidden"}>
+            {menuLinks.map((item) => (
               <Link key={item.name} to={item.path}>
                 <Text
                   color={
@@ -70,40 +62,6 @@ export default function MobileDrawer({ menuItems }: MobileDrawerProps) {
                 </Text>
               </Link>
             ))}
-            <Link to={"/join-us"}>
-              <Text
-                color={
-                  location.pathname === "/join-us"
-                    ? "bluejack.100"
-                    : "secondary"
-                }
-                w="full"
-                mt={2}
-                mb={6}
-                ml={10}
-                textAlign={"left"}
-                fontSize={"md"}
-                fontWeight={"semibold"}
-              >
-                Join Us
-              </Text>
-            </Link>
-            <Link to="/login">
-              <Text
-                color={
-                  location.pathname === "/login" ? "bluejack.100" : "secondary"
-                }
-                w="full"
-                mt={2}
-                mb={6}
-                ml={10}
-                textAlign={"left"}
-                fontSize={"md"}
-                fontWeight={"semibold"}
-              >
-                Login
-              </Text>
-            </Link>
           </DrawerActionTrigger>
         </DrawerBody>
         <DrawerCloseTrigger />

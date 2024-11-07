@@ -37,7 +37,6 @@ export default function UserProvider({
         `${import.meta.env.VITE_BACKEND_URL}/currentuser`,
         { withCredentials: true }
       );
-      console.log(response.data);
       setUser(response.data);
     } catch (error) {
       console.error("Token validation failed:", error);
