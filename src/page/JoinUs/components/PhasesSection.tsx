@@ -60,6 +60,7 @@ export default function PhasesSection() {
         scrollBehavior: "smooth",
         scrollSnapType: "y mandatory",
       }}
+      initial={{ opacity: 0 }}
       animate={isInView ? { opacity: 1 } : {}}
     >
       <VStack
@@ -108,7 +109,7 @@ export default function PhasesSection() {
               height={"100%"}
               animation={
                 isInView
-                  ? `slide-from-right-full ${index * 0.1 + 0.8}s ease`
+                  ? `slide-from-right-full ${index * 0.05 + 0.6}s ease`
                   : ""
               }
               _hover={{

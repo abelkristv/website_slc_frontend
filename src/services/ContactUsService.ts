@@ -1,9 +1,7 @@
 import axios from "axios";
 import { ContactUs } from "../types/ContactUs";
 
-export const createContactUs = async (
-  contact: ContactUs
-): Promise<ContactUs> => {
+export const createContactUs = async (contact: ContactUs) => {
   try {
     const response = await axios.post<ContactUs>(
       `${import.meta.env.VITE_BACKEND_URL}/contacts`,

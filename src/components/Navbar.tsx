@@ -138,8 +138,8 @@ export default function Navbar() {
                     {" "}
                     <HStack gap={4}>
                       <Avatar
+                        colorPalette={"accent"}
                         name={user.Assistant.Initial}
-                        colorPalette="pink"
                         src={user.Assistant.ProfilePicture}
                         size={"xs"}
                         css={{

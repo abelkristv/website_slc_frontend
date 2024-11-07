@@ -1,11 +1,6 @@
 import axios from "axios";
 import { Assistant } from "../types/Assistant";
-
-interface AssistantData {
-  users: Assistant[];
-  total_count: number;
-  total_pages: number;
-}
+import { AssistantPaginate } from "../types/AssistantPaginate";
 
 export const getAssistantData = async (
   generation?: string,
@@ -13,7 +8,7 @@ export const getAssistantData = async (
   orderby?: string,
   status?: string,
   page?: string
-): Promise<AssistantData> => {
+): Promise<AssistantPaginate> => {
   try {
     const params: Record<string, string> = {};
 
@@ -33,7 +28,7 @@ export const getAssistantData = async (
       params.page = page;
     }
 
-    const response = await axios.get<AssistantData>(
+    const response = await axios.get<AssistantPaginate>(
       `${import.meta.env.VITE_BACKEND_URL}/assistants`,
       { params }
     );

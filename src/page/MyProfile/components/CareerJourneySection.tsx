@@ -8,6 +8,8 @@ import {
   TimelineTitle,
 } from "../../../components/ui/timeline";
 import { Assistant } from "../../../types/Assistant";
+import { formatCareerDate } from "../../../utils/dateUtils";
+import { Position } from "../../../types/Position";
 
 interface CareerJourneyProps {
   assistant: Assistant;
@@ -16,6 +18,10 @@ interface CareerJourneyProps {
 export default function CareerJourneySection({
   assistant,
 }: CareerJourneyProps) {
+  const positions: Position[] = assistant.Positions || [];
+  if (positions.length === 0) {
+    return null;
+  }
   return (
     <Box
       borderWidth="1px"
@@ -31,7 +37,7 @@ export default function CareerJourneySection({
         Career Journey
       </Text>
       <TimelineRoot>
-        {assistant.Positions.reverse().map((position, index) => (
+        {positions.map((position, index) => (
           <TimelineItem key={index}>
             <TimelineConnector bg={"bluejack.100"}>
               <Box
@@ -46,7 +52,8 @@ export default function CareerJourneySection({
                 {position.PositionName}
               </TimelineTitle>
               <TimelineDescription>
-                {position.StartDate} - {position.EndDate}
+                {formatCareerDate(position.StartDate)} -{" "}
+                {formatCareerDate(position.EndDate)}
               </TimelineDescription>
               <Text fontSize="sm" color="gray.500">
                 {position.PositionDescription}

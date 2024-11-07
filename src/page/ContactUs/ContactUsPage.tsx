@@ -38,14 +38,18 @@ export default function ContactUsPage() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLDivElement>) => {
     e.preventDefault();
-    const Name = nameRef.current?.value || "";
-    const Email = emailRef.current?.value || "";
-    const Phone = phoneRef.current?.value || "";
-    const Message = messageRef.current?.value || "";
+
+    const ContactUs = {
+      Name: nameRef.current?.value || "",
+      Email: emailRef.current?.value || "",
+      Phone: phoneRef.current?.value || "",
+      Message: messageRef.current?.value || "",
+    };
 
     setIsLoading(true);
+
     try {
-      await createContactUs({ Name, Email, Phone, Message });
+      await createContactUs(ContactUs);
       setIsSubmitted(true);
     } catch (err: any) {
       const errorMessage = err.response?.data.message || "Submission failed";
@@ -71,6 +75,7 @@ export default function ContactUsPage() {
         borderRadius="lg"
         boxShadow="xl"
         bg="primary"
+        gap={4}
       >
         {!isSubmitted ? (
           <>
@@ -86,7 +91,7 @@ export default function ContactUsPage() {
               possible.
             </Text>
 
-            <Field label="Full Name" required mt={4}>
+            <Field label="Full Name" required>
               <InputField
                 ref={nameRef}
                 placeholder="Full Name"

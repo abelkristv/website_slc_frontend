@@ -27,18 +27,21 @@ export default function ChangePasswordPage() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLDivElement>) => {
     e.preventDefault();
-    const Old_Password = oldPasswordRef.current?.value || "";
-    const New_Password = newPasswordRef.current?.value || "";
-    const Confirm_New_Password = confirmPasswordRef.current?.value || "";
+
+    const ChangePassword = {
+      OldPassword: oldPasswordRef.current?.value || "",
+      NewPassword: newPasswordRef.current?.value || "",
+      ConfirmNewPassword: confirmPasswordRef.current?.value || "",
+    };
 
     setIsLoading(true);
+
     try {
-      await changePassword({
-        Old_Password,
-        New_Password,
-        Confirm_New_Password,
-      });
+      await changePassword(ChangePassword);
       showSuccessToast("Password changed successfully");
+      if (oldPasswordRef.current) oldPasswordRef.current.value = "";
+      if (newPasswordRef.current) newPasswordRef.current.value = "";
+      if (confirmPasswordRef.current) confirmPasswordRef.current.value = "";
     } catch (err: any) {
       const errorMessage = err.response?.data || "Password change failed";
       showErrorToast(errorMessage);

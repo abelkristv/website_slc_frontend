@@ -29,7 +29,6 @@ export default function LoginPage() {
       showSuccessToast("Login successful");
       navigate("/");
     } catch (err: any) {
-      console.log(err);
       const errorMessage = err.response?.data || "Login failed";
       showErrorToast(errorMessage);
     } finally {

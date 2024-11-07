@@ -13,8 +13,6 @@ export default function MyProfilePage() {
 
   useEffect(() => {
     setAssistant(user?.Assistant || null);
-    console.log(user?.Assistant);
-    console.log(user?.Assistant.Email);
   }, [user]);
 
   if (!assistant) {
@@ -45,7 +43,7 @@ export default function MyProfilePage() {
         gap={4}
         flexDirection={"column"}
       >
-        {/* <CareerJourneySection assistant={assistant} /> */}
+        <CareerJourneySection assistant={assistant} />
         <TeachingHistorySection assistant={assistant} />
         <AwardsSection />
       </Flex>

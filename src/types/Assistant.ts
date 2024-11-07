@@ -1,4 +1,5 @@
 import { Position } from "./Position";
+import { SocialMedia } from "./SocialMedia";
 import { TeachingHistory } from "./TeachingHistory";
 
 export type Assistant = {
@@ -17,4 +18,5 @@ export type Assistant = {
   Status: string;
   TeachingHistories: TeachingHistory[];
   Positions: Position[];
+  SocialMedia: SocialMedia;
 };

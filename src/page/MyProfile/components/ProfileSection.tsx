@@ -1,47 +1,100 @@
-import { Badge, Box, Image, Stack, Text, VStack } from "@chakra-ui/react";
+import {
+  Badge,
+  Box,
+  Image,
+  Spinner,
+  Stack,
+  Text,
+  VStack,
+} from "@chakra-ui/react";
 import { Assistant } from "../../../types/Assistant";
-import { FaGithub, FaInstagram, FaLinkedin, FaWhatsapp } from "react-icons/fa";
+import {
+  FaGithub,
+  FaGlobeAsia,
+  FaInstagram,
+  FaLinkedin,
+  FaWhatsapp,
+} from "react-icons/fa";
 import { Button } from "../../../components/ui/button";
 import { Field } from "../../../components/ui/field";
 import InputField from "../../../components/InputField";
-import { useRef } from "react";
+import { useRef, useState } from "react";
+import { SocialMedia } from "../../../types/SocialMedia";
+import { updateSocialMedia } from "../../../services/SocialMediaService";
+import { showErrorToast, showSuccessToast } from "../../../utils/toastUtils";
 
 interface ProfileProps {
   assistant: Assistant;
 }
 
-const socialMediaData = [
+const socialMediaData: Array<{
+  name: string;
+  logo: JSX.Element;
+  type: string;
+  field: keyof SocialMedia;
+}> = [
   {
     name: "Instagram",
     logo: <FaInstagram color="#E1306C" />,
-    link: "https://instagram.com",
     type: "Username",
+    field: "InstagramLink",
   },
   {
     name: "LinkedIn",
     logo: <FaLinkedin color="#0077B5" />,
-    link: "https://linkedin.com",
     type: "Link",
+    field: "LinkedInLink",
   },
   {
     name: "GitHub",
     logo: <FaGithub color="#333" />,
-    link: "https://github.com",
     type: "Username",
+    field: "GithubLink",
   },
   {
     name: "WhatsApp",
     logo: <FaWhatsapp color="#25D366" />,
-    link: "https://wa.me/6289513263889",
     type: "Number",
+    field: "WhatsappLink",
+  },
+  {
+    name: "Personal Website",
+    logo: <FaGlobeAsia />,
+    type: "Link",
+    field: "PersonalWebsiteLink",
   },
 ];
 
 export default function ProfileSection({ assistant }: ProfileProps) {
+  const socialMedia: SocialMedia = assistant.SocialMedia || {};
   const socialMediaRefs = socialMediaData.reduce((refs, media) => {
     refs[media.name] = useRef<HTMLInputElement>(null);
     return refs;
   }, {} as Record<string, React.RefObject<HTMLInputElement>>);
+
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleSubmit = async () => {
+    const socialMedia: SocialMedia = {
+      InstagramLink: socialMediaRefs["Instagram"].current?.value,
+      LinkedInLink: socialMediaRefs["LinkedIn"].current?.value,
+      GithubLink: socialMediaRefs["GitHub"].current?.value,
+      WhatsappLink: socialMediaRefs["WhatsApp"].current?.value,
+      PersonalWebsiteLink: socialMediaRefs["Personal Website"].current?.value,
+    };
+
+    setIsLoading(true);
+
+    try {
+      await updateSocialMedia(socialMedia);
+      showSuccessToast("Social media links updated successfully");
+    } catch (error: any) {
+      console.error("Failed to update social media links:", error);
+      showErrorToast(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <Box
@@ -92,10 +145,11 @@ export default function ProfileSection({ assistant }: ProfileProps) {
           </Box>
         </Stack>
       </VStack>
-      <VStack gap={2} mt={4} width="full">
+      <VStack gap={4} mt={4} width="full">
         {socialMediaData.map((media) => (
           <Field key={media.name} label={`${media.name} (${media.type})`}>
             <InputField
+              value={socialMedia[media.field]}
               ref={socialMediaRefs[media.name]}
               placeholder={media.name}
               icon={media.logo}
@@ -103,14 +157,18 @@ export default function ProfileSection({ assistant }: ProfileProps) {
           </Field>
         ))}
         <Button
-          type="submit"
+          type="button"
+          onClick={handleSubmit}
           bg="bluejack.100"
-          color="white"
           _hover={{ bg: "bluejack.200" }}
           width="full"
-          mt={4}
+          disabled={isLoading}
         >
-          Save Changes
+          {isLoading ? (
+            <Spinner borderWidth={"3px"} size={"sm"} animationDuration="1s" />
+          ) : (
+            "Save Changes"
+          )}
         </Button>
       </VStack>
     </Box>
