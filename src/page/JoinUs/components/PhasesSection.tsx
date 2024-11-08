@@ -79,6 +79,7 @@ export default function PhasesSection() {
           fontWeight="bold"
           mb={{ base: 0, lg: 6 }}
           textShadow="1px 1px 1px rgba(30, 30, 30, 0.3)"
+          animation={isInView ? `slide-from-top-full 0.8s ease` : ""}
         >
           Phases
         </Heading>
@@ -109,7 +110,7 @@ export default function PhasesSection() {
               height={"100%"}
               animation={
                 isInView
-                  ? `slide-from-right-full ${index * 0.05 + 0.6}s ease`
+                  ? `slide-from-bottom-full ${index * 0.05 + 0.8}s ease`
                   : ""
               }
               _hover={{

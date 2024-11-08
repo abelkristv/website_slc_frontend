@@ -62,6 +62,7 @@ export default function MoreInformationSection() {
           fontWeight="bold"
           mb={{ base: 0, lg: 6 }}
           textShadow="1px 1px 1px rgba(30, 30, 30, 0.3)"
+          animation={isInView ? `slide-from-top-full 0.8s ease` : ""}
         >
           More Information
         </Heading>
@@ -70,6 +71,7 @@ export default function MoreInformationSection() {
           fontSize={{ base: "lg", lg: "xl" }}
           px={6}
           textShadow="1px 1px 1px rgba(30, 30, 30, 0.3)"
+          animation={isInView ? `fade-in 0.6s ease` : ""}
         >
           <p>DM Instagram / Chat LINE Official Account</p>
           <p>KMG - Gabriel / Rico / Vito</p>
@@ -100,7 +102,7 @@ export default function MoreInformationSection() {
                 transition="transform 0.2s, box-shadow 0.2s"
                 animation={
                   isInView
-                    ? `slide-from-left-full ${index * 0.05 + 0.6}s ease`
+                    ? `slide-from-bottom-full ${index * 0.05 + 0.8}s ease`
                     : ""
                 }
                 cursor={"pointer"}

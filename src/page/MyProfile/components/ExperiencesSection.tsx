@@ -15,6 +15,7 @@ import { showErrorToast, showSuccessToast } from "../../../utils/toastUtils";
 import { useState } from "react";
 import { syncLinkedin } from "../../../services/SocialMediaService";
 import { SyncLinkedin } from "../../../types/SyncLinkedin";
+import { useUser } from "../../../contexts/UserContext";
 
 interface ExperiencesProps {
   assistant: Assistant;
@@ -27,6 +28,7 @@ export default function ExperiencesSection({ assistant }: ExperiencesProps) {
   }
 
   const [isLoading, setIsLoading] = useState(false);
+  const { getCurrentUser } = useUser();
 
   const handleSyncLinkedin = async () => {
     const sync: SyncLinkedin = {
@@ -37,6 +39,7 @@ export default function ExperiencesSection({ assistant }: ExperiencesProps) {
 
     try {
       await syncLinkedin(sync);
+      await getCurrentUser();
       showSuccessToast("Linkedin synced successfully");
     } catch (error: any) {
       showErrorToast(error.response.data.message);
@@ -96,7 +99,7 @@ export default function ExperiencesSection({ assistant }: ExperiencesProps) {
       </Flex>
 
       <TimelineRoot>
-        {positions.reverse().map((position, index) => (
+        {positions.map((position, index) => (
           <TimelineItem key={index}>
             <TimelineConnector bg={"bluejack.100"}>
               <Box
@@ -107,15 +110,27 @@ export default function ExperiencesSection({ assistant }: ExperiencesProps) {
               />
             </TimelineConnector>
             <TimelineContent>
-              <TimelineTitle fontWeight="bold">
-                {position.PositionName}
+              <TimelineTitle
+                fontWeight="bold"
+                color={
+                  /binus|bina nusantara|bank central asia/i.test(
+                    position.PositionName
+                  ) &&
+                  /assistant|subject|administrator|operation|ppti/i.test(
+                    position.PositionDescription
+                  )
+                    ? "bluejack.100"
+                    : undefined
+                }
+              >
+                {position.PositionDescription}
               </TimelineTitle>
               <TimelineDescription>
                 {formatCareerDate(position.StartDate)} -{" "}
                 {formatCareerDate(position.EndDate)}
               </TimelineDescription>
               <Text fontSize="sm" color="gray.500">
-                {position.PositionDescription}
+                {position.PositionName}
               </Text>
             </TimelineContent>
           </TimelineItem>

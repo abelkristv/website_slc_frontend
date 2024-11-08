@@ -1,5 +1,10 @@
 import { MenuItem, MenuItemGroup } from "../ui/menu";
-import { MdOutlineNewspaper, MdOutlinePhoto, MdPeople } from "react-icons/md";
+import {
+  MdOutlineAllInbox,
+  MdOutlineNewspaper,
+  MdOutlinePeople,
+  MdOutlinePhoto,
+} from "react-icons/md";
 import { AiOutlineTrophy } from "react-icons/ai";
 import { useNavigate } from "react-router";
 import { HiDatabase } from "react-icons/hi";
@@ -9,13 +14,23 @@ export default function AdminMenu() {
   return (
     <MenuItemGroup title="Admin Menu">
       <MenuItem
+        value="inbox"
+        cursor={"pointer"}
+        py={2}
+        px={4}
+        onClick={() => navigate("/user/my-profile")}
+      >
+        <MdOutlineAllInbox />
+        Manage Inbox
+      </MenuItem>
+      <MenuItem
         value="manage-users"
         cursor={"pointer"}
         py={2}
         px={4}
         onClick={() => navigate("/user/my-profile")}
       >
-        <MdPeople />
+        <MdOutlinePeople />
         Manage Users
       </MenuItem>
       <MenuItem
