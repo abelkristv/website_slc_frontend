@@ -32,7 +32,7 @@ export default function Navbar() {
             />
           </HStack>
 
-          <HStack gap={2} display={{ base: "none", md: "flex" }}>
+          <HStack gap={2} display={{ base: "none", lg: "flex" }}>
             {menuLinks.map((item) => (
               <Link key={item.name} to={item.path}>
                 <Button

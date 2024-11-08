@@ -11,7 +11,7 @@ export default function GuestAuthMenu() {
     <HStack gap={2}>
       <Link to="/join-us">
         <Button
-          display={{ base: "none", md: "flex" }}
+          display={{ base: "none", lg: "flex" }}
           variant="solid"
           color="white"
           rounded="md"
@@ -27,7 +27,7 @@ export default function GuestAuthMenu() {
       </Link>
       <Link to="/login">
         <Button
-          display={{ base: "none", md: "flex" }}
+          display={{ base: "none", lg: "flex" }}
           variant="outline"
           borderColor="bluejack.100"
           color="bluejack.100"
@@ -42,7 +42,7 @@ export default function GuestAuthMenu() {
         </Button>
       </Link>
       <ColorModeButton rounded="full" ml={1} />
-      <Box display={{ base: "block", md: "none" }}>
+      <Box display={{ base: "block", lg: "none" }}>
         <GuestDrawer />
       </Box>
     </HStack>

@@ -38,7 +38,7 @@ export default function UserAuthMenu() {
         <MenuRoot positioning={{ placement: "bottom-end" }}>
           <MenuTrigger outline={"none"} border={"none"} cursor={"pointer"}>
             <Box
-              px={{ base: 0, md: 4 }}
+              px={{ base: 0, lg: 4 }}
               py={2}
               rounded={"md"}
               _hover={{ bg: useColorModeValue("gray.100", "gray.900") }}
@@ -58,14 +58,10 @@ export default function UserAuthMenu() {
                     outlineStyle: "solid",
                   }}
                 />
-                <Text
-                  fontSize={"md"}
-                  fontWeight={"medium"}
-                  display={{ base: "none", md: "flex" }}
-                >
+                <Text fontSize={"md"} fontWeight={"medium"} display={"flex"}>
                   {user.Assistant.Initial} {user.Assistant.Generation}
                 </Text>
-                <Box display={{ base: "none", md: "flex" }}>
+                <Box display={"flex"}>
                   <MdKeyboardArrowDown />
                 </Box>
               </HStack>
@@ -125,7 +121,7 @@ export default function UserAuthMenu() {
             {user.Username === "DT23-2" && <AdminMenu />}
           </MenuContent>
         </MenuRoot>
-        <Box display={{ base: "block", md: "none" }}>
+        <Box display={{ base: "block", lg: "none" }}>
           <UserDrawer />
         </Box>
       </HStack>

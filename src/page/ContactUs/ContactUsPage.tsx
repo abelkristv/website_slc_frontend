@@ -75,7 +75,6 @@ export default function ContactUsPage() {
         borderRadius="lg"
         boxShadow="xl"
         bg="primary"
-        gap={4}
       >
         {!isSubmitted ? (
           <>
@@ -87,8 +86,8 @@ export default function ContactUsPage() {
               color="gray.500"
               textAlign="center"
             >
-              Fill out the form below and we'll reach out to you as soon as
-              possible.
+              Interested in collaborating? Fill out the form below, we'll reach
+              out to you as soon as possible.
             </Text>
 
             <Field label="Full Name" required>

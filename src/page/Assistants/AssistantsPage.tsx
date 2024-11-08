@@ -90,7 +90,7 @@ export default function AssistantsPage() {
 
   useEffect(() => {
     setPage(1);
-  }, [generation, orderby, status]);
+  }, [generation, orderby, status, searchTerm]);
 
   return (
     <VStack gap={4}>
