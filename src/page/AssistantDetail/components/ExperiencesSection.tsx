@@ -33,10 +33,10 @@ export default function ExperiencesSection({ assistant }: ExperiencesProps) {
       pb={2}
     >
       <Text fontSize="xl" fontWeight="bold" color="secondary" mb={4}>
-        Career Journey
+        Experieces
       </Text>
       <TimelineRoot>
-        {positions.reverse().map((position, index) => (
+        {positions.map((position, index) => (
           <TimelineItem key={index}>
             <TimelineConnector bg={"bluejack.100"}>
               <Box

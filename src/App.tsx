@@ -11,6 +11,7 @@ import JoinUsPage from "./page/JoinUs/JoinUsPage";
 import ParticlesBackground from "./templates/ParticlesBackground";
 import ChangePasswordPage from "./page/ChangePassword/ChangePasswordPage";
 import MyProfilePage from "./page/MyProfile/MyProfilePage";
+import ManageUsersPage from "./page/Admin/ManageUsers/ManageUsersPage";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route path="/contact-us" element={<ContactUsPage />} />
           <Route path="/join-us" element={<JoinUsPage />} />
           <Route path="/user/my-profile" element={<MyProfilePage />} />
+          <Route path="/admin/manage-users" element={<ManageUsersPage />} />
           <Route
             path="/user/change-password"
             element={<ChangePasswordPage />}

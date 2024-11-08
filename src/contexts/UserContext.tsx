@@ -37,7 +37,6 @@ export default function UserProvider({
         `${import.meta.env.VITE_BACKEND_URL}/currentuser`,
         { withCredentials: true }
       );
-      response.data.Assistant.Positions.reverse();
       setUser(response.data);
     } catch (error) {
       console.error("Token validation failed:", error);
