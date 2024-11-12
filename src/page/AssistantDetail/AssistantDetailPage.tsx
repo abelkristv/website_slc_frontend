@@ -21,8 +21,9 @@ export default function AssistantDetailPage() {
   };
 
   useEffect(() => {
+    setAssistant(null);
     fetchAssistant();
-  }, []);
+  }, [id]);
 
   if (!assistant) {
     return (

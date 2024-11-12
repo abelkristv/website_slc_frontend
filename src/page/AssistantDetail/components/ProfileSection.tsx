@@ -51,7 +51,7 @@ export default function ProfileSection({
 
     try {
       await updateSocialMedia(socialMedia);
-      await fetchAssistant();
+      fetchAssistant();
       showSuccessToast("Social media links updated successfully");
     } catch (error: any) {
       console.error("Failed to update social media links:", error);

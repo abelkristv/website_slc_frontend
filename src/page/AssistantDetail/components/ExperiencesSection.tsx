@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import {
   Box,
   HStack,
@@ -20,12 +20,18 @@ import {
   TimelineTitle,
 } from "../../../components/ui/timeline";
 import { Assistant } from "../../../types/Assistant";
-import { calculateDuration, formatCareerDate } from "../../../utils/dateUtils";
+import {
+  calculateDuration,
+  formatCareerDate,
+  getEarliestStartDate,
+  getLatestEndDate,
+} from "../../../utils/dateUtils";
 import { AssistantExperience } from "../../../types/AssistantExperience";
 import { useUser } from "../../../contexts/UserContext";
 import { SyncLinkedin } from "../../../types/SyncLinkedin";
 import { syncLinkedin } from "../../../services/SocialMediaService";
 import { showErrorToast, showSuccessToast } from "../../../utils/toastUtils";
+import CollapsibleDescription from "./CollapsibleDescription";
 
 interface ExperiencesProps {
   assistant: Assistant;
@@ -51,7 +57,7 @@ export default function ExperiencesSection({
 
     try {
       await syncLinkedin(sync);
-      await fetchAssistant();
+      fetchAssistant();
       showSuccessToast("Linkedin synced successfully");
     } catch (error: any) {
       showErrorToast(error.response.data.message);
@@ -59,6 +65,13 @@ export default function ExperiencesSection({
       setIsLoading(false);
     }
   };
+
+  if (
+    assistant.ID !== user?.Assistant.ID &&
+    assistantExperiences.length === 0
+  ) {
+    return null;
+  }
 
   return (
     <Box
@@ -142,10 +155,12 @@ export default function ExperiencesSection({
                 </Text>
                 <Text fontSize="xs" color="secondary" mt={-0.5}>
                   {calculateDuration(
-                    assistantExperience.Experiences[
-                      assistantExperience.Experiences.length - 1
-                    ].StartDate,
-                    assistantExperience.Experiences[0].EndDate
+                    getEarliestStartDate(
+                      assistantExperience.Experiences
+                    ).toISOString(),
+                    getLatestEndDate(
+                      assistantExperience.Experiences
+                    ).toISOString()
                   )}
                 </Text>
                 <Text fontSize="xs" color="secondary">
@@ -191,7 +206,7 @@ export default function ExperiencesSection({
                       </Text>
                     )}
                     {experience.PositionDescription &&
-                    experience.PositionDescription.length >= 100 ? (
+                    experience.PositionDescription.length >= 130 ? (
                       <CollapsibleDescription
                         description={experience.PositionDescription}
                       />
@@ -213,62 +228,6 @@ export default function ExperiencesSection({
           </VStack>
         );
       })}
-    </Box>
-  );
-}
-
-interface CollapsibleDescriptionProps {
-  description: string;
-}
-
-function CollapsibleDescription({ description }: CollapsibleDescriptionProps) {
-  const [isOpen, setIsOpen] = useState(false);
-  const [contentHeight, setContentHeight] = useState(0);
-  const contentRef = useRef<HTMLDivElement>(null);
-  const previewHeight = 20;
-
-  useEffect(() => {
-    if (contentRef.current) {
-      setContentHeight(
-        isOpen ? contentRef.current.scrollHeight : previewHeight
-      );
-    }
-  }, [isOpen, description]);
-
-  const toggleOpen = () => {
-    setIsOpen((prev) => !prev);
-  };
-
-  return (
-    <Box mt={1}>
-      <Box
-        style={{
-          height: `${contentHeight}px`,
-          overflow: "hidden",
-          transition: "height 0.2s ease",
-        }}
-      >
-        <Box ref={contentRef}>
-          <Text fontSize="sm" whiteSpace="pre-line">
-            {description}
-          </Text>
-        </Box>
-      </Box>
-      {description.length > previewHeight && (
-        <Button
-          size="sm"
-          variant="plain"
-          onClick={toggleOpen}
-          p={0}
-          mt={1}
-          color="bluejack.100"
-          _hover={{ color: "bluejack.200", textDecoration: "underline" }}
-          textAlign={"right"}
-          mb={-2}
-        >
-          {isOpen ? "See less" : "See more"}
-        </Button>
-      )}
     </Box>
   );
 }

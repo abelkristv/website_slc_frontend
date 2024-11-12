@@ -1,3 +1,5 @@
+import { Position } from "../types/Position";
+
 export const formatCareerDate = (date: string) => {
   const parsedDate = new Date(date);
   if (isNaN(parsedDate.getTime()) || parsedDate.getFullYear() < 1900) {
@@ -34,4 +36,25 @@ export function calculateDuration(
   return `${years > 0 ? `${years} yr${years > 1 ? "s" : ""} ` : ""}${
     months > 0 ? `${months} mo${months > 1 ? "s" : ""}` : ""
   }`.trim();
+}
+
+export function getEarliestStartDate(positions: Position[]) {
+  return new Date(
+    Math.min(
+      ...positions.map((position) => new Date(position.StartDate).getTime())
+    )
+  );
+}
+
+export function getLatestEndDate(positions: Position[]): Date {
+  return new Date(
+    Math.max(
+      ...positions.map((position) => {
+        const endDate = new Date(position.EndDate);
+        return endDate.getFullYear() < 1900
+          ? new Date().getTime()
+          : endDate.getTime();
+      })
+    )
+  );
 }
