@@ -73,7 +73,7 @@ export default function UserAuthMenu() {
               cursor={"pointer"}
               py={2}
               px={4}
-              onClick={() => navigate("/user/my-profile")}
+              onClick={() => navigate(`/assistants/${user.Assistant.ID}`)}
             >
               <MdOutlinePerson />
               My Profile
