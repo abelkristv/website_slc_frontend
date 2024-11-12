@@ -1,4 +1,4 @@
-import { Box, Text } from "@chakra-ui/react";
+import { Box, HStack, Image, Text, VStack } from "@chakra-ui/react";
 import {
   TimelineConnector,
   TimelineContent,
@@ -9,17 +9,15 @@ import {
 } from "../../../components/ui/timeline";
 import { Assistant } from "../../../types/Assistant";
 import { formatCareerDate } from "../../../utils/dateUtils";
-import { Position } from "../../../types/Position";
+import { AssistantExperience } from "../../../types/AssistantExperience";
 
 interface ExperiencesProps {
   assistant: Assistant;
 }
 
 export default function ExperiencesSection({ assistant }: ExperiencesProps) {
-  const positions: Position[] = assistant.Positions || [];
-  if (positions.length === 0) {
-    return null;
-  }
+  const assistantExperiences: AssistantExperience[] =
+    assistant.AssistantExperiences || [];
 
   return (
     <Box
@@ -32,35 +30,89 @@ export default function ExperiencesSection({ assistant }: ExperiencesProps) {
       p={8}
       pb={2}
     >
-      <Text fontSize="xl" fontWeight="bold" color="secondary" mb={4}>
-        Experieces
+      <Text fontSize="xl" fontWeight="bold" color="secondary">
+        Experiences
       </Text>
-      <TimelineRoot>
-        {positions.map((position, index) => (
-          <TimelineItem key={index}>
-            <TimelineConnector bg={"bluejack.100"}>
-              <Box
-                width="12px"
-                height="12px"
-                borderRadius="full"
-                bg="primary"
+
+      {assistantExperiences.map((assistantExperience, index) =>
+        assistantExperience.Experiences.length > 1 ? (
+          <VStack alignItems={"start"} justifyContent={"start"} key={index}>
+            <HStack>
+              {" "}
+              <Image
+                width={10}
+                src={`data:image/jpeg;base64,${assistantExperience.CompanyLogo}`}
               />
-            </TimelineConnector>
-            <TimelineContent>
-              <TimelineTitle fontWeight="bold">
-                {position.PositionName}
-              </TimelineTitle>
-              <TimelineDescription>
-                {formatCareerDate(position.StartDate)} -{" "}
-                {formatCareerDate(position.EndDate)}
-              </TimelineDescription>
-              <Text fontSize="sm" color="gray.500">
-                {position.PositionDescription}
+              <Text fontWeight="semibold" ml={2}>
+                {assistantExperience.CompanyName}
               </Text>
-            </TimelineContent>
-          </TimelineItem>
-        ))}
-      </TimelineRoot>
+            </HStack>
+            <TimelineRoot size={"sm"}>
+              {assistantExperience.Experiences.map((experience, index) => (
+                <TimelineItem key={index} ml={3}>
+                  <TimelineConnector bg={"bluejack.100"}>
+                    <Box
+                      width="9px"
+                      height="9px"
+                      borderRadius="full"
+                      bg="primary"
+                    />
+                  </TimelineConnector>
+                  <TimelineContent ml={3} mt={-1}>
+                    <TimelineTitle
+                      fontSize={"sm"}
+                      fontWeight="semibold"
+                      lineHeight={1.5}
+                    >
+                      {experience.PositionName}
+                    </TimelineTitle>
+                    <TimelineDescription>
+                      {formatCareerDate(experience.StartDate)} -{" "}
+                      {formatCareerDate(experience.EndDate)}
+                    </TimelineDescription>
+                    <Text fontSize="sm" whiteSpace="pre-line">
+                      {assistantExperience.Experiences[0].PositionDescription}
+                    </Text>
+                  </TimelineContent>
+                </TimelineItem>
+              ))}
+            </TimelineRoot>
+          </VStack>
+        ) : (
+          <VStack
+            alignItems={"start"}
+            justifyContent={"start"}
+            key={index}
+            mb={8}
+          >
+            <HStack alignItems={"start"} justifyContent={"start"}>
+              {" "}
+              <Image
+                width={10}
+                src={`data:image/jpeg;base64,${assistantExperience.CompanyLogo}`}
+              />
+              <VStack ml={2} alignItems={"start"} gap={0.5}>
+                {" "}
+                <Text fontWeight="semibold" lineHeight={1.5}>
+                  {assistantExperience.Experiences[0].PositionName}
+                </Text>{" "}
+                <Text fontSize={"sm"}>{assistantExperience.CompanyName}</Text>
+                <Text fontSize={"xs"} color={"secondary"}>
+                  {" "}
+                  {formatCareerDate(
+                    assistantExperience.Experiences[0].StartDate
+                  )}{" "}
+                  -{" "}
+                  {formatCareerDate(assistantExperience.Experiences[0].EndDate)}
+                </Text>
+                <Text fontSize="sm" whiteSpace="pre-line">
+                  {assistantExperience.Experiences[0].PositionDescription}
+                </Text>
+              </VStack>
+            </HStack>
+          </VStack>
+        )
+      )}
     </Box>
   );
 }

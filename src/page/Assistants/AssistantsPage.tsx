@@ -7,9 +7,9 @@ import {
   getGenerations,
 } from "../../services/AssistantService";
 import AssistantsFilters from "./components/AssistantsFilters";
-import AssistantsPagination from "./components/AssistantsPagination";
 import AssistantsGrid from "./components/AssistantsGrid";
 import AssistantsNotFound from "./components/AssistantsNotFound";
+import Pagination from "../../components/Pagination";
 
 export default function AssistantsPage() {
   const [assistants, setAssistants] = useState<Assistant[]>([]);
@@ -22,6 +22,7 @@ export default function AssistantsPage() {
   const [count, setCount] = useState<number>(1);
   const [page, setPage] = useState<number>(1);
   const searchInputRef = useRef<HTMLInputElement>(null);
+  const [itemsPerPage] = useState(24);
   const fetchDataTimeoutRef = useRef<number>(0);
   const navigate = useNavigate();
   const location = useLocation();
@@ -123,7 +124,12 @@ export default function AssistantsPage() {
         <AssistantsNotFound />
       ) : (
         assistants.length > 0 && (
-          <AssistantsPagination count={count} page={page} setPage={setPage} />
+          <Pagination
+            count={count}
+            page={page}
+            setPage={setPage}
+            itemsPerPage={itemsPerPage}
+          />
         )
       )}
     </VStack>

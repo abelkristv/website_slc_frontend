@@ -20,7 +20,7 @@ export const updateSocialMedia = async (socialMedia: SocialMedia) => {
 export const syncLinkedin = async (sync: SyncLinkedin) => {
   try {
     const response = await axios.post<SocialMedia>(
-      `${import.meta.env.VITE_FLASK_BACKEND_URL}/add_assistant_position`,
+      `${import.meta.env.VITE_FLASK_BACKEND_URL}/add-assistant-experiences`,
       sync
     );
 

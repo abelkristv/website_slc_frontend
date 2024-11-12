@@ -45,6 +45,7 @@ export const getAssistantById = async (id: string): Promise<Assistant> => {
     const response = await axios.get<Assistant>(
       `${import.meta.env.VITE_BACKEND_URL}/assistants/${id}`
     );
+    console.log(response.data);
     return response.data;
   } catch (error) {
     console.error("Error fetching assistant data:", error);

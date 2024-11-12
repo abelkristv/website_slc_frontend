@@ -93,7 +93,7 @@ export default function ProfileSection({ assistant }: ProfileProps) {
           </Badge>
           <Box textAlign="center">
             {assistant.Status === "active" ? (
-              <Badge variant={"plain"} colorScheme="blue" size={"md"}>
+              <Badge variant={"plain"} color={"bluejack.200"} size={"md"}>
                 Laboratory Assistant
               </Badge>
             ) : (
@@ -106,11 +106,11 @@ export default function ProfileSection({ assistant }: ProfileProps) {
       </VStack>
       <VStack gap={4} mt={4} width="full">
         {socialMediaData.map((media) => (
-          <Field key={media.name} label={`${media.name} ${media.type}`}>
+          <Field key={media.name} label={`${media.name}`}>
             <InputField
               value={socialMedia[media.field]}
               ref={socialMediaRefs[media.name]}
-              placeholder={media.name}
+              placeholder={media.placeholder}
               icon={media.logo}
             />
           </Field>
@@ -122,6 +122,7 @@ export default function ProfileSection({ assistant }: ProfileProps) {
           _hover={{ bg: "bluejack.200" }}
           width="full"
           disabled={isLoading}
+          color={"white"}
         >
           {isLoading ? (
             <Spinner borderWidth={"3px"} size={"sm"} animationDuration="1s" />

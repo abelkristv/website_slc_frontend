@@ -5,24 +5,26 @@ import {
   PaginationPageText,
   PaginationPrevTrigger,
   PaginationRoot,
-} from "../../../components/ui/pagination";
+} from "./ui/pagination";
 
-interface AssistantsPaginationProps {
+interface PaginationProps {
   count: number;
   page: number;
+  itemsPerPage: number;
   setPage: (page: number) => void;
 }
 
-export default function AssistantsPagination({
+export default function Pagination({
   count,
   page,
   setPage,
-}: AssistantsPaginationProps) {
+  itemsPerPage,
+}: PaginationProps) {
   return (
     <Flex>
       <PaginationRoot
         count={count}
-        pageSize={24}
+        pageSize={itemsPerPage}
         page={page}
         bg="primary"
         borderRadius="sm"

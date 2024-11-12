@@ -57,7 +57,7 @@ export default function TeachingHistorySection({
                   borderWidth="1px"
                   borderRadius="full"
                   bg={currentSlide === index ? "bluejack.100" : "card"}
-                  color={currentSlide === index ? "primary" : "bluejack.100"}
+                  color={currentSlide === index ? "white" : "bluejack.100"}
                   textAlign="center"
                   fontSize="sm"
                   fontWeight="semibold"
