@@ -109,7 +109,7 @@ export default function ExperiencesSection({
               ) : (
                 ""
               )}
-              Sync with Linkedin
+              Sync with LinkedIn
             </Button>
           ) : (
             <Badge
@@ -223,7 +223,7 @@ export default function ExperiencesSection({
             </TimelineRoot>
 
             {index !== assistantExperiences.length - 1 && (
-              <Separator mt={-2} mb={5} />
+              <Separator mt={-2} mb={2} />
             )}
           </VStack>
         );

@@ -38,7 +38,6 @@ export default function UserProvider({
         { withCredentials: true }
       );
       setUser(response.data);
-      console.log("User:", response.data);
     } catch (error) {
       console.error("Token validation failed:", error);
       setUser(null);
