@@ -84,7 +84,7 @@ export default function ExperiencesSection({
       p={8}
     >
       {assistant.ID === user?.Assistant.ID ? (
-        <Flex justifyContent={"space-between"} alignItems={"start"} mb={4}>
+        <Flex justifyContent={"space-between"} alignItems={"start"}>
           <Text fontSize="xl" fontWeight="bold" color="secondary">
             Experiences
           </Text>
@@ -138,7 +138,7 @@ export default function ExperiencesSection({
         );
 
         return (
-          <VStack alignItems="start" justifyContent="start" key={index}>
+          <VStack alignItems="start" justifyContent="start" key={index} mt={4}>
             <HStack alignItems="start" justifyContent="start">
               <Image
                 width={10}
