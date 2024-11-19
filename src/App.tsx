@@ -12,6 +12,7 @@ import ParticlesBackground from "./templates/ParticlesBackground";
 import ChangePasswordPage from "./page/ChangePassword/ChangePasswordPage";
 import MyProfilePage from "./page/MyProfile/MyProfilePage";
 import ManageUsersPage from "./page/Admin/ManageUsers/ManageUsersPage";
+import HomePage from "./page/Home/HomePage";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
       <ParticlesBackground />
       <Template>
         <Routes>
+          <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/assistants" element={<AssistantsPage />} />
           <Route path="/assistants/:id" element={<AssistantDetailPage />} />

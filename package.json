@@ -26,6 +26,7 @@
     "react-router": "^6.27.0",
     "react-router-dom": "^6.27.0",
     "react-slick": "^0.30.2",
+    "recharts": "^2.13.3",
     "slick-carousel": "^1.8.1",
     "tsparticles": "^3.5.0",
     "tsparticles-engine": "^2.12.0"
