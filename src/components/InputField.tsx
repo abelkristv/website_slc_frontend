@@ -22,6 +22,7 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
         variant="outline"
         bg="primary"
         shadow="xs"
+        _selection={{ bg: "bluejack.200", color: "white" }}
         defaultValue={value}
       />
     </InputGroup>

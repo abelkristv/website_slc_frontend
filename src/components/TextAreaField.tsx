@@ -21,6 +21,7 @@ const TextAreaField = forwardRef<HTMLTextAreaElement, TextAreaFieldProps>(
         variant="outline"
         bg="primary"
         shadow="xs"
+        _selection={{ bg: "bluejack.200", color: "white" }}
         defaultValue={value}
         height={"8rem"}
       />

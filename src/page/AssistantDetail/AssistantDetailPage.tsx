@@ -13,14 +13,16 @@ export default function AssistantDetailPage() {
   const { id } = useParams<{ id: string }>();
   const [assistant, setAssistant] = useState<Assistant | null>(null);
 
-  useEffect(() => {
+  const fetchAssistant = async () => {
     if (id) {
-      const fetchAssistant = async () => {
-        const data = await getAssistantById(id);
-        setAssistant(data);
-      };
-      fetchAssistant();
+      const data = await getAssistantById(id);
+      setAssistant(data);
     }
+  };
+
+  useEffect(() => {
+    setAssistant(null);
+    fetchAssistant();
   }, [id]);
 
   if (!assistant) {
@@ -62,7 +64,7 @@ export default function AssistantDetailPage() {
         gap={4}
         flexDirection={"column"}
       >
-        <ProfileSection assistant={assistant} />
+        <ProfileSection assistant={assistant} fetchAssistant={fetchAssistant} />
       </Flex>
 
       <Flex
@@ -70,7 +72,10 @@ export default function AssistantDetailPage() {
         gap={4}
         flexDirection={"column"}
       >
-        <ExperiencesSection assistant={assistant} />
+        <ExperiencesSection
+          assistant={assistant}
+          fetchAssistant={fetchAssistant}
+        />
         <TeachingHistorySection assistant={assistant} />
         <AwardsSection />
       </Flex>

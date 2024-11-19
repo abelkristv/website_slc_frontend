@@ -10,7 +10,6 @@ import ContactUsPage from "./page/ContactUs/ContactUsPage";
 import JoinUsPage from "./page/JoinUs/JoinUsPage";
 import ParticlesBackground from "./templates/ParticlesBackground";
 import ChangePasswordPage from "./page/ChangePassword/ChangePasswordPage";
-import MyProfilePage from "./page/MyProfile/MyProfilePage";
 import ManageUsersPage from "./page/Admin/ManageUsers/ManageUsersPage";
 import HomePage from "./page/Home/HomePage";
 
@@ -26,7 +25,6 @@ function App() {
           <Route path="/assistants/:id" element={<AssistantDetailPage />} />
           <Route path="/contact-us" element={<ContactUsPage />} />
           <Route path="/join-us" element={<JoinUsPage />} />
-          <Route path="/user/my-profile" element={<MyProfilePage />} />
           <Route path="/admin/manage-users" element={<ManageUsersPage />} />
           <Route
             path="/user/change-password"
