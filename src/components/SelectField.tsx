@@ -12,6 +12,7 @@ interface SelectFieldProps {
   placeholder: string;
   onChange: (value: string) => void;
   width?: string;
+  size?: string;
   value: string;
 }
 
@@ -20,6 +21,7 @@ const SelectField: React.FC<SelectFieldProps> = ({
   placeholder,
   onChange,
   width = "full",
+  size = "md",
   value,
 }) => {
   function createValue(value: string): string[] {
@@ -35,6 +37,7 @@ const SelectField: React.FC<SelectFieldProps> = ({
       borderRadius="md"
       bg="primary"
       width={width}
+      size={size as "md" | "sm" | "lg" | "xs" | undefined}
       shadow="xs"
       value={createValue(value)}
       onValueChange={(e) => onChange(e.value[0])}

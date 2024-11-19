@@ -1,26 +1,31 @@
-import { Box, Heading, HStack, Table, Text, VStack } from "@chakra-ui/react";
-import {
-  PaginationItems,
-  PaginationNextTrigger,
-  PaginationPrevTrigger,
-  PaginationRoot,
-} from "../../../components/ui/pagination";
+import { VStack, Text } from "@chakra-ui/react";
+import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router";
 import { getUsers } from "../../../services/UserService";
-import { useEffect, useState } from "react";
+import { getGenerations } from "../../../services/AssistantService";
 import { User } from "../../../types/User";
-import { Button } from "../../../components/ui/button";
-import { useColorModeValue } from "../../../components/ui/color-mode";
 import Pagination from "../../../components/Pagination";
 import AssistantsNotFound from "../../Assistants/components/AssistantsNotFound";
-import { useNavigate } from "react-router";
-import { Link } from "react-router-dom";
+import UsersFilters from "./components/UsersFilters";
+import UsersTable from "./components/UsersTable";
 
 export default function ManageUsersPage() {
   const [users, setUsers] = useState<User[]>([]);
   const [count, setCount] = useState<number>(1);
   const [page, setPage] = useState<number>(1);
   const [loading, setLoading] = useState(true);
-  const [itemsPerPage, setItemsPerPage] = useState(25);
+  const [itemsPerPage] = useState(25);
+  const [userPositions, setUserPositions] = useState<{ [key: string]: string }>(
+    {}
+  );
+  const [generation, setGeneration] = useState<string>("");
+  const [orderby, setOrderby] = useState<string>("");
+  const [status, setStatus] = useState<string>("");
+  const [searchTerm, setSearchTerm] = useState<string>("");
+  const [generations, setGenerations] = useState<string[]>([]);
+
+  const fetchDataTimeoutRef = useRef<number>(0);
+  const searchInputRef = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
 
   const fetchData = async () => {
@@ -31,88 +36,86 @@ export default function ManageUsersPage() {
     setLoading(false);
   };
 
+  const updateSearchParams = () => {
+    const params = new URLSearchParams();
+    if (generation) params.set("generation", generation);
+    if (orderby) params.set("orderby", orderby);
+    if (status) params.set("status", status);
+    if (searchTerm) params.set("search", searchTerm);
+    params.set("page", page.toString());
+    navigate(`?${params.toString()}`, { replace: true });
+  };
+
   useEffect(() => {
+    updateSearchParams();
+  }, [generation, orderby, status, page, searchTerm]);
+
+  useEffect(() => {
+    const fetchGenerations = async () => {
+      const data = await getGenerations();
+      setGenerations(data);
+    };
+    fetchGenerations();
+
     const params = new URLSearchParams(location.search);
+    setGeneration(params.get("generation") || "");
+    setOrderby(params.get("orderby") || "");
+    setStatus(params.get("status") || "");
+    setSearchTerm(params.get("search") || "");
     setPage(parseInt(params.get("page") || "1"));
-    fetchData();
+
+    const searchElement = searchInputRef.current;
+    const handleInput = () => {
+      clearTimeout(fetchDataTimeoutRef.current);
+      fetchDataTimeoutRef.current = setTimeout(() => {
+        setSearchTerm(searchElement?.value || "");
+      }, 600);
+    };
+
+    searchElement?.addEventListener("input", handleInput);
+    return () => {
+      searchElement?.removeEventListener("input", handleInput);
+      clearTimeout(fetchDataTimeoutRef.current);
+    };
   }, []);
 
   useEffect(() => {
-    const params = new URLSearchParams();
-    params.set("page", page.toString());
-    navigate(`?${params.toString()}`, { replace: true });
+    updateSearchParams();
     fetchData();
     window.scrollTo(0, 0);
   }, [page]);
 
-  const resetPasswordHoverBg = useColorModeValue(
-    { bg: "blue.50" },
-    { bg: "gray.800" }
-  );
+  const handlePositionChange = (userId: string, newPosition: string) => {
+    setUserPositions((prevPositions) => ({
+      ...prevPositions,
+      [userId]: newPosition,
+    }));
+  };
 
   return (
     <VStack gap={4} bg="primary" p={6} borderRadius="lg" boxShadow="lg">
       <Text fontSize="4xl" fontWeight="bold" color="bluejack.100">
         Manage Users
       </Text>
-      <Table.Root size="md" striped overflowX={"scroll"}>
-        <Table.Header>
-          <Table.Row bgColor={"bluejack.100"}>
-            <Table.ColumnHeader width="6%" color={"white"}>
-              No
-            </Table.ColumnHeader>
-            <Table.ColumnHeader width="6%" color={"white"}>
-              Initial
-            </Table.ColumnHeader>
-            <Table.ColumnHeader width="8%" color={"white"}>
-              Generation
-            </Table.ColumnHeader>
-            <Table.ColumnHeader width="30%" color={"white"}>
-              Full Name
-            </Table.ColumnHeader>
-            <Table.ColumnHeader width="20%" color={"white"}>
-              Position
-            </Table.ColumnHeader>
-            <Table.ColumnHeader width="20%" color={"white"}>
-              Action
-            </Table.ColumnHeader>
-          </Table.Row>
-        </Table.Header>
-        <Table.Body>
-          {users.map((user, index) => (
-            <Table.Row key={index}>
-              <Table.Cell>{(page - 1) * itemsPerPage + index + 1}</Table.Cell>
-              <Table.Cell>{user.Assistant.Initial}</Table.Cell>
-              <Table.Cell>{user.Assistant.Generation}</Table.Cell>
-              <Table.Cell>{user.Assistant.FullName}</Table.Cell>
-              <Table.Cell>Laboratory Assistant</Table.Cell>
-              <Table.Cell display={"flex"} gap={4}>
-                <Link to={`/assistants/${user.Assistant.ID}`}>
-                  <Button
-                    bg="bluejack.100"
-                    _hover={{ bg: "bluejack.200" }}
-                    size={"xs"}
-                    px={4}
-                    color={"white"}
-                  >
-                    View Profile
-                  </Button>
-                </Link>
-                <Button
-                  variant="outline"
-                  borderColor="bluejack.100"
-                  color="bluejack.100"
-                  size={"xs"}
-                  px={4}
-                  _hover={resetPasswordHoverBg}
-                >
-                  Reset Password
-                </Button>
-              </Table.Cell>
-            </Table.Row>
-          ))}
-        </Table.Body>
-      </Table.Root>
+      <UsersFilters
+        searchInputRef={searchInputRef}
+        setStatus={setStatus}
+        setGeneration={setGeneration}
+        setOrderby={setOrderby}
+        generations={generations}
+        searchTerm={searchTerm}
+        generation={generation}
+        status={status}
+        orderby={orderby}
+      />
+      <UsersTable
+        users={users}
+        page={page}
+        itemsPerPage={itemsPerPage}
+        loading={loading}
+        userPositions={userPositions}
+        onPositionChange={handlePositionChange}
+      />
       {!loading && users.length === 0 ? (
         <AssistantsNotFound />
       ) : (

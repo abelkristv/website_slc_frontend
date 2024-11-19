@@ -123,7 +123,16 @@ export default function ContactUsPage() {
               mt={6}
               disabled={isLoading}
             >
-              {isLoading ? <Spinner size="sm" color="white" /> : "Submit"}
+              {isLoading ? (
+                <Spinner
+                  borderWidth={"3px"}
+                  size={"sm"}
+                  animationDuration="1s"
+                />
+              ) : (
+                ""
+              )}
+              Submit
             </Button>
           </>
         ) : (

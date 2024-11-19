@@ -3,4 +3,6 @@ export type ContactUs = {
   Email: string;
   Phone: string;
   Message: string;
+  CreatedAt?: string;
+  IsRead?: boolean;
 };

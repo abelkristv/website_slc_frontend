@@ -1,14 +1,14 @@
 import { Flex } from "@chakra-ui/react";
-import InputField from "../../../components/InputField";
 import { IoSearch } from "react-icons/io5";
-import SelectField from "../../../components/SelectField";
+import InputField from "../../../../components/InputField";
+import SelectField from "../../../../components/SelectField";
 import {
   createGenerationsCollection,
   createOrderCollection,
   createStatusCollection,
-} from "../collections/AssistantsFilterCollections";
+} from "../collections/UsersFilterCollections";
 
-interface AssistantsFiltersProps {
+interface UsersFiltersProps {
   searchInputRef: React.RefObject<HTMLInputElement>;
   generations: string[];
   searchTerm: string;
@@ -20,7 +20,7 @@ interface AssistantsFiltersProps {
   setStatus: (status: string) => void;
 }
 
-export default function AssistantsFilters({
+export default function UsersFilters({
   searchInputRef,
   generations,
   searchTerm,
@@ -30,7 +30,7 @@ export default function AssistantsFilters({
   setGeneration,
   setOrderby,
   setStatus,
-}: AssistantsFiltersProps) {
+}: UsersFiltersProps) {
   return (
     <Flex
       direction={{ base: "column", md: "row" }}

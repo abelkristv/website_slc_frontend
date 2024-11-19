@@ -12,6 +12,7 @@ import ParticlesBackground from "./templates/ParticlesBackground";
 import ChangePasswordPage from "./page/ChangePassword/ChangePasswordPage";
 import ManageUsersPage from "./page/Admin/ManageUsers/ManageUsersPage";
 import HomePage from "./page/Home/HomePage";
+import ManageInboxPage from "./page/Admin/ManageInbox/ManageInboxPage";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
           <Route path="/contact-us" element={<ContactUsPage />} />
           <Route path="/join-us" element={<JoinUsPage />} />
           <Route path="/admin/manage-users" element={<ManageUsersPage />} />
+          <Route path="/admin/manage-inbox" element={<ManageInboxPage />} />
           <Route
             path="/user/change-password"
             element={<ChangePasswordPage />}
