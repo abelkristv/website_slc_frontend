@@ -1,4 +1,5 @@
 import { AssistantExperience } from "./AssistantExperience";
+import { SLCPosition } from "./SLCPosition";
 import { SocialMedia } from "./SocialMedia";
 import { TeachingHistory } from "./TeachingHistory";
 
@@ -18,5 +19,6 @@ export type Assistant = {
   Status: string;
   TeachingHistories: TeachingHistory[];
   AssistantExperiences: AssistantExperience[];
+  SLCPosition: SLCPosition;
   SocialMedia: SocialMedia;
 };

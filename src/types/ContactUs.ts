@@ -1,4 +1,5 @@
 export type ContactUs = {
+  ID?: number;
   Name: string;
   Email: string;
   Phone: string;

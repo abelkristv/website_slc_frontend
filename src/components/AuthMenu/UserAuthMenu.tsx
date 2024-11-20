@@ -34,7 +34,7 @@ export default function UserAuthMenu() {
 
   if (user) {
     return (
-      <HStack gap={4}>
+      <HStack gap={{ base: 0, sm: 4 }}>
         <MenuRoot positioning={{ placement: "bottom-end" }}>
           <MenuTrigger outline={"none"} border={"none"} cursor={"pointer"}>
             <Box
@@ -58,7 +58,11 @@ export default function UserAuthMenu() {
                     outlineStyle: "solid",
                   }}
                 />
-                <Text fontSize={"md"} fontWeight={"medium"} display={"flex"}>
+                <Text
+                  fontSize={"md"}
+                  fontWeight={"medium"}
+                  display={{ base: "none", sm: "flex" }}
+                >
                   {user.Assistant.Initial} {user.Assistant.Generation}
                 </Text>
                 <Box display={"flex"}>

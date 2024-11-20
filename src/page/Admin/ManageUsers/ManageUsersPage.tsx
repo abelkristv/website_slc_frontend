@@ -1,13 +1,17 @@
-import { VStack, Text } from "@chakra-ui/react";
+import { VStack, Text, Flex } from "@chakra-ui/react";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router";
 import { getUsers } from "../../../services/UserService";
-import { getGenerations } from "../../../services/AssistantService";
+import {
+  getGenerations,
+  getSLCPositions,
+} from "../../../services/AssistantService";
 import { User } from "../../../types/User";
 import Pagination from "../../../components/Pagination";
 import AssistantsNotFound from "../../Assistants/components/AssistantsNotFound";
 import UsersFilters from "./components/UsersFilters";
 import UsersTable from "./components/UsersTable";
+import { SLCPosition } from "../../../types/SLCPosition";
 
 export default function ManageUsersPage() {
   const [users, setUsers] = useState<User[]>([]);
@@ -15,14 +19,12 @@ export default function ManageUsersPage() {
   const [page, setPage] = useState<number>(1);
   const [loading, setLoading] = useState(true);
   const [itemsPerPage] = useState(25);
-  const [userPositions, setUserPositions] = useState<{ [key: string]: string }>(
-    {}
-  );
   const [generation, setGeneration] = useState<string>("");
   const [orderby, setOrderby] = useState<string>("");
   const [status, setStatus] = useState<string>("");
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [generations, setGenerations] = useState<string[]>([]);
+  const [SLCPostions, setSLCPositions] = useState<SLCPosition[]>([]);
 
   const fetchDataTimeoutRef = useRef<number>(0);
   const searchInputRef = useRef<HTMLInputElement>(null);
@@ -57,6 +59,12 @@ export default function ManageUsersPage() {
     };
     fetchGenerations();
 
+    const fetchSLCPositions = async () => {
+      const data = await getSLCPositions();
+      setSLCPositions(data);
+    };
+    fetchSLCPositions();
+
     const params = new URLSearchParams(location.search);
     setGeneration(params.get("generation") || "");
     setOrderby(params.get("orderby") || "");
@@ -85,13 +93,6 @@ export default function ManageUsersPage() {
     window.scrollTo(0, 0);
   }, [page]);
 
-  const handlePositionChange = (userId: string, newPosition: string) => {
-    setUserPositions((prevPositions) => ({
-      ...prevPositions,
-      [userId]: newPosition,
-    }));
-  };
-
   return (
     <VStack gap={4} bg="primary" p={6} borderRadius="lg" boxShadow="lg">
       <Text fontSize="4xl" fontWeight="bold" color="bluejack.100">
@@ -108,14 +109,17 @@ export default function ManageUsersPage() {
         status={status}
         orderby={orderby}
       />
-      <UsersTable
-        users={users}
-        page={page}
-        itemsPerPage={itemsPerPage}
-        loading={loading}
-        userPositions={userPositions}
-        onPositionChange={handlePositionChange}
-      />
+      <Flex overflowX={"scroll"} width={"full"}>
+        <UsersTable
+          users={users}
+          page={page}
+          itemsPerPage={itemsPerPage}
+          loading={loading}
+          SLCPositions={SLCPostions}
+          setUsers={setUsers}
+        />
+      </Flex>
+
       {!loading && users.length === 0 ? (
         <AssistantsNotFound />
       ) : (

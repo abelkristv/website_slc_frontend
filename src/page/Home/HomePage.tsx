@@ -26,9 +26,16 @@ export default function HomePage() {
   };
 
   return (
-    <VStack padding={5} align="stretch">
+    <VStack align="stretch">
       <Carousel images={carouselImages} onLearnMore={scrollToAbout} />
-      <Box py={10} px={10} bg="primary" rounded="lg" ref={aboutSectionRef}>
+      <Box
+        py={10}
+        px={10}
+        bg="primary"
+        shadow="lg"
+        rounded="lg"
+        ref={aboutSectionRef}
+      >
         <AboutUsSection />
       </Box>
       <Box py={10} width="full" bg="primary" shadow="lg" rounded="lg">

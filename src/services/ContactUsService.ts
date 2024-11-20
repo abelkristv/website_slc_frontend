@@ -28,3 +28,27 @@ export const getContactUs = async (): Promise<ContactUs[]> => {
     throw error;
   }
 };
+
+export const updateIsRead = async (id: number): Promise<void> => {
+  try {
+    await axios.patch(
+      `${import.meta.env.VITE_BACKEND_URL}/contacts/isread/${id}`,
+      {},
+      { withCredentials: true }
+    );
+  } catch (error) {
+    console.error(`Error updating isRead status for contact ID ${id}:`, error);
+    throw error;
+  }
+};
+
+export const deleteMessage = async (id: number): Promise<void> => {
+  try {
+    await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/contacts/${id}`, {
+      withCredentials: true,
+    });
+  } catch (error) {
+    console.error(`Error deleting contact with ID ${id}:`, error);
+    throw error;
+  }
+};

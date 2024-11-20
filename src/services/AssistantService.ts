@@ -1,6 +1,7 @@
 import axios from "axios";
 import { Assistant } from "../types/Assistant";
 import { AssistantPaginate } from "../types/AssistantPaginate";
+import { SLCPosition } from "../types/SLCPosition";
 
 export const getAssistantData = async (
   generation?: string,
@@ -61,6 +62,39 @@ export const getGenerations = async (): Promise<string[]> => {
     return response.data;
   } catch (error) {
     console.error("Error fetching assistant data:", error);
+    throw error;
+  }
+};
+
+export const getSLCPositions = async (): Promise<SLCPosition[]> => {
+  try {
+    const response = await axios.get<SLCPosition[]>(
+      `${import.meta.env.VITE_BACKEND_URL}/positions`
+    );
+
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching assistant data:", error);
+    throw error;
+  }
+};
+
+export const updateSLCPosition = async (
+  AssistantID: number,
+  SLCPositionID: number
+) => {
+  try {
+    const response = await axios.put(
+      `${import.meta.env.VITE_BACKEND_URL}/assistants/${AssistantID}`,
+      {
+        SLCPositionID: SLCPositionID,
+      },
+      { withCredentials: true }
+    );
+
+    return response.data;
+  } catch (error) {
+    console.error("Error updating SLC position:", error);
     throw error;
   }
 };

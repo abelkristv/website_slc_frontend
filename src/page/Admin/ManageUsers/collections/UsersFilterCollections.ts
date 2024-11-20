@@ -1,4 +1,5 @@
 import { createListCollection } from "@chakra-ui/react";
+import { SLCPosition } from "../../../../types/SLCPosition";
 
 export const createGenerationsCollection = (generations: string[]) =>
   createListCollection({
@@ -22,25 +23,10 @@ export const createStatusCollection = () =>
     ],
   });
 
-export const createPositionCollection = () =>
+export const createPositionCollection = (SLCPositions: SLCPosition[]) =>
   createListCollection({
-    items: [
-      {
-        label: "Junior Laboratory Assistant",
-        value: "Junior Laboratory Assistant",
-      },
-      { label: "Subject Coordinator", value: "Subject Coordinator" },
-      {
-        label: "Subject Development Officer",
-        value: "Subject Development Officer",
-      },
-      {
-        label: "Network Administrator Staff",
-        value: "Network Administrator Staff",
-      },
-      {
-        label: "Network Administrator Officer",
-        value: "Network Administrator Officer",
-      },
-    ],
+    items: SLCPositions.map((position) => ({
+      label: position.PositionName,
+      value: position.ID.toString(),
+    })),
   });

@@ -1,18 +1,21 @@
-// UsersTable.tsx
 import { Table, Skeleton } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import { User } from "../../../../types/User";
 import SelectField from "../../../../components/SelectField";
 import { createPositionCollection } from "../collections/UsersFilterCollections";
 import { Button } from "../../../../components/ui/button";
+import { useColorModeValue } from "../../../../components/ui/color-mode";
+import { SLCPosition } from "../../../../types/SLCPosition";
+import { showErrorToast, showSuccessToast } from "../../../../utils/toastUtils";
+import { updateSLCPosition } from "../../../../services/AssistantService";
 
 interface UsersTableProps {
   users: User[];
   page: number;
   itemsPerPage: number;
   loading: boolean;
-  userPositions: { [key: string]: string };
-  onPositionChange: (userId: string, newPosition: string) => void;
+  SLCPositions: SLCPosition[];
+  setUsers: (users: User[]) => void;
 }
 
 export default function UsersTable({
@@ -20,10 +23,34 @@ export default function UsersTable({
   page,
   itemsPerPage,
   loading,
-  userPositions,
-  onPositionChange,
+  SLCPositions,
+  setUsers,
 }: UsersTableProps) {
-  const resetPasswordHoverBg = { bg: "blue.50" };
+  const resetPasswordHoverBg = useColorModeValue(
+    { bg: "blue.50" },
+    { bg: "gray.800" }
+  );
+  const updatePosition = async (AssistantID: number, SLCPositionID: number) => {
+    const userIndex = users.findIndex(
+      (user) => user.Assistant.ID === AssistantID
+    );
+
+    if (userIndex !== -1) {
+      const user = users[userIndex];
+      const previousPosition = user.Assistant.SLCPosition.ID;
+      user.Assistant.SLCPosition.ID = SLCPositionID;
+      setUsers([...users]);
+
+      try {
+        await updateSLCPosition(AssistantID, SLCPositionID);
+        showSuccessToast("Position updated successfully!");
+      } catch (error) {
+        user.Assistant.SLCPosition.ID = previousPosition;
+        setUsers([...users]);
+        showErrorToast("Failed to update position. Please try again.");
+      }
+    }
+  };
 
   return (
     <Table.Root size="md" striped overflowX="scroll">
@@ -38,13 +65,13 @@ export default function UsersTable({
           <Table.ColumnHeader width="8%" color="white">
             Generation
           </Table.ColumnHeader>
-          <Table.ColumnHeader width="28%" color="white">
+          <Table.ColumnHeader width="28%" minWidth={64} color="white">
             Full Name
           </Table.ColumnHeader>
-          <Table.ColumnHeader width="22%" color="white">
+          <Table.ColumnHeader width="22%" minWidth={64} color="white">
             Position
           </Table.ColumnHeader>
-          <Table.ColumnHeader width="25%" color="white" pl={8}>
+          <Table.ColumnHeader width="25%" minWidth={24} color="white" pl={8}>
             Action
           </Table.ColumnHeader>
         </Table.Row>
@@ -83,13 +110,14 @@ export default function UsersTable({
                 </Table.Cell>
                 <Table.Cell>
                   <SelectField
-                    collection={createPositionCollection()}
+                    collection={createPositionCollection(SLCPositions)}
                     placeholder="Select a position..."
-                    onChange={(newPosition) =>
-                      onPositionChange(user.ID, newPosition)
-                    }
-                    value={userPositions[user.ID] || ""}
                     size="xs"
+                    value={user.Assistant.SLCPosition.ID.toString()}
+                    onChange={(e) => {
+                      updatePosition(user.Assistant.ID, parseInt(e));
+                    }}
+                    clearable={false}
                   />
                 </Table.Cell>
                 <Table.Cell display="flex" gap={4} pl={8}>
