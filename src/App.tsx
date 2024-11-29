@@ -15,6 +15,7 @@ import HomePage from "./page/Home/HomePage";
 import ManageInboxPage from "./page/Admin/ManageInbox/ManageInboxPage";
 import ManageNewsPage from "./page/Admin/ManageNews/ManageNewsPage";
 import AddNewsPage from "./page/Admin/ManageNews/AddNewsPage";
+import NewsPage from "./page/News/NewsPage";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/assistants" element={<AssistantsPage />} />
           <Route path="/assistants/:id" element={<AssistantDetailPage />} />
+          <Route path="/news" element={<NewsPage />} />
           <Route path="/contact-us" element={<ContactUsPage />} />
           <Route path="/join-us" element={<JoinUsPage />} />
           <Route path="/admin/manage-users" element={<ManageUsersPage />} />

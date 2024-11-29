@@ -12,7 +12,20 @@ export const createNews = async (news: News) => {
 
     return response.data;
   } catch (error) {
-    console.error("Error creating contact:", error);
+    console.error("Error creating news:", error);
+    throw error;
+  }
+};
+
+export const getNews = async (): Promise<News[]> => {
+  try {
+    const response = await axios.get<News[]>(
+      `${import.meta.env.VITE_BACKEND_URL}/news`
+    );
+
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching news data:", error);
     throw error;
   }
 };

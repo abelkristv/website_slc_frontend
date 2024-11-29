@@ -24,7 +24,7 @@ export const getContactUs = async (): Promise<ContactUs[]> => {
 
     return response.data;
   } catch (error) {
-    console.error("Error fetching assistant data:", error);
+    console.error("Error fetching contact data:", error);
     throw error;
   }
 };

@@ -5,13 +5,11 @@ import {
   Flex,
   Text,
   useBreakpointValue,
-  Box,
   Spinner,
   FileUploadFileChangeDetails,
 } from "@chakra-ui/react";
-import { FaUser, FaRegCheckCircle } from "react-icons/fa";
-import { useNavigate } from "react-router";
-import { showErrorToast } from "../../../utils/toastUtils";
+import { FaUser } from "react-icons/fa";
+import { showErrorToast, showSuccessToast } from "../../../utils/toastUtils";
 import { Field } from "../../../components/ui/field";
 import InputField from "../../../components/InputField";
 import TextAreaField from "../../../components/TextAreaField";
@@ -22,6 +20,7 @@ import {
 } from "../../../components/ui/file-button";
 import { createNews } from "../../../services/NewsService";
 import { convertFilesToBase64 } from "../../../utils/imageUtils";
+import { useNavigate } from "react-router";
 
 export default function AddNewsPage() {
   const titleRef = useRef<HTMLInputElement>(null);
@@ -31,10 +30,10 @@ export default function AddNewsPage() {
     md: "80%",
     lg: "600px",
   });
-  const navigate = useNavigate();
 
   const [isLoading, setIsLoading] = useState(false);
   const [images, setImages] = useState<File[]>([]);
+  const navigate = useNavigate();
 
   const handleFileChange = (details: FileUploadFileChangeDetails) => {
     setImages(details.acceptedFiles);
@@ -63,6 +62,8 @@ export default function AddNewsPage() {
       };
 
       await createNews(news);
+      showSuccessToast("News added successfully");
+      navigate("/news");
     } catch (err: any) {
       const errorMessage = err.response?.data.message || "Submission failed";
       showErrorToast(errorMessage);
@@ -105,6 +106,7 @@ export default function AddNewsPage() {
           <FileUploadRoot
             maxW="xl"
             alignItems="stretch"
+            maxFiles={10}
             onFileChange={handleFileChange}
             bg="primary"
             accept={["image/png", "image/jpeg"]}
