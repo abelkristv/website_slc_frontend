@@ -1,4 +1,4 @@
-import { Box, Flex, Text, Button } from "@chakra-ui/react";
+import { Box, Flex, Text } from "@chakra-ui/react";
 import Slider from "react-slick";
 import { useState } from "react";
 import {
@@ -40,8 +40,7 @@ export default function NewsCard({
     slidesToScroll: 1,
     autoplay: images.length > 1,
     autoplaySpeed: 5000,
-    dots: true, // Enable dots
-    arrows: true, // Enable previous/next buttons
+    dots: images.length > 1,
   };
 
   return (
@@ -119,7 +118,6 @@ export default function NewsCard({
           <Box overflow={"hidden"} pb={5}>
             <Slider {...sliderDetailSettings}>
               {" "}
-              {/* Use sliderDetailSettings here */}
               {images.map((image, imgIndex) => (
                 <Box key={imgIndex}>
                   <img

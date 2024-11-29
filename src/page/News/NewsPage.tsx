@@ -1,4 +1,4 @@
-import { VStack, Text, SimpleGrid, Box } from "@chakra-ui/react";
+import { VStack, Text, SimpleGrid } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { getNews } from "../../services/NewsService";
 import { News } from "../../types/News";
@@ -6,7 +6,6 @@ import { formatDate } from "../../utils/dateUtils";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import NewsCard from "./components/NewsCard";
-import Iframe from "react-iframe";
 
 export default function NewsPage() {
   const [news, setNews] = useState<News[]>([]);
