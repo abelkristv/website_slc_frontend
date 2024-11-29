@@ -74,7 +74,7 @@ export default function TeachingHistorySection({
           </Slider>
         </div>
 
-        <Flex wrap="wrap" gap={4} p={2}>
+        <Flex wrap="wrap" gap={4} p={1}>
           <AccordionRoot multiple>
             {teachingHistories[currentSlide].Courses.map((course, index) => (
               <AccordionItem

@@ -1,11 +1,11 @@
 import axios from "axios";
 import { ContactUs } from "../types/ContactUs";
 
-export const createContactUs = async (contact: ContactUs) => {
+export const createContactUs = async (contactUs: ContactUs) => {
   try {
     const response = await axios.post<ContactUs>(
       `${import.meta.env.VITE_BACKEND_URL}/contacts`,
-      contact
+      contactUs
     );
 
     return response.data;

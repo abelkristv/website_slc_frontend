@@ -39,7 +39,7 @@ export default function ContactUsPage() {
   const handleSubmit = async (e: React.FormEvent<HTMLDivElement>) => {
     e.preventDefault();
 
-    const ContactUs = {
+    const contactUs = {
       Name: nameRef.current?.value || "",
       Email: emailRef.current?.value || "",
       Phone: phoneRef.current?.value || "",
@@ -49,7 +49,7 @@ export default function ContactUsPage() {
     setIsLoading(true);
 
     try {
-      await createContactUs(ContactUs);
+      await createContactUs(contactUs);
       setIsSubmitted(true);
     } catch (err: any) {
       const errorMessage = err.response?.data.message || "Submission failed";
@@ -57,10 +57,6 @@ export default function ContactUsPage() {
     } finally {
       setIsLoading(false);
     }
-  };
-
-  const handleBackToHome = () => {
-    navigate("/");
   };
 
   return (
@@ -148,7 +144,7 @@ export default function ContactUsPage() {
               Thank you for contacting us. We'll get back to you soon.
             </Text>
             <Button
-              onClick={handleBackToHome}
+              onClick={() => navigate("/")}
               bg="bluejack.100"
               color="white"
               _hover={{ bg: "bluejack.200" }}

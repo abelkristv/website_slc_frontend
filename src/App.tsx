@@ -13,6 +13,8 @@ import ChangePasswordPage from "./page/ChangePassword/ChangePasswordPage";
 import ManageUsersPage from "./page/Admin/ManageUsers/ManageUsersPage";
 import HomePage from "./page/Home/HomePage";
 import ManageInboxPage from "./page/Admin/ManageInbox/ManageInboxPage";
+import ManageNewsPage from "./page/Admin/ManageNews/ManageNewsPage";
+import AddNewsPage from "./page/Admin/ManageNews/AddNewsPage";
 
 function App() {
   return (
@@ -28,6 +30,8 @@ function App() {
           <Route path="/join-us" element={<JoinUsPage />} />
           <Route path="/admin/manage-users" element={<ManageUsersPage />} />
           <Route path="/admin/manage-inbox" element={<ManageInboxPage />} />
+          <Route path="/admin/manage-news" element={<ManageNewsPage />} />
+          <Route path="/admin/add-news" element={<AddNewsPage />} />
           <Route
             path="/user/change-password"
             element={<ChangePasswordPage />}
