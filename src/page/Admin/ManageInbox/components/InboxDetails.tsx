@@ -44,7 +44,6 @@ export function InboxDetails({
     <Box
       borderWidth="1px"
       borderRadius="sm"
-      boxShadow="xs"
       bg="primary"
       width={{ base: "100%", lg: "66%" }}
       minHeight={{ base: "100%", lg: "72vh" }}

@@ -10,37 +10,29 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "../../../components/ui/dialog";
+import { News } from "../../../types/News";
+import { formatDate } from "../../../utils/dateUtils";
 
-export default function NewsCard({
-  title,
-  date,
-  description,
-  images,
-}: {
-  title: string;
-  date: string;
-  description: string;
-  images: string[];
-}) {
+export default function NewsCard({ news }: { news: News }) {
   const [open, setOpen] = useState(false);
 
   const sliderSettings = {
-    infinite: images.length > 1,
+    infinite: news.NewsImages.length > 1,
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
-    autoplay: images.length > 1,
+    autoplay: news.NewsImages.length > 1,
     autoplaySpeed: 5000,
   };
 
   const sliderDetailSettings = {
-    infinite: images.length > 1,
+    infinite: news.NewsImages.length > 1,
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
-    autoplay: images.length > 1,
+    autoplay: news.NewsImages.length > 1,
     autoplaySpeed: 10000,
-    dots: images.length > 1,
+    dots: news.NewsImages.length > 1,
   };
 
   return (
@@ -48,8 +40,9 @@ export default function NewsCard({
       open={open}
       onOpenChange={(e) => setOpen(e.open)}
       scrollBehavior={"inside"}
+      lazyMount
     >
-      <DialogTrigger>
+      <DialogTrigger asChild>
         <Box
           borderWidth="1px"
           borderRadius="lg"
@@ -68,7 +61,7 @@ export default function NewsCard({
             _hover={{ transform: "scale(1.02)" }}
           >
             <Slider {...sliderSettings}>
-              {images.map((image, imgIndex) => (
+              {news.NewsImages.map((image, imgIndex) => (
                 <Box key={imgIndex}>
                   <img
                     src={image}
@@ -92,33 +85,32 @@ export default function NewsCard({
                 lineClamp={"1"}
                 textAlign={"left"}
               >
-                {title || "Untitled"}
+                {news.NewsTitle || "Untitled"}
               </Text>
               <Text fontSize="sm" color="gray.500" mb={2}>
-                {date || "No Date"}
+                {formatDate(news.CreatedAt!) || "No Date"}
               </Text>
             </Flex>
           </Box>
         </Box>
       </DialogTrigger>
-
       <DialogContent>
         <DialogHeader>
           <DialogTitle>
-            {title || "Untitled"}{" "}
+            {news.NewsTitle || "Untitled"}{" "}
             <Text fontSize="xs" color="gray.500" mb={2} fontWeight={"normal"}>
-              {date || "No Date"}
+              {formatDate(news.CreatedAt!) || "No Date"}
             </Text>
           </DialogTitle>
         </DialogHeader>
         <DialogBody mt={-4}>
           <Text fontSize="sm" mb={6} whiteSpace={"pre-line"}>
-            {description || "No description available."}
+            {news.NewsDescription || "No description available."}
           </Text>
           <Box overflow={"hidden"} pb={5}>
             <Slider {...sliderDetailSettings}>
               {" "}
-              {images.map((image, imgIndex) => (
+              {news.NewsImages.map((image, imgIndex) => (
                 <Box key={imgIndex}>
                   <img
                     src={image}

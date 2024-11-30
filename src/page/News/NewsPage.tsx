@@ -2,7 +2,6 @@ import { VStack, Text, SimpleGrid } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { getNews } from "../../services/NewsService";
 import { News } from "../../types/News";
-import { formatDate } from "../../utils/dateUtils";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import NewsCard from "./components/NewsCard";
@@ -42,13 +41,7 @@ export default function NewsPage() {
       ) : (
         <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} gap={4} w="full">
           {news.map((item, index) => (
-            <NewsCard
-              key={index}
-              title={item.NewsTitle || "Untitled"}
-              date={formatDate(item.CreatedAt!) || "No Date"}
-              description={item.NewsDescription || "No description available."}
-              images={item.NewsImages}
-            />
+            <NewsCard key={index} news={item} />
           ))}
         </SimpleGrid>
       )}

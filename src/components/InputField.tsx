@@ -1,6 +1,7 @@
 import React, { forwardRef } from "react";
 import { Input } from "@chakra-ui/react";
 import { InputGroup } from "./ui/input-group";
+import { useColorModeValue } from "./ui/color-mode";
 
 interface InputFieldProps {
   type?: string;
@@ -21,7 +22,7 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
         borderRadius="sm"
         variant="outline"
         bg="primary"
-        shadow="xs"
+        borderColor={useColorModeValue("gray.200", "gray.800")}
         _selection={{ bg: "bluejack.200", color: "white" }}
         defaultValue={value}
       />

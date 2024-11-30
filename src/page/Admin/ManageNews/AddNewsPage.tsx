@@ -63,7 +63,7 @@ export default function AddNewsPage() {
 
       await createNews(news);
       showSuccessToast("News added successfully");
-      navigate("/news");
+      navigate("/admin/manage-news");
     } catch (err: any) {
       const errorMessage = err.response?.data.message || "Submission failed";
       showErrorToast(errorMessage);

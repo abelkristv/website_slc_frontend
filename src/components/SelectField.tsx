@@ -40,7 +40,6 @@ const SelectField: React.FC<SelectFieldProps> = ({
       bg="primary"
       width={width}
       size={size as "md" | "sm" | "lg" | "xs" | undefined}
-      shadow="xs"
       value={createValue(value)}
       onValueChange={(e) => onChange(e.value[0])}
     >

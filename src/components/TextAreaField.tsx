@@ -1,6 +1,7 @@
 import React, { forwardRef } from "react";
 import { Textarea } from "@chakra-ui/react";
 import { InputGroup } from "./ui/input-group";
+import { useColorModeValue } from "./ui/color-mode";
 
 interface TextAreaFieldProps {
   placeholder: string;
@@ -20,7 +21,7 @@ const TextAreaField = forwardRef<HTMLTextAreaElement, TextAreaFieldProps>(
         borderRadius="sm"
         variant="outline"
         bg="primary"
-        shadow="xs"
+        borderColor={useColorModeValue("gray.200", "gray.800")}
         _selection={{ bg: "bluejack.200", color: "white" }}
         defaultValue={value}
         height={"8rem"}

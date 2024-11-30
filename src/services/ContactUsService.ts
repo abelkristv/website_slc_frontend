@@ -3,12 +3,10 @@ import { ContactUs } from "../types/ContactUs";
 
 export const createContactUs = async (contactUs: ContactUs) => {
   try {
-    const response = await axios.post<ContactUs>(
+    await axios.post<ContactUs>(
       `${import.meta.env.VITE_BACKEND_URL}/contacts`,
       contactUs
     );
-
-    return response.data;
   } catch (error) {
     console.error("Error creating contact:", error);
     throw error;
@@ -33,7 +31,6 @@ export const updateIsRead = async (id: number): Promise<void> => {
   try {
     await axios.patch(
       `${import.meta.env.VITE_BACKEND_URL}/contacts/isread/${id}`,
-      {},
       { withCredentials: true }
     );
   } catch (error) {

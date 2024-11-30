@@ -84,15 +84,13 @@ export const updateSLCPosition = async (
   SLCPositionID: number
 ) => {
   try {
-    const response = await axios.put(
+    await axios.put(
       `${import.meta.env.VITE_BACKEND_URL}/assistants/${AssistantID}`,
       {
         SLCPositionID: SLCPositionID,
       },
       { withCredentials: true }
     );
-
-    return response.data;
   } catch (error) {
     console.error("Error updating SLC position:", error);
     throw error;
