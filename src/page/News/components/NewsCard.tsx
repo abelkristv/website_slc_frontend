@@ -39,7 +39,7 @@ export default function NewsCard({
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: images.length > 1,
-    autoplaySpeed: 5000,
+    autoplaySpeed: 10000,
     dots: images.length > 1,
   };
 
@@ -112,7 +112,7 @@ export default function NewsCard({
           </DialogTitle>
         </DialogHeader>
         <DialogBody mt={-4}>
-          <Text fontSize="sm" color="gray.700" mb={6} whiteSpace={"pre-line"}>
+          <Text fontSize="sm" mb={6} whiteSpace={"pre-line"}>
             {description || "No description available."}
           </Text>
           <Box overflow={"hidden"} pb={5}>
