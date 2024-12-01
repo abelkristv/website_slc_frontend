@@ -71,6 +71,7 @@ export default function ContactUsPage() {
         borderRadius="lg"
         boxShadow="xl"
         bg="primary"
+        gap={4}
       >
         {!isSubmitted ? (
           <>

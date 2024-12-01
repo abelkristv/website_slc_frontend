@@ -4,14 +4,16 @@ import Slider from "react-slick";
 import DeleteNews from "./DeleteNews";
 import { News } from "../../../../types/News";
 import { formatDate } from "../../../../utils/dateUtils";
+import { useNavigate } from "react-router";
 
-export default function NewsCard({
-  news,
-  fetchNews,
-}: {
+interface NewsCardProps {
   news: News;
   fetchNews: () => void;
-}) {
+}
+
+export default function NewsCard({ news, fetchNews }: NewsCardProps) {
+  const navigate = useNavigate();
+
   const sliderSettings = {
     infinite: news.NewsImages.length > 1,
     speed: 500,
@@ -44,6 +46,7 @@ export default function NewsCard({
                 style={{
                   width: "100%",
                   height: "auto",
+                  aspectRatio: "1/1",
                 }}
               />
             </Box>
@@ -63,7 +66,7 @@ export default function NewsCard({
             {news.NewsTitle || "Untitled"}
           </Text>
           <Text fontSize="sm" color="gray.500" mb={2}>
-            {formatDate(news.CreatedAt!) || "No Date"}
+            {formatDate(news.UpdatedAt!) || "No Date"}
           </Text>
         </Flex>
         <IconButton
@@ -73,6 +76,7 @@ export default function NewsCard({
           right={"2.9rem"}
           variant={"surface"}
           size={"sm"}
+          onClick={() => navigate(`/admin/update-news/${news.ID}`)}
         >
           <LuPencil />
         </IconButton>

@@ -84,6 +84,7 @@ export default function AddNewsPage() {
         borderRadius="lg"
         boxShadow="xl"
         bg="primary"
+        gap={4}
       >
         <Text fontSize="4xl" fontWeight="bold" color="bluejack.100">
           Add News
@@ -100,9 +101,10 @@ export default function AddNewsPage() {
           <TextAreaField
             ref={descriptionRef}
             placeholder="News description..."
+            minHeight={80}
           />
         </Field>
-        <Field label="News Image" required>
+        <Field label="News Images" required>
           <FileUploadRoot
             maxW="xl"
             alignItems="stretch"

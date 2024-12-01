@@ -13,7 +13,11 @@ import {
 import { News } from "../../../types/News";
 import { formatDate } from "../../../utils/dateUtils";
 
-export default function NewsCard({ news }: { news: News }) {
+interface NewsCardProps {
+  news: News;
+}
+
+export default function NewsCard({ news }: NewsCardProps) {
   const [open, setOpen] = useState(false);
 
   const sliderSettings = {
@@ -69,6 +73,7 @@ export default function NewsCard({ news }: { news: News }) {
                     style={{
                       width: "100%",
                       height: "auto",
+                      aspectRatio: "1/1",
                     }}
                   />
                 </Box>
@@ -88,7 +93,7 @@ export default function NewsCard({ news }: { news: News }) {
                 {news.NewsTitle || "Untitled"}
               </Text>
               <Text fontSize="sm" color="gray.500" mb={2}>
-                {formatDate(news.CreatedAt!) || "No Date"}
+                {formatDate(news.UpdatedAt!) || "No Date"}
               </Text>
             </Flex>
           </Box>
@@ -99,7 +104,7 @@ export default function NewsCard({ news }: { news: News }) {
           <DialogTitle>
             {news.NewsTitle || "Untitled"}{" "}
             <Text fontSize="xs" color="gray.500" mb={2} fontWeight={"normal"}>
-              {formatDate(news.CreatedAt!) || "No Date"}
+              {formatDate(news.UpdatedAt!) || "No Date"}
             </Text>
           </DialogTitle>
         </DialogHeader>

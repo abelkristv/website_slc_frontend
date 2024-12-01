@@ -50,7 +50,7 @@ export default function ExperiencesSection({
 
   const handleSyncLinkedin = async () => {
     const sync: SyncLinkedin = {
-      AssistantId: assistant.ID.toString() || "",
+      AssistantId: assistant.ID,
       Link: assistant.SocialMedia.LinkedInLink || "",
     };
     setIsLoading(true);

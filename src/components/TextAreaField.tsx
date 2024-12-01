@@ -7,10 +7,11 @@ interface TextAreaFieldProps {
   placeholder: string;
   icon?: React.ReactNode;
   value?: string;
+  minHeight?: number;
 }
 
 const TextAreaField = forwardRef<HTMLTextAreaElement, TextAreaFieldProps>(
-  ({ placeholder, icon, value }, ref) => (
+  ({ placeholder, icon, value, minHeight = 0 }, ref) => (
     <InputGroup flex="1" startElement={icon} width="full">
       <Textarea
         resize={"none"}
@@ -25,6 +26,7 @@ const TextAreaField = forwardRef<HTMLTextAreaElement, TextAreaFieldProps>(
         _selection={{ bg: "bluejack.200", color: "white" }}
         defaultValue={value}
         height={"8rem"}
+        minHeight={minHeight}
       />
     </InputGroup>
   )

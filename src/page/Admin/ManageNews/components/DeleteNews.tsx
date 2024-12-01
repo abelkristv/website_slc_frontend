@@ -17,7 +17,7 @@ import { deleteNews } from "../../../../services/NewsService";
 import { showErrorToast, showSuccessToast } from "../../../../utils/toastUtils";
 
 interface DeleteNewsProps {
-  newsId: string;
+  newsId: number;
   fetchNews: () => void;
 }
 

@@ -1,52 +1,50 @@
 import { Table, Skeleton } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
-import { User } from "../../../../types/User";
-import SelectField from "../../../../components/SelectField";
-import { createPositionCollection } from "../collections/UsersFilterCollections";
 import { Button } from "../../../../components/ui/button";
 import { useColorModeValue } from "../../../../components/ui/color-mode";
 import { SLCPosition } from "../../../../types/SLCPosition";
 import { showErrorToast, showSuccessToast } from "../../../../utils/toastUtils";
 import { updateSLCPosition } from "../../../../services/AssistantService";
+import { Assistant } from "../../../../types/Assistant";
 
 interface UsersTableProps {
-  users: User[];
+  assistants: Assistant[];
   page: number;
   itemsPerPage: number;
   loading: boolean;
   SLCPositions: SLCPosition[];
-  setUsers: (users: User[]) => void;
+  setAssistants: (assistants: Assistant[]) => void;
 }
 
 export default function UsersTable({
-  users,
+  assistants,
   page,
   itemsPerPage,
   loading,
   SLCPositions,
-  setUsers,
+  setAssistants,
 }: UsersTableProps) {
   const resetPasswordHoverBg = useColorModeValue(
     { bg: "blue.50" },
     { bg: "gray.800" }
   );
   const updatePosition = async (AssistantID: number, SLCPositionID: number) => {
-    const userIndex = users.findIndex(
-      (user) => user.Assistant.ID === AssistantID
+    const assistantIndex = assistants.findIndex(
+      (assistant) => assistant.ID === AssistantID
     );
 
-    if (userIndex !== -1) {
-      const user = users[userIndex];
-      const previousPosition = user.Assistant.SLCPosition.ID;
-      user.Assistant.SLCPosition.ID = SLCPositionID;
-      setUsers([...users]);
+    if (assistantIndex !== -1) {
+      const assistant = assistants[assistantIndex];
+      const previousPosition = assistant.SLCPosition.ID;
+      assistant.SLCPosition.ID = SLCPositionID;
+      setAssistants([...assistants]);
 
       try {
         await updateSLCPosition(AssistantID, SLCPositionID);
         showSuccessToast("Position updated successfully!");
       } catch (error) {
-        user.Assistant.SLCPosition.ID = previousPosition;
-        setUsers([...users]);
+        assistant.SLCPosition.ID = previousPosition;
+        setAssistants([...assistants]);
         showErrorToast("Failed to update position. Please try again.");
       }
     }
@@ -100,28 +98,40 @@ export default function UsersTable({
                 </Table.Cell>
               </Table.Row>
             ))
-          : users.map((user, index) => (
+          : assistants.map((assistant, index) => (
               <Table.Row key={index}>
                 <Table.Cell>{(page - 1) * itemsPerPage + index + 1}</Table.Cell>
-                <Table.Cell>{user.Assistant.Initial}</Table.Cell>
-                <Table.Cell>{user.Assistant.Generation}</Table.Cell>
+                <Table.Cell>{assistant.Initial}</Table.Cell>
+                <Table.Cell>{assistant.Generation}</Table.Cell>
                 <Table.Cell truncate maxW={20}>
-                  {user.Assistant.FullName}
+                  {assistant.FullName}
                 </Table.Cell>
                 <Table.Cell>
-                  <SelectField
-                    collection={createPositionCollection(SLCPositions)}
-                    placeholder="Select a position..."
-                    size="xs"
-                    value={user.Assistant.SLCPosition.ID.toString()}
-                    onChange={(e) => {
-                      updatePosition(user.Assistant.ID, parseInt(e));
+                  <select
+                    value={assistant.SLCPosition.ID.toString()}
+                    onChange={(e) =>
+                      updatePosition(assistant.ID, parseInt(e.target.value))
+                    }
+                    style={{
+                      padding: "4px 8px",
+                      fontSize: "14px",
+                      borderRadius: "4px",
+                      border: "1px solid #ccc",
+                      minWidth: "100%",
                     }}
-                    clearable={false}
-                  />
+                  >
+                    <option value="" disabled>
+                      Select a position...
+                    </option>
+                    {SLCPositions.map((position) => (
+                      <option key={position.ID} value={position.ID}>
+                        {position.PositionName}
+                      </option>
+                    ))}
+                  </select>
                 </Table.Cell>
                 <Table.Cell display="flex" gap={4} pl={8}>
-                  <Link to={`/assistants/${user.Assistant.ID}`}>
+                  <Link to={`/assistants/${assistant.ID}`}>
                     <Button
                       bg="bluejack.100"
                       _hover={{ bg: "bluejack.200" }}

@@ -1,4 +1,4 @@
 export type SyncLinkedin = {
-  AssistantId: string;
+  AssistantId: number;
   Link: string;
 };

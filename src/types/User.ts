@@ -1,7 +1,7 @@
 import { Assistant } from "./Assistant";
 
 export type User = {
-  ID: string;
+  ID: number;
   Username: string;
   Assistant: Assistant;
 };

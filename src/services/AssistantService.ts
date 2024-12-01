@@ -3,12 +3,13 @@ import { Assistant } from "../types/Assistant";
 import { AssistantPaginate } from "../types/AssistantPaginate";
 import { SLCPosition } from "../types/SLCPosition";
 
-export const getAssistantData = async (
+export const getAssistants = async (
   generation?: string,
   name?: string,
   orderby?: string,
   status?: string,
-  page?: string
+  page?: string,
+  limit?: string
 ): Promise<AssistantPaginate> => {
   try {
     const params: Record<string, string> = {};
@@ -27,6 +28,9 @@ export const getAssistantData = async (
     }
     if (page) {
       params.page = page;
+    }
+    if (limit) {
+      params.limit = limit;
     }
 
     const response = await axios.get<AssistantPaginate>(

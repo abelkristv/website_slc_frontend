@@ -1,7 +1,7 @@
 export type News = {
-  ID?: string;
+  ID?: number;
   NewsTitle: string;
   NewsDescription: string;
   NewsImages: string[];
-  CreatedAt?: string;
+  UpdatedAt?: string;
 };

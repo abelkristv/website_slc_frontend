@@ -2,10 +2,7 @@ import { VStack, Text, Flex } from "@chakra-ui/react";
 import { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Assistant } from "../../types/Assistant";
-import {
-  getAssistantData,
-  getGenerations,
-} from "../../services/AssistantService";
+import { getAssistants, getGenerations } from "../../services/AssistantService";
 import AssistantsFilters from "./components/AssistantsFilters";
 import AssistantsGrid from "./components/AssistantsGrid";
 import AssistantsNotFound from "./components/AssistantsNotFound";
@@ -23,13 +20,14 @@ export default function AssistantsPage() {
   const [page, setPage] = useState<number>(1);
   const searchInputRef = useRef<HTMLInputElement>(null);
   const [itemsPerPage] = useState(24);
+  const [isMounted, setIsMounted] = useState(false);
   const fetchDataTimeoutRef = useRef<number>(0);
   const navigate = useNavigate();
   const location = useLocation();
 
   const fetchData = async () => {
     setLoading(true);
-    const data = await getAssistantData(
+    const data = await getAssistants(
       generation,
       searchTerm,
       orderby,
@@ -90,7 +88,11 @@ export default function AssistantsPage() {
   }, [generation, orderby, status, page, searchTerm]);
 
   useEffect(() => {
-    setPage(1);
+    if (isMounted) {
+      setPage(1);
+    } else {
+      setIsMounted(true);
+    }
   }, [generation, orderby, status, searchTerm]);
 
   return (
