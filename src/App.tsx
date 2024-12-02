@@ -17,6 +17,8 @@ import ManageNewsPage from "./page/Admin/ManageNews/ManageNewsPage";
 import AddNewsPage from "./page/Admin/ManageNews/AddNewsPage";
 import NewsPage from "./page/News/NewsPage";
 import UpdateNewsPage from "./page/Admin/ManageNews/UpdateNewsPage";
+import GalleryPage from "./page/Gallery/GalleryPage";
+import ManageGalleryPage from "./page/Admin/ManageGallery/ManageGalleryPage";
 
 function App() {
   return (
@@ -29,11 +31,13 @@ function App() {
           <Route path="/assistants" element={<AssistantsPage />} />
           <Route path="/assistants/:id" element={<AssistantDetailPage />} />
           <Route path="/news" element={<NewsPage />} />
+          <Route path="/gallery" element={<GalleryPage />} />
           <Route path="/contact-us" element={<ContactUsPage />} />
           <Route path="/join-us" element={<JoinUsPage />} />
           <Route path="/admin/manage-users" element={<ManageUsersPage />} />
           <Route path="/admin/manage-inbox" element={<ManageInboxPage />} />
           <Route path="/admin/manage-news" element={<ManageNewsPage />} />
+          <Route path="/admin/manage-gallery" element={<ManageGalleryPage />} />
           <Route path="/admin/add-news" element={<AddNewsPage />} />
           <Route path="/admin/update-news/:id" element={<UpdateNewsPage />} />
           <Route

@@ -1,6 +1,6 @@
-import { Box, Flex, Text } from "@chakra-ui/react";
+import { Box, HStack, Text, VStack } from "@chakra-ui/react";
 import Slider from "react-slick";
-import { useState } from "react";
+import { Gallery } from "../../../types/Gallery";
 import {
   DialogBody,
   DialogCloseTrigger,
@@ -10,27 +10,28 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "../../../components/ui/dialog";
-import { News } from "../../../types/News";
+import { useState } from "react";
 import { formatDate } from "../../../utils/dateUtils";
+import { Avatar } from "../../../components/ui/avatar";
 import {
   GalleryNextArrow,
   GalleryPrevArrow,
 } from "../../../components/GalleryCarouselArrow";
 
-interface NewsCardProps {
-  news: News;
+interface GalleryCardProps {
+  gallery: Gallery;
 }
 
-export default function NewsCard({ news }: NewsCardProps) {
+export default function GalleryCard({ gallery }: GalleryCardProps) {
   const [open, setOpen] = useState(false);
 
   const sliderSettings = {
-    infinite: news.NewsImages.length > 1,
+    infinite: gallery.GalleryImages.length > 1,
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
-    autoplay: news.NewsImages.length > 1,
-    autoplaySpeed: 5000,
+    autoplay: gallery.GalleryImages.length > 1,
+    autoplaySpeed: 3000,
   };
 
   const sliderDetailSettings = {
@@ -38,7 +39,7 @@ export default function NewsCard({ news }: NewsCardProps) {
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
-    dots: news.NewsImages.length > 1,
+    dots: gallery.GalleryImages.length > 1,
     prevArrow: <GalleryPrevArrow />,
     nextArrow: <GalleryNextArrow />,
     adaptiveHeight: true,
@@ -50,6 +51,7 @@ export default function NewsCard({ news }: NewsCardProps) {
       onOpenChange={(e) => setOpen(e.open)}
       scrollBehavior={"inside"}
       lazyMount
+      size={"lg"}
     >
       <DialogTrigger asChild>
         <Box
@@ -62,7 +64,7 @@ export default function NewsCard({ news }: NewsCardProps) {
           display="flex"
           flexDirection="column"
           cursor={"pointer"}
-          justifyContent={"space-between"}
+          maxHeight={"98%"}
         >
           <Box
             width="100%"
@@ -70,57 +72,64 @@ export default function NewsCard({ news }: NewsCardProps) {
             _hover={{ transform: "scale(1.02)" }}
           >
             <Slider {...sliderSettings}>
-              {news.NewsImages.map((image, imgIndex) => (
+              {gallery.GalleryImages.map((image, imgIndex) => (
                 <Box key={imgIndex}>
                   <img
                     src={image}
                     alt={`Slide ${imgIndex + 1}`}
                     style={{
                       width: "100%",
-                      height: "auto",
                       aspectRatio: "1/1",
+                      objectFit: "cover",
                     }}
                   />
                 </Box>
               ))}
             </Slider>
           </Box>
-          <Box px={4} pt={3} pb={2} mt={"-2"} zIndex={10} bg={"primary"}>
-            <Flex direction="column" align="start" height="full">
-              <Text
-                fontWeight="bold"
-                fontSize="lg"
-                color="secondary"
-                mb={2}
-                lineClamp={"1"}
-                textAlign={"left"}
-              >
-                {news.NewsTitle || "Untitled"}
-              </Text>
-              <Text fontSize="sm" color="gray.500" mb={2}>
-                {formatDate(news.UpdatedAt!) || "No Date"}
-              </Text>
-            </Flex>
-          </Box>
         </Box>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>
-            {news.NewsTitle || "Untitled"}{" "}
-            <Text fontSize="xs" color="gray.500" mb={2} fontWeight={"normal"}>
-              {formatDate(news.UpdatedAt!) || "No Date"}
-            </Text>
+            <HStack gap={4}>
+              <Avatar
+                colorPalette={"accent"}
+                name={gallery.Assistant?.Initial}
+                src={gallery.Assistant?.ProfilePicture}
+                size={"xs"}
+                css={{
+                  outlineWidth: "2px",
+                  outlineColor: "bluejack.100",
+                  outlineOffset: "2px",
+                  outlineStyle: "solid",
+                }}
+              />
+              <VStack alignItems={"start"} gap={0}>
+                <Text fontSize={"md"} fontWeight={"medium"}>
+                  {gallery.Assistant?.FullName}
+                </Text>
+                <Text
+                  fontSize={"xs"}
+                  fontWeight={"medium"}
+                  mt={-2}
+                  color={"secondary"}
+                >
+                  {gallery.Assistant?.Initial}
+                  {gallery.Assistant?.Generation} ·{" "}
+                  {formatDate(gallery.UpdatedAt!)}
+                </Text>
+              </VStack>
+            </HStack>
           </DialogTitle>
         </DialogHeader>
         <DialogBody mt={-4}>
-          <Text fontSize="sm" mb={6} whiteSpace={"pre-line"}>
-            {news.NewsDescription || "No description available."}
+          <Text fontSize={"sm"} fontWeight={"medium"} mb={2}>
+            {gallery.GalleryTitle}
           </Text>
           <Box overflow={"hidden"} pb={5}>
             <Slider {...sliderDetailSettings}>
-              {" "}
-              {news.NewsImages.map((image, imgIndex) => (
+              {gallery.GalleryImages.map((image, imgIndex) => (
                 <Box key={imgIndex}>
                   <img
                     src={image}
