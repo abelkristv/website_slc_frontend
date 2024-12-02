@@ -24,6 +24,7 @@ interface GalleryCardProps {
 
 export default function GalleryCard({ gallery }: GalleryCardProps) {
   const [open, setOpen] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   const sliderSettings = {
     infinite: gallery.GalleryImages.length > 1,
@@ -32,6 +33,7 @@ export default function GalleryCard({ gallery }: GalleryCardProps) {
     slidesToScroll: 1,
     autoplay: gallery.GalleryImages.length > 1,
     autoplaySpeed: 3000,
+    beforeChange: (_: any, next: any) => setCurrentIndex(next),
   };
 
   const sliderDetailSettings = {
@@ -39,6 +41,7 @@ export default function GalleryCard({ gallery }: GalleryCardProps) {
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
+    initialSlide: currentIndex,
     dots: gallery.GalleryImages.length > 1,
     prevArrow: <GalleryPrevArrow />,
     nextArrow: <GalleryNextArrow />,
@@ -123,7 +126,7 @@ export default function GalleryCard({ gallery }: GalleryCardProps) {
             </HStack>
           </DialogTitle>
         </DialogHeader>
-        <DialogBody mt={-4}>
+        <DialogBody mt={-2}>
           <Text fontSize={"sm"} fontWeight={"medium"} mb={2}>
             {gallery.GalleryTitle}
           </Text>
