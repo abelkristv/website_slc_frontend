@@ -1,6 +1,6 @@
 import { IconButton } from "@chakra-ui/react";
 
-export const GalleryPrevArrow = (props: any) => {
+export const CarouselPrevArrow = (props: any) => {
   const { className, style, onClick } = props;
   return (
     <IconButton
@@ -16,13 +16,11 @@ export const GalleryPrevArrow = (props: any) => {
         zIndex: 10,
         textShadow: "1px 1px 1px rgba(0, 0, 0, 0.2)",
       }}
-    >
-      {/* <LuArrowLeftCircle /> */}
-    </IconButton>
+    ></IconButton>
   );
 };
 
-export const GalleryNextArrow = (props: any) => {
+export const CarouselNextArrow = (props: any) => {
   const { className, style, onClick } = props;
   return (
     <IconButton

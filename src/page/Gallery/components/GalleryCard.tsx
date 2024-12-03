@@ -1,52 +1,34 @@
-import { Box, HStack, Text, VStack } from "@chakra-ui/react";
-import Slider from "react-slick";
-import { Gallery } from "../../../types/Gallery";
-import {
-  DialogBody,
-  DialogCloseTrigger,
-  DialogContent,
-  DialogHeader,
-  DialogRoot,
-  DialogTitle,
-  DialogTrigger,
-} from "../../../components/ui/dialog";
+import { Box, DialogHeader, HStack, Text, VStack } from "@chakra-ui/react";
 import { useState } from "react";
-import { formatDate } from "../../../utils/dateUtils";
-import { Avatar } from "../../../components/ui/avatar";
 import {
-  GalleryNextArrow,
-  GalleryPrevArrow,
-} from "../../../components/GalleryCarouselArrow";
+  DialogRoot,
+  DialogTrigger,
+  DialogContent,
+  DialogBody,
+  DialogTitle,
+  DialogCloseTrigger,
+} from "../../../components/ui/dialog";
+import { Gallery } from "../../../types/Gallery";
+import GalleryCardSlider from "./GalleryCardSlider";
+import GalleryDetailSlider from "./GalleryDetailSlider";
+import { Avatar } from "../../../components/ui/avatar";
+import { formatDate } from "../../../utils/dateUtils";
 
 interface GalleryCardProps {
   gallery: Gallery;
+  delay: number;
+  vertical: boolean;
+  rtl: boolean;
 }
 
-export default function GalleryCard({ gallery }: GalleryCardProps) {
+export default function GalleryCard({
+  gallery,
+  delay,
+  vertical,
+  rtl,
+}: GalleryCardProps) {
   const [open, setOpen] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
-
-  const sliderSettings = {
-    infinite: gallery.GalleryImages.length > 1,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    autoplay: gallery.GalleryImages.length > 1,
-    autoplaySpeed: 3000,
-    beforeChange: (_: any, next: any) => setCurrentIndex(next),
-  };
-
-  const sliderDetailSettings = {
-    infinite: false,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    initialSlide: currentIndex,
-    dots: gallery.GalleryImages.length > 1,
-    prevArrow: <GalleryPrevArrow />,
-    nextArrow: <GalleryNextArrow />,
-    adaptiveHeight: true,
-  };
 
   return (
     <DialogRoot
@@ -69,27 +51,13 @@ export default function GalleryCard({ gallery }: GalleryCardProps) {
           cursor={"pointer"}
           maxHeight={"98%"}
         >
-          <Box
-            width="100%"
-            transition="transform 0.2s"
-            _hover={{ transform: "scale(1.02)" }}
-          >
-            <Slider {...sliderSettings}>
-              {gallery.GalleryImages.map((image, imgIndex) => (
-                <Box key={imgIndex}>
-                  <img
-                    src={image}
-                    alt={`Slide ${imgIndex + 1}`}
-                    style={{
-                      width: "100%",
-                      aspectRatio: "1/1",
-                      objectFit: "cover",
-                    }}
-                  />
-                </Box>
-              ))}
-            </Slider>
-          </Box>
+          <GalleryCardSlider
+            images={gallery.GalleryImages}
+            setCurrentIndex={setCurrentIndex}
+            delay={delay}
+            vertical={vertical}
+            rtl={rtl}
+          />
         </Box>
       </DialogTrigger>
       <DialogContent>
@@ -126,25 +94,16 @@ export default function GalleryCard({ gallery }: GalleryCardProps) {
             </HStack>
           </DialogTitle>
         </DialogHeader>
-        <DialogBody mt={-2}>
-          <Text fontSize={"sm"} fontWeight={"medium"} mb={2}>
-            {gallery.GalleryTitle}
-          </Text>
-          <Box overflow={"hidden"} pb={5}>
-            <Slider {...sliderDetailSettings}>
-              {gallery.GalleryImages.map((image, imgIndex) => (
-                <Box key={imgIndex}>
-                  <img
-                    src={image}
-                    alt={`Slide ${imgIndex + 1}`}
-                    style={{
-                      width: "100%",
-                      height: "auto",
-                    }}
-                  />
-                </Box>
-              ))}
-            </Slider>
+        <DialogBody>
+          {" "}
+          <Box mt={-2}>
+            <Text fontSize={"sm"} fontWeight={"medium"} mb={2}>
+              {gallery.GalleryTitle}
+            </Text>
+            <GalleryDetailSlider
+              images={gallery.GalleryImages}
+              currentIndex={currentIndex}
+            />
           </Box>
         </DialogBody>
         <DialogCloseTrigger />

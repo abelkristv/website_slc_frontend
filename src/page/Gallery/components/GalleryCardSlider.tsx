@@ -1,0 +1,54 @@
+import { Box } from "@chakra-ui/react";
+import Slider from "react-slick";
+
+interface GallerySliderProps {
+  images: string[];
+  setCurrentIndex: any;
+  delay: number;
+  vertical: boolean;
+  rtl: boolean;
+}
+
+export default function GalleryCardSlider({
+  images,
+  setCurrentIndex,
+  delay,
+  vertical,
+  rtl,
+}: GallerySliderProps) {
+  const sliderSettings = {
+    infinite: images.length > 1,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: images.length > 1,
+    autoplaySpeed: 4000 + delay,
+    beforeChange: (_: any, next: any) => setCurrentIndex(next),
+    vertical: vertical,
+    rtl: rtl,
+  };
+
+  return (
+    <Box
+      width="100%"
+      transition="transform 0.2s"
+      _hover={{ transform: "scale(1.02)" }}
+    >
+      <Slider {...sliderSettings}>
+        {images.map((image, imgIndex) => (
+          <Box key={imgIndex}>
+            <img
+              src={image}
+              alt={`Slide ${imgIndex + 1}`}
+              style={{
+                width: "100%",
+                aspectRatio: "1/1",
+                objectFit: "cover",
+              }}
+            />
+          </Box>
+        ))}
+      </Slider>
+    </Box>
+  );
+}

@@ -1,21 +1,18 @@
 import { Box, Flex, Text } from "@chakra-ui/react";
-import Slider from "react-slick";
 import { useState } from "react";
 import {
-  DialogBody,
-  DialogCloseTrigger,
+  DialogRoot,
+  DialogTrigger,
   DialogContent,
   DialogHeader,
-  DialogRoot,
+  DialogBody,
   DialogTitle,
-  DialogTrigger,
+  DialogCloseTrigger,
 } from "../../../components/ui/dialog";
 import { News } from "../../../types/News";
 import { formatDate } from "../../../utils/dateUtils";
-import {
-  GalleryNextArrow,
-  GalleryPrevArrow,
-} from "../../../components/GalleryCarouselArrow";
+import NewsCardSlider from "./NewsCardSlider";
+import NewsDetailSlider from "./NewsDetailSlider";
 
 interface NewsCardProps {
   news: News;
@@ -23,26 +20,6 @@ interface NewsCardProps {
 
 export default function NewsCard({ news }: NewsCardProps) {
   const [open, setOpen] = useState(false);
-
-  const sliderSettings = {
-    infinite: news.NewsImages.length > 1,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    autoplay: news.NewsImages.length > 1,
-    autoplaySpeed: 5000,
-  };
-
-  const sliderDetailSettings = {
-    infinite: false,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    dots: news.NewsImages.length > 1,
-    prevArrow: <GalleryPrevArrow />,
-    nextArrow: <GalleryNextArrow />,
-    adaptiveHeight: true,
-  };
 
   return (
     <DialogRoot
@@ -64,27 +41,7 @@ export default function NewsCard({ news }: NewsCardProps) {
           cursor={"pointer"}
           justifyContent={"space-between"}
         >
-          <Box
-            width="100%"
-            transition="transform 0.2s"
-            _hover={{ transform: "scale(1.02)" }}
-          >
-            <Slider {...sliderSettings}>
-              {news.NewsImages.map((image, imgIndex) => (
-                <Box key={imgIndex}>
-                  <img
-                    src={image}
-                    alt={`Slide ${imgIndex + 1}`}
-                    style={{
-                      width: "100%",
-                      height: "auto",
-                      aspectRatio: "1/1",
-                    }}
-                  />
-                </Box>
-              ))}
-            </Slider>
-          </Box>
+          <NewsCardSlider images={news.NewsImages} />
           <Box px={4} pt={3} pb={2} mt={"-2"} zIndex={10} bg={"primary"}>
             <Flex direction="column" align="start" height="full">
               <Text
@@ -118,21 +75,7 @@ export default function NewsCard({ news }: NewsCardProps) {
             {news.NewsDescription || "No description available."}
           </Text>
           <Box overflow={"hidden"} pb={5}>
-            <Slider {...sliderDetailSettings}>
-              {" "}
-              {news.NewsImages.map((image, imgIndex) => (
-                <Box key={imgIndex}>
-                  <img
-                    src={image}
-                    alt={`Slide ${imgIndex + 1}`}
-                    style={{
-                      width: "100%",
-                      height: "auto",
-                    }}
-                  />
-                </Box>
-              ))}
-            </Slider>
+            <NewsDetailSlider images={news.NewsImages} />
           </Box>
         </DialogBody>
         <DialogCloseTrigger />
