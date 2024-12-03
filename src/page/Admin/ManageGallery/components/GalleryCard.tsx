@@ -1,4 +1,11 @@
-import { Box, DialogHeader, HStack, Text, VStack } from "@chakra-ui/react";
+import {
+  Badge,
+  Box,
+  DialogHeader,
+  HStack,
+  Text,
+  VStack,
+} from "@chakra-ui/react";
 import { useState } from "react";
 import {
   DialogRoot,
@@ -11,8 +18,8 @@ import {
 import { Gallery } from "../../../../types/Gallery";
 import { Avatar } from "../../../../components/ui/avatar";
 import { formatDate } from "../../../../utils/dateUtils";
-import GalleryCardSlider from "./GalleryCardSlider";
-import GalleryDetailSlider from "./GalleryDetailSlider";
+import GalleryDetailSlider from "../../../../components/GalleryDetailSlider";
+import GalleryCardSlider from "../../../../components/GalleryCardSlider";
 
 interface GalleryCardProps {
   gallery: Gallery;
@@ -41,7 +48,39 @@ export default function GalleryCard({ gallery }: GalleryCardProps) {
           flexDirection="column"
           cursor={"pointer"}
           maxHeight={"98%"}
+          position={"relative"}
         >
+          {gallery.GalleryStatus === "accepted" ? (
+            <Badge
+              position="absolute"
+              bottom={2}
+              right={2}
+              zIndex={10}
+              colorPalette={"green"}
+            >
+              Accepted
+            </Badge>
+          ) : gallery.GalleryStatus === "pending" ? (
+            <Badge
+              position="absolute"
+              bottom={2}
+              right={2}
+              zIndex={10}
+              colorPalette={"blue"}
+            >
+              Pending
+            </Badge>
+          ) : (
+            <Badge
+              position="absolute"
+              bottom={2}
+              right={2}
+              zIndex={10}
+              colorPalette={"red"}
+            >
+              Rejected
+            </Badge>
+          )}
           <GalleryCardSlider images={gallery.GalleryImages} />
         </Box>
       </DialogTrigger>

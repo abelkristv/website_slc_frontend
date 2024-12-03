@@ -9,10 +9,10 @@ import {
   DialogCloseTrigger,
 } from "../../../components/ui/dialog";
 import { Gallery } from "../../../types/Gallery";
-import GalleryCardSlider from "./GalleryCardSlider";
-import GalleryDetailSlider from "./GalleryDetailSlider";
 import { Avatar } from "../../../components/ui/avatar";
 import { formatDate } from "../../../utils/dateUtils";
+import GalleryDetailSlider from "../../../components/GalleryDetailSlider";
+import GalleryCardSlider from "./GalleryCardSlider";
 
 interface GalleryCardProps {
   gallery: Gallery;

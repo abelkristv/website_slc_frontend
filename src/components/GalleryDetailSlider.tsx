@@ -1,28 +1,28 @@
 import { Box } from "@chakra-ui/react";
 import Slider from "react-slick";
+import { CarouselNextArrow, CarouselPrevArrow } from "./CarouselArrow";
 
-interface GallerySliderProps {
+interface GalleryDetailSliderProps {
   images: string[];
 }
 
-export default function GalleryCardSlider({ images }: GallerySliderProps) {
-  const sliderSettings = {
-    infinite: images.length > 1,
+export default function GalleryDetailSlider({
+  images,
+}: GalleryDetailSliderProps) {
+  const sliderDetailSettings = {
+    infinite: false,
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
-    autoplay: images.length > 1,
-    autoplaySpeed: 4000,
+    dots: images.length > 1,
+    prevArrow: <CarouselPrevArrow />,
+    nextArrow: <CarouselNextArrow />,
+    adaptiveHeight: true,
   };
 
   return (
-    <Box
-      width="100%"
-      transition="transform 0.2s"
-      transform={"scale(1.01)"}
-      _hover={{ transform: "scale(1.025)" }}
-    >
-      <Slider {...sliderSettings}>
+    <Box overflow={"hidden"} pb={5}>
+      <Slider {...sliderDetailSettings}>
         {images.map((image, imgIndex) => (
           <Box key={imgIndex}>
             <img
@@ -30,6 +30,7 @@ export default function GalleryCardSlider({ images }: GallerySliderProps) {
               alt={`Slide ${imgIndex + 1}`}
               style={{
                 width: "100%",
+                height: "auto",
                 aspectRatio: "1/1",
                 objectFit: "cover",
               }}

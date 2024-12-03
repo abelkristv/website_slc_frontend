@@ -18,8 +18,8 @@ import {
 } from "../../../components/ui/dialog";
 import { Avatar } from "../../../components/ui/avatar";
 import { formatDate } from "../../../utils/dateUtils";
-import GalleryCardSlider from "./GalleryCardSlider";
-import GalleryDetailSlider from "./GalleryDetailSlider";
+import GalleryCardSlider from "../../../components/GalleryCardSlider";
+import GalleryDetailSlider from "../../../components/GalleryDetailSlider";
 
 interface GalleryCardProps {
   gallery: Gallery;
@@ -81,7 +81,6 @@ export default function GalleryCard({ gallery }: GalleryCardProps) {
               Rejected
             </Badge>
           )}
-
           <GalleryCardSlider images={gallery.GalleryImages} />
         </Box>
       </DialogTrigger>
