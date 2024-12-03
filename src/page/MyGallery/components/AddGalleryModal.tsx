@@ -23,7 +23,6 @@ import {
   showWaringToast,
 } from "../../../utils/toastUtils";
 import { convertFilesToBase64 } from "../../../utils/imageUtils";
-import { FaUser } from "react-icons/fa";
 import { createGallery } from "../../../services/GalleryService";
 import { useUser } from "../../../contexts/UserContext";
 
@@ -115,11 +114,7 @@ export default function AddGalleryModal({ fetchData }: AddGalleryModalProps) {
           onSubmit={handleSubmit}
         >
           <Field label="Gallery Title" required>
-            <InputField
-              ref={titleRef}
-              placeholder="Gallery Title"
-              icon={<FaUser color="gray.300" />}
-            />
+            <InputField ref={titleRef} placeholder="Gallery Title" />
           </Field>
           <Field label="Gallery Images" required>
             <FileUploadRoot

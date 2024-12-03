@@ -1,16 +1,23 @@
-import { Box, DialogHeader, HStack, Text, VStack } from "@chakra-ui/react";
-import { useState } from "react";
 import {
-  DialogRoot,
-  DialogTrigger,
-  DialogContent,
+  Badge,
+  Box,
+  DialogHeader,
+  HStack,
+  Text,
+  VStack,
+} from "@chakra-ui/react";
+import { useState } from "react";
+import { Gallery } from "../../../types/Gallery";
+import {
   DialogBody,
-  DialogTitle,
   DialogCloseTrigger,
-} from "../../../../components/ui/dialog";
-import { Gallery } from "../../../../types/Gallery";
-import { Avatar } from "../../../../components/ui/avatar";
-import { formatDate } from "../../../../utils/dateUtils";
+  DialogContent,
+  DialogRoot,
+  DialogTitle,
+  DialogTrigger,
+} from "../../../components/ui/dialog";
+import { Avatar } from "../../../components/ui/avatar";
+import { formatDate } from "../../../utils/dateUtils";
 import GalleryCardSlider from "./GalleryCardSlider";
 import GalleryDetailSlider from "./GalleryDetailSlider";
 
@@ -41,7 +48,40 @@ export default function GalleryCard({ gallery }: GalleryCardProps) {
           flexDirection="column"
           cursor={"pointer"}
           maxHeight={"98%"}
+          position={"relative"}
         >
+          {gallery.GalleryStatus === "accepted" ? (
+            <Badge
+              position="absolute"
+              bottom={2}
+              right={2}
+              zIndex={10}
+              colorPalette={"green"}
+            >
+              Accepted
+            </Badge>
+          ) : gallery.GalleryStatus === "pending" ? (
+            <Badge
+              position="absolute"
+              bottom={2}
+              right={2}
+              zIndex={10}
+              colorPalette={"blue"}
+            >
+              Pending
+            </Badge>
+          ) : (
+            <Badge
+              position="absolute"
+              bottom={2}
+              right={2}
+              zIndex={10}
+              colorPalette={"red"}
+            >
+              Rejected
+            </Badge>
+          )}
+
           <GalleryCardSlider images={gallery.GalleryImages} />
         </Box>
       </DialogTrigger>

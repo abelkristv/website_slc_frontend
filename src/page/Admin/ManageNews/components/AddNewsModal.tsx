@@ -21,7 +21,6 @@ import { showErrorToast, showSuccessToast } from "../../../../utils/toastUtils";
 import { convertFilesToBase64 } from "../../../../utils/imageUtils";
 import { createNews } from "../../../../services/NewsService";
 import { FileUploadFileChangeDetails, Spinner } from "@chakra-ui/react";
-import { FaUser } from "react-icons/fa";
 
 interface AddNewsModalProps {
   fetchData: () => void;
@@ -106,11 +105,7 @@ export default function AddNewsModal({ fetchData }: AddNewsModalProps) {
           onSubmit={handleSubmit}
         >
           <Field label="News Title" required>
-            <InputField
-              ref={titleRef}
-              placeholder="News Title"
-              icon={<FaUser color="gray.300" />}
-            />
+            <InputField ref={titleRef} placeholder="News Title" />
           </Field>
           <Field label="News Description" required>
             <TextAreaField

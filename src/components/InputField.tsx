@@ -6,7 +6,7 @@ import { useColorModeValue } from "./ui/color-mode";
 interface InputFieldProps {
   type?: string;
   placeholder: string;
-  icon: React.ReactNode;
+  icon?: React.ReactNode;
   value?: string;
 }
 

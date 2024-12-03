@@ -103,7 +103,7 @@ export default function AssistantsPage() {
         color="white"
         textShadow="1px 1px 1px rgba(30, 30, 30, 0.4)"
       >
-        Our Assistants
+        Assistants
       </Text>
 
       <Flex direction="column" alignItems="start" gap={4} width="100%">

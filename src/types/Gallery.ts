@@ -3,8 +3,7 @@ import { Assistant } from "./Assistant";
 export type Gallery = {
   ID?: number;
   GalleryTitle: string;
-  GalleryNotes?: string;
-  GalleryStatus?: "not accepted" | "pending" | "accepted";
+  GalleryStatus?: "rejected" | "pending" | "accepted";
   GalleryImages: string[];
   Assistant?: Assistant;
   CreatedAt?: string;

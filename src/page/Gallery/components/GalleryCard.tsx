@@ -84,8 +84,7 @@ export default function GalleryCard({
                   mt={-2}
                   color={"secondary"}
                 >
-                  {gallery.Assistant?.Initial}
-                  {gallery.Assistant?.Generation} ·{" "}
+                  {gallery.Assistant?.Initial} {gallery.Assistant?.Generation} ·{" "}
                   {formatDate(gallery.UpdatedAt!)}
                 </Text>
               </VStack>

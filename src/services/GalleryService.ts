@@ -13,19 +13,6 @@ export const getAcceptedGalleries = async (): Promise<Gallery[]> => {
   }
 };
 
-export const getMyGalleries = async (): Promise<Gallery[]> => {
-  try {
-    const response = await axios.get<Gallery[]>(
-      `${import.meta.env.VITE_BACKEND_URL}/my-galleries`,
-      { withCredentials: true }
-    );
-    return response.data;
-  } catch (error) {
-    console.error("Error fetching my galleries:", error);
-    throw error;
-  }
-};
-
 export const getPendingGalleries = async (): Promise<Gallery[]> => {
   try {
     const response = await axios.get<Gallery[]>(
@@ -35,6 +22,19 @@ export const getPendingGalleries = async (): Promise<Gallery[]> => {
     return response.data;
   } catch (error) {
     console.error("Error fetching pending galleries:", error);
+    throw error;
+  }
+};
+
+export const getMyGalleries = async (): Promise<Gallery[]> => {
+  try {
+    const response = await axios.get<Gallery[]>(
+      `${import.meta.env.VITE_BACKEND_URL}/my-galleries`,
+      { withCredentials: true }
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching my galleries:", error);
     throw error;
   }
 };
@@ -73,6 +73,32 @@ export const deleteGallery = async (galleryId: number) => {
     );
   } catch (error) {
     console.error("Error deleting gallery:", error);
+    throw error;
+  }
+};
+
+export const acceptGallery = async (galleryId: number) => {
+  try {
+    await axios.patch(
+      `${import.meta.env.VITE_BACKEND_URL}/galleries/${galleryId}/accept`,
+      {},
+      { withCredentials: true }
+    );
+  } catch (error) {
+    console.error("Error accepting gallery:", error);
+    throw error;
+  }
+};
+
+export const rejectGallery = async (galleryId: number) => {
+  try {
+    await axios.patch(
+      `${import.meta.env.VITE_BACKEND_URL}/galleries/${galleryId}/reject`,
+      {},
+      { withCredentials: true }
+    );
+  } catch (error) {
+    console.error("Error rejecting gallery:", error);
     throw error;
   }
 };

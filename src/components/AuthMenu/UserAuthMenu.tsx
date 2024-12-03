@@ -9,6 +9,7 @@ import {
   MdLogout,
   MdOutlineColorLens,
   MdOutlinePerson,
+  MdOutlinePhoto,
 } from "react-icons/md";
 import { useUser } from "../../contexts/UserContext";
 import { showErrorToast, showSuccessToast } from "../../utils/toastUtils";
@@ -81,6 +82,16 @@ export default function UserAuthMenu() {
             >
               <MdOutlinePerson />
               My Profile
+            </MenuItem>
+            <MenuItem
+              value="gallery"
+              cursor={"pointer"}
+              py={2}
+              px={4}
+              onClick={() => navigate(`/my-gallery`)}
+            >
+              <MdOutlinePhoto />
+              My Gallery
             </MenuItem>
             <MenuItem
               value="nar"

@@ -1,4 +1,11 @@
-import { Box, DialogHeader, HStack, Text, VStack } from "@chakra-ui/react";
+import {
+  Box,
+  DialogHeader,
+  HStack,
+  Spinner,
+  Text,
+  VStack,
+} from "@chakra-ui/react";
 import { useState } from "react";
 import {
   DialogRoot,
@@ -7,19 +14,60 @@ import {
   DialogBody,
   DialogTitle,
   DialogCloseTrigger,
+  DialogFooter,
 } from "../../../../components/ui/dialog";
 import { Gallery } from "../../../../types/Gallery";
 import { Avatar } from "../../../../components/ui/avatar";
 import { formatDate } from "../../../../utils/dateUtils";
 import GalleryCardSlider from "./GalleryCardSlider";
 import GalleryDetailSlider from "./GalleryDetailSlider";
+import { Button } from "../../../../components/ui/button";
+import {
+  acceptGallery,
+  rejectGallery,
+} from "../../../../services/GalleryService";
+import { showErrorToast, showSuccessToast } from "../../../../utils/toastUtils";
 
-interface GalleryCardProps {
+interface PendingGalleryCardProps {
   gallery: Gallery;
+  fetchData: () => void;
 }
 
-export default function GalleryCard({ gallery }: GalleryCardProps) {
+export default function PendingGalleryCard({
+  gallery,
+  fetchData,
+}: PendingGalleryCardProps) {
   const [open, setOpen] = useState(false);
+  const [isAcceptLoading, setIsAcceptLoading] = useState(false);
+  const [isRejectLoading, setIsRejectLoading] = useState(false);
+
+  const handleAccept = async () => {
+    setIsAcceptLoading(true);
+    try {
+      await acceptGallery(gallery.ID!);
+      showSuccessToast("Gallery accepted successfully");
+    } catch (error) {
+      console.error(error);
+      showErrorToast("Failed to accept gallery");
+    }
+    setIsAcceptLoading(false);
+    fetchData();
+    setOpen(false);
+  };
+
+  const handleReject = async () => {
+    setIsRejectLoading(true);
+    try {
+      await rejectGallery(gallery.ID!);
+      showSuccessToast("Gallery rejected successfully");
+    } catch (error) {
+      console.error(error);
+      showErrorToast("Failed to reject gallery");
+    }
+    setIsRejectLoading(false);
+    fetchData();
+    setOpen(false);
+  };
 
   return (
     <DialogRoot
@@ -87,6 +135,37 @@ export default function GalleryCard({ gallery }: GalleryCardProps) {
             <GalleryDetailSlider images={gallery.GalleryImages} />
           </Box>
         </DialogBody>
+        <DialogFooter>
+          <Button
+            onClick={handleAccept}
+            bg="bluejack.100"
+            color="white"
+            _hover={{ bg: "bluejack.200" }}
+            mt={6}
+            disabled={isAcceptLoading || isRejectLoading}
+          >
+            {isAcceptLoading ? (
+              <Spinner borderWidth={"3px"} size={"sm"} animationDuration="1s" />
+            ) : (
+              ""
+            )}
+            Accept
+          </Button>
+          <Button
+            onClick={handleReject}
+            colorPalette="red"
+            variant="surface"
+            mt={6}
+            disabled={isAcceptLoading || isRejectLoading}
+          >
+            {isRejectLoading ? (
+              <Spinner borderWidth={"3px"} size={"sm"} animationDuration="1s" />
+            ) : (
+              ""
+            )}
+            Reject
+          </Button>
+        </DialogFooter>
         <DialogCloseTrigger />
       </DialogContent>
     </DialogRoot>

@@ -16,7 +16,6 @@ import {
   Image,
   Spinner,
 } from "@chakra-ui/react";
-import { FaUser } from "react-icons/fa";
 import { LuTrash, LuPencil } from "react-icons/lu";
 import { Field } from "../../../../components/ui/field";
 import InputField from "../../../../components/InputField";
@@ -136,11 +135,7 @@ export default function UpdateNewsModal({
           gap={4}
         >
           <Field label="News Title" required>
-            <InputField
-              ref={titleRef}
-              placeholder="News Title"
-              icon={<FaUser color="gray.300" />}
-            />
+            <InputField ref={titleRef} placeholder="News Title" />
           </Field>
           <Field label="News Description" required>
             <TextAreaField

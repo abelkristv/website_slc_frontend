@@ -2,6 +2,7 @@
 
 import { For, SegmentGroup } from "@chakra-ui/react";
 import { forwardRef, useMemo } from "react";
+import { useColorModeValue } from "./color-mode";
 
 interface Item {
   value: string;
@@ -26,11 +27,12 @@ export const SegmentedControl = forwardRef<
 >(function SegmentedControl(props, ref) {
   const { items, ...rest } = props;
   const data = useMemo(() => normalize(items), [items]);
-  const { value } = props;
 
   return (
     <SegmentGroup.Root ref={ref} {...rest}>
-      <SegmentGroup.Indicator bgColor={"bluejack.100"} />
+      <SegmentGroup.Indicator
+        bgColor={useColorModeValue("blue.200", "bluejack.100")}
+      />
       <For each={data}>
         {(item) => (
           <SegmentGroup.Item
@@ -41,11 +43,7 @@ export const SegmentedControl = forwardRef<
             justifyContent={"center"}
             cursor={"pointer"}
           >
-            <SegmentGroup.ItemText
-              color={item.value == value ? "white" : undefined}
-            >
-              {item.label}
-            </SegmentGroup.ItemText>
+            <SegmentGroup.ItemText>{item.label}</SegmentGroup.ItemText>
             <SegmentGroup.ItemHiddenInput />
           </SegmentGroup.Item>
         )}
