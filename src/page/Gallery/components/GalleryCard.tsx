@@ -28,7 +28,6 @@ export default function GalleryCard({
   rtl,
 }: GalleryCardProps) {
   const [open, setOpen] = useState(false);
-  const [currentIndex, setCurrentIndex] = useState(0);
 
   return (
     <DialogRoot
@@ -53,7 +52,6 @@ export default function GalleryCard({
         >
           <GalleryCardSlider
             images={gallery.GalleryImages}
-            setCurrentIndex={setCurrentIndex}
             delay={delay}
             vertical={vertical}
             rtl={rtl}
@@ -100,10 +98,7 @@ export default function GalleryCard({
             <Text fontSize={"sm"} fontWeight={"medium"} mb={2}>
               {gallery.GalleryTitle}
             </Text>
-            <GalleryDetailSlider
-              images={gallery.GalleryImages}
-              currentIndex={currentIndex}
-            />
+            <GalleryDetailSlider images={gallery.GalleryImages} />
           </Box>
         </DialogBody>
         <DialogCloseTrigger />

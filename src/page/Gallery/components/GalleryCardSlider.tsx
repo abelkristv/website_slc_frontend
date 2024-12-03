@@ -3,7 +3,6 @@ import Slider from "react-slick";
 
 interface GallerySliderProps {
   images: string[];
-  setCurrentIndex: any;
   delay: number;
   vertical: boolean;
   rtl: boolean;
@@ -11,7 +10,6 @@ interface GallerySliderProps {
 
 export default function GalleryCardSlider({
   images,
-  setCurrentIndex,
   delay,
   vertical,
   rtl,
@@ -23,7 +21,6 @@ export default function GalleryCardSlider({
     slidesToScroll: 1,
     autoplay: images.length > 1,
     autoplaySpeed: 4000 + delay,
-    beforeChange: (_: any, next: any) => setCurrentIndex(next),
     vertical: vertical,
     rtl: rtl,
   };

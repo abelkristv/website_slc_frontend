@@ -7,19 +7,16 @@ import {
 
 interface GalleryDetailSliderProps {
   images: string[];
-  currentIndex: number;
 }
 
 export default function GalleryDetailSlider({
   images,
-  currentIndex,
 }: GalleryDetailSliderProps) {
   const sliderDetailSettings = {
     infinite: false,
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
-    initialSlide: currentIndex,
     dots: images.length > 1,
     prevArrow: <CarouselPrevArrow />,
     nextArrow: <CarouselNextArrow />,

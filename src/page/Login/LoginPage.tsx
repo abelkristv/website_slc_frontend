@@ -6,10 +6,10 @@ import binus_dark from "../../assets/binus_dark.png";
 import ribbon from "../../assets/ribbon.png";
 import InputField from "../../components/InputField";
 import { showErrorToast, showSuccessToast } from "../../utils/toastUtils";
-import HowToLoginDialog from "./components/HowToLoginDialog";
 import { useColorModeValue } from "../../components/ui/color-mode";
 import { useUser } from "../../contexts/UserContext";
 import { useNavigate } from "react-router";
+import HowToLoginModal from "./components/HowToLoginModal";
 
 export default function LoginPage() {
   const usernameRef = useRef<HTMLInputElement>(null);
@@ -95,7 +95,7 @@ export default function LoginPage() {
             )}
             Login
           </Button>
-          <HowToLoginDialog />
+          <HowToLoginModal />
         </VStack>
       </VStack>
     </Flex>

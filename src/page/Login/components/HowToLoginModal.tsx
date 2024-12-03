@@ -12,7 +12,7 @@ import {
 } from "../../../components/ui/dialog";
 import { MdQuestionMark } from "react-icons/md";
 
-export default function HowToLoginDialog() {
+export default function HowToLoginModal() {
   return (
     <DialogRoot>
       <DialogTrigger asChild>

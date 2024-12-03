@@ -36,19 +36,6 @@ export const deleteNews = async (newsId: number) => {
   }
 };
 
-export const getNewsById = async (newsId: string): Promise<News> => {
-  try {
-    const response = await axios.get<News>(
-      `${import.meta.env.VITE_BACKEND_URL}/news/${newsId}`
-    );
-
-    return response.data;
-  } catch (error) {
-    console.error("Error fetching news data:", error);
-    throw error;
-  }
-};
-
 export const updateNews = async (news: News) => {
   try {
     await axios.put<News>(

@@ -31,12 +31,12 @@ export default function GalleryPage() {
   return (
     <VStack gap={4}>
       <HStack
-        justifyContent={{ base: "start", md: "center" }}
+        justifyContent={user ? { base: "start", md: "center" } : "center"}
         width="full"
         position={"relative"}
       >
         <Text
-          fontSize={{ base: "3xl", md: "4xl" }}
+          fontSize={user ? { base: "3xl", md: "4xl" } : "4xl"}
           fontWeight="bold"
           color="white"
           textShadow="1px 1px 1px rgba(30, 30, 30, 0.4)"

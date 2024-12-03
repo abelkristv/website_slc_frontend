@@ -7,35 +7,30 @@ import {
   DialogRoot,
   DialogTitle,
   DialogTrigger,
-} from "../../../components/ui/dialog";
-import { Button } from "../../../components/ui/button";
-import { Field } from "../../../components/ui/field";
-import InputField from "../../../components/InputField";
+} from "../../../../components/ui/dialog";
+import { Button } from "../../../../components/ui/button";
+import { Field } from "../../../../components/ui/field";
+import InputField from "../../../../components/InputField";
+import TextAreaField from "../../../../components/TextAreaField";
 import {
   FileUploadDropzone,
   FileUploadList,
   FileUploadRoot,
-} from "../../../components/ui/file-button";
+} from "../../../../components/ui/file-button";
+import { showErrorToast, showSuccessToast } from "../../../../utils/toastUtils";
+import { convertFilesToBase64 } from "../../../../utils/imageUtils";
+import { createNews } from "../../../../services/NewsService";
 import { FileUploadFileChangeDetails, Spinner } from "@chakra-ui/react";
-import {
-  showErrorToast,
-  showSuccessToast,
-  showWaringToast,
-} from "../../../utils/toastUtils";
-import { convertFilesToBase64 } from "../../../utils/imageUtils";
 import { FaUser } from "react-icons/fa";
-import { createGallery } from "../../../services/GalleryService";
-import { useUser } from "../../../contexts/UserContext";
 
-interface AddGalleryModalProps {
+interface AddNewsModalProps {
   fetchData: () => void;
 }
 
-export default function AddGalleryModal({ fetchData }: AddGalleryModalProps) {
+export default function AddNewsModal({ fetchData }: AddNewsModalProps) {
   const [open, setOpen] = useState(false);
   const titleRef = useRef<HTMLInputElement>(null);
-  const { user } = useUser();
-
+  const descriptionRef = useRef<HTMLTextAreaElement>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [images, setImages] = useState<File[]>([]);
 
@@ -47,8 +42,9 @@ export default function AddGalleryModal({ fetchData }: AddGalleryModalProps) {
     e.preventDefault();
 
     const title = titleRef.current?.value || "";
+    const description = descriptionRef.current?.value || "";
 
-    if (!title || images.length === 0) {
+    if (!title || !description || images.length === 0) {
       showErrorToast("All fields are required.");
       return;
     }
@@ -58,20 +54,14 @@ export default function AddGalleryModal({ fetchData }: AddGalleryModalProps) {
     try {
       const base64Images = await convertFilesToBase64(images);
 
-      const gallery = {
-        GalleryTitle: title,
-        GalleryImages: base64Images,
+      const news = {
+        NewsTitle: title,
+        NewsDescription: description,
+        NewsImages: base64Images,
       };
 
-      await createGallery(gallery);
-      if (
-        user?.Assistant.SLCPosition.PositionName ===
-        "Operations Management Officer"
-      ) {
-        showSuccessToast("Gallery added successfully");
-      } else {
-        showWaringToast("Gallery is pending for approval");
-      }
+      await createNews(news);
+      showSuccessToast("News added successfully");
       setOpen(false);
       fetchData();
     } catch (err: any) {
@@ -81,6 +71,7 @@ export default function AddGalleryModal({ fetchData }: AddGalleryModalProps) {
       setIsLoading(false);
     }
   };
+
   return (
     <DialogRoot
       lazyMount
@@ -99,13 +90,13 @@ export default function AddGalleryModal({ fetchData }: AddGalleryModalProps) {
           color={"black"}
           size={{ base: "sm", md: "md" }}
         >
-          Add Gallery
+          Add News
         </Button>
       </DialogTrigger>
 
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Add Gallery</DialogTitle>
+          <DialogTitle>Add News</DialogTitle>
         </DialogHeader>
         <DialogBody
           display={"flex"}
@@ -114,14 +105,21 @@ export default function AddGalleryModal({ fetchData }: AddGalleryModalProps) {
           as={"form"}
           onSubmit={handleSubmit}
         >
-          <Field label="Gallery Title" required>
+          <Field label="News Title" required>
             <InputField
               ref={titleRef}
-              placeholder="Gallery Title"
+              placeholder="News Title"
               icon={<FaUser color="gray.300" />}
             />
           </Field>
-          <Field label="Gallery Images" required>
+          <Field label="News Description" required>
+            <TextAreaField
+              ref={descriptionRef}
+              placeholder="News description..."
+              minHeight={80}
+            />
+          </Field>
+          <Field label="News Images" required>
             <FileUploadRoot
               maxW="xl"
               alignItems="stretch"
@@ -152,9 +150,8 @@ export default function AddGalleryModal({ fetchData }: AddGalleryModalProps) {
             {isLoading ? (
               <Spinner borderWidth={"3px"} size={"sm"} animationDuration="1s" />
             ) : (
-              ""
+              "Submit"
             )}
-            Submit
           </Button>
         </DialogBody>
         <DialogCloseTrigger />

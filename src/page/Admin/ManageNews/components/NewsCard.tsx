@@ -1,10 +1,9 @@
-import { Box, Flex, IconButton, Text } from "@chakra-ui/react";
-import { LuPencil } from "react-icons/lu";
+import { Box, Flex, Text } from "@chakra-ui/react";
 import Slider from "react-slick";
-import DeleteNews from "./DeleteNews";
 import { News } from "../../../../types/News";
 import { formatDate } from "../../../../utils/dateUtils";
-import { useNavigate } from "react-router";
+import UpdateNewsModal from "./UpdateNewsModal";
+import DeleteNewsModal from "./DeleteNewsModal";
 
 interface NewsCardProps {
   news: News;
@@ -12,8 +11,6 @@ interface NewsCardProps {
 }
 
 export default function NewsCard({ news, fetchNews }: NewsCardProps) {
-  const navigate = useNavigate();
-
   const sliderSettings = {
     infinite: news.NewsImages.length > 1,
     speed: 500,
@@ -69,18 +66,8 @@ export default function NewsCard({ news, fetchNews }: NewsCardProps) {
             {formatDate(news.UpdatedAt!) || "No Date"}
           </Text>
         </Flex>
-        <IconButton
-          rounded="full"
-          position={"absolute"}
-          top={2}
-          right={"2.9rem"}
-          variant={"surface"}
-          size={"sm"}
-          onClick={() => navigate(`/admin/update-news/${news.ID}`)}
-        >
-          <LuPencil />
-        </IconButton>
-        <DeleteNews newsId={news.ID!} fetchNews={fetchNews} />
+        <UpdateNewsModal news={news} fetchData={fetchNews} />
+        <DeleteNewsModal newsId={news.ID!} fetchNews={fetchNews} />
       </Box>
     </Box>
   );

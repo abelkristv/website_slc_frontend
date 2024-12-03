@@ -14,9 +14,7 @@ import ManageUsersPage from "./page/Admin/ManageUsers/ManageUsersPage";
 import HomePage from "./page/Home/HomePage";
 import ManageInboxPage from "./page/Admin/ManageInbox/ManageInboxPage";
 import ManageNewsPage from "./page/Admin/ManageNews/ManageNewsPage";
-import AddNewsPage from "./page/Admin/ManageNews/AddNewsPage";
 import NewsPage from "./page/News/NewsPage";
-import UpdateNewsPage from "./page/Admin/ManageNews/UpdateNewsPage";
 import GalleryPage from "./page/Gallery/GalleryPage";
 import ManageGalleryPage from "./page/Admin/ManageGallery/ManageGalleryPage";
 
@@ -38,8 +36,6 @@ function App() {
           <Route path="/admin/manage-inbox" element={<ManageInboxPage />} />
           <Route path="/admin/manage-news" element={<ManageNewsPage />} />
           <Route path="/admin/manage-gallery" element={<ManageGalleryPage />} />
-          <Route path="/admin/add-news" element={<AddNewsPage />} />
-          <Route path="/admin/update-news/:id" element={<UpdateNewsPage />} />
           <Route
             path="/user/change-password"
             element={<ChangePasswordPage />}

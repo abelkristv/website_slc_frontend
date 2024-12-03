@@ -5,9 +5,8 @@ import "slick-carousel/slick/slick-theme.css";
 import { getNews } from "../../../services/NewsService";
 import { News } from "../../../types/News";
 import NewsCard from "./components/NewsCard";
-import { Button } from "../../../components/ui/button";
-import { Link } from "react-router-dom";
 import { Skeleton } from "../../../components/ui/skeleton";
+import AddNewsModal from "./components/AddNewsModal";
 
 export default function NewsPage() {
   const [news, setNews] = useState<News[]>([]);
@@ -44,20 +43,7 @@ export default function NewsPage() {
         >
           Manage News
         </Text>
-        <Link to={"/admin/add-news"}>
-          <Button
-            position={"absolute"}
-            right={0}
-            top={0}
-            transform={"translateY(20%)"}
-            bg={"white"}
-            _hover={{ bg: "gray.100" }}
-            color={"black"}
-            size={{ base: "sm", md: "md" }}
-          >
-            Add News
-          </Button>
-        </Link>
+        <AddNewsModal fetchData={fetchData} />
       </HStack>
 
       {loading ? (

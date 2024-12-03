@@ -21,7 +21,10 @@ interface DeleteNewsProps {
   fetchNews: () => void;
 }
 
-export default function DeleteNews({ newsId, fetchNews }: DeleteNewsProps) {
+export default function DeleteNewsModal({
+  newsId,
+  fetchNews,
+}: DeleteNewsProps) {
   const [open, setOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
