@@ -5,7 +5,7 @@ import { Gallery } from "../../../types/Gallery";
 import GalleryCard from "../../../components/GalleryCard";
 import { getAllGalleries } from "../../../services/GalleryService";
 import { Skeleton } from "../../../components/ui/skeleton";
-import PendingGalleryCard from "./components/PendingGalleryCard";
+import AdminGalleryCard from "./components/AdminGalleryCard";
 
 export default function ManageGalleryPage() {
   const [value, setValue] = useState("Accepted");
@@ -46,7 +46,7 @@ export default function ManageGalleryPage() {
         <SegmentedControl
           value={value}
           onValueChange={(e) => setValue(e.value)}
-          items={["Accepted", "Pending"]}
+          items={["Accepted", "Pending", "Rejected"]}
         />
       </Flex>
       {loading ? (
@@ -74,7 +74,7 @@ export default function ManageGalleryPage() {
             value == "Accepted" ? (
               <GalleryCard key={index} gallery={item} showStatus />
             ) : (
-              <PendingGalleryCard
+              <AdminGalleryCard
                 key={index}
                 gallery={item}
                 fetchData={fetchData}

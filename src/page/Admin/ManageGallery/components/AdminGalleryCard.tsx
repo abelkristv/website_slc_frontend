@@ -29,15 +29,15 @@ import {
 import { showErrorToast, showSuccessToast } from "../../../../utils/toastUtils";
 import GalleryCardSlider from "../../../../components/GalleryCardSlider";
 
-interface PendingGalleryCardProps {
+interface AdminGalleryCardProps {
   gallery: Gallery;
   fetchData: () => void;
 }
 
-export default function PendingGalleryCard({
+export default function AdminGalleryCard({
   gallery,
   fetchData,
-}: PendingGalleryCardProps) {
+}: AdminGalleryCardProps) {
   const [open, setOpen] = useState(false);
   const [isAcceptLoading, setIsAcceptLoading] = useState(false);
   const [isRejectLoading, setIsRejectLoading] = useState(false);
