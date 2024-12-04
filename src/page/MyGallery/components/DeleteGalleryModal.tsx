@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { deleteGallery } from "../../../services/GalleryService";
+import { showErrorToast, showSuccessToast } from "../../../utils/toastUtils";
 import {
   DialogActionTrigger,
   DialogBody,
@@ -9,34 +11,32 @@ import {
   DialogRoot,
   DialogTitle,
   DialogTrigger,
-} from "../../../../components/ui/dialog";
-import { Button } from "../../../../components/ui/button";
+} from "../../../components/ui/dialog";
 import { IconButton, Spinner } from "@chakra-ui/react";
 import { LuTrash } from "react-icons/lu";
-import { deleteNews } from "../../../../services/NewsService";
-import { showErrorToast, showSuccessToast } from "../../../../utils/toastUtils";
+import { Button } from "../../../components/ui/button";
 
-interface DeleteNewsProps {
-  newsId: number;
-  fetchNews: () => void;
+interface DeleteGalleryModalProps {
+  galleryId: number;
+  fetchData: () => void;
 }
 
-export default function DeleteNewsModal({
-  newsId,
-  fetchNews,
-}: DeleteNewsProps) {
+export default function DeleteGalleryModal({
+  galleryId,
+  fetchData,
+}: DeleteGalleryModalProps) {
   const [open, setOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   const handleDelete = async () => {
     setIsLoading(true);
     try {
-      await deleteNews(newsId);
-      fetchNews();
-      showSuccessToast("News deleted successfully.");
+      await deleteGallery(galleryId);
+      fetchData();
+      showSuccessToast("Gallery deleted successfully.");
     } catch (error) {
-      console.error("Failed to delete news:", error);
-      showErrorToast("Failed to delete news.");
+      console.error("Failed to delete gallery:", error);
+      showErrorToast("Failed to delete gallery.");
     } finally {
       setIsLoading(false);
     }
@@ -52,11 +52,11 @@ export default function DeleteNewsModal({
       <DialogTrigger asChild>
         <IconButton
           rounded="full"
-          position={"absolute"}
+          position="absolute"
           top={2}
           right={2}
-          variant={"surface"}
-          size={"sm"}
+          variant="surface"
+          size="sm"
           zIndex={10}
         >
           <LuTrash />
@@ -67,23 +67,22 @@ export default function DeleteNewsModal({
           <DialogTitle>Confirmation</DialogTitle>
         </DialogHeader>
         <DialogBody>
-          <p>Do you really want to delete this news?</p>
+          <p>Do you really want to delete this gallery?</p>
         </DialogBody>
         <DialogFooter>
           <DialogActionTrigger asChild>
             <Button variant="outline">Cancel</Button>
           </DialogActionTrigger>
           <Button
-            colorPalette={"red"}
+            colorPalette="red"
             onClick={handleDelete}
             disabled={isLoading}
           >
             {isLoading ? (
-              <Spinner borderWidth={"3px"} size={"sm"} animationDuration="1s" />
+              <Spinner borderWidth="3px" size="sm" animationDuration="1s" />
             ) : (
-              ""
+              "Delete"
             )}
-            Delete
           </Button>
         </DialogFooter>
         <DialogCloseTrigger />

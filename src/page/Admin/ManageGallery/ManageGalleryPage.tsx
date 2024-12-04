@@ -2,28 +2,25 @@ import { Box, Flex, SimpleGrid, Text, VStack } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { SegmentedControl } from "../../../components/ui/segmented-control";
 import { Gallery } from "../../../types/Gallery";
-import GalleryCard from "./components/GalleryCard";
-import {
-  getAcceptedGalleries,
-  getPendingGalleries,
-} from "../../../services/GalleryService";
+import GalleryCard from "../../../components/GalleryCard";
+import { getAllGalleries } from "../../../services/GalleryService";
 import { Skeleton } from "../../../components/ui/skeleton";
 import PendingGalleryCard from "./components/PendingGalleryCard";
 
 export default function ManageGalleryPage() {
   const [value, setValue] = useState("Accepted");
   const [galleries, setGalleries] = useState<Gallery[]>([]);
-  const [acceptedGalleries, setAcceptedGalleries] = useState<Gallery[]>([]);
-  const [pendingGalleries, setPendingGalleries] = useState<Gallery[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
+
+  const filteredGalleries = galleries.filter(
+    (gallery) => gallery.GalleryStatus?.toLowerCase() === value.toLowerCase()
+  );
 
   const fetchData = async () => {
     setLoading(true);
     try {
-      const accepted = await getAcceptedGalleries();
-      setAcceptedGalleries(accepted);
-      const pending = await getPendingGalleries();
-      setPendingGalleries(pending);
+      const galleries = await getAllGalleries();
+      setGalleries(galleries);
     } catch (error) {
       console.error("Failed to fetch gallery:", error);
     } finally {
@@ -34,14 +31,6 @@ export default function ManageGalleryPage() {
   useEffect(() => {
     fetchData();
   }, []);
-
-  useEffect(() => {
-    if (value === "Accepted") {
-      setGalleries(acceptedGalleries);
-    } else if (value === "Pending") {
-      setGalleries(pendingGalleries);
-    }
-  }, [value, acceptedGalleries, pendingGalleries]);
 
   return (
     <VStack gap={4}>
@@ -62,7 +51,7 @@ export default function ManageGalleryPage() {
       </Flex>
       {loading ? (
         <SimpleGrid columns={{ base: 1, sm: 2, md: 3, lg: 4 }} gap={4} w="full">
-          {Array.from({ length: 6 }).map((_, index) => (
+          {Array.from({ length: 8 }).map((_, index) => (
             <Box
               key={index}
               borderWidth="1px"
@@ -81,9 +70,9 @@ export default function ManageGalleryPage() {
         </SimpleGrid>
       ) : (
         <SimpleGrid columns={{ base: 1, sm: 2, md: 3, lg: 4 }} gap={4} w="full">
-          {galleries.map((item, index) =>
+          {filteredGalleries.map((item, index) =>
             value == "Accepted" ? (
-              <GalleryCard key={index} gallery={item} />
+              <GalleryCard key={index} gallery={item} showStatus />
             ) : (
               <PendingGalleryCard
                 key={index}

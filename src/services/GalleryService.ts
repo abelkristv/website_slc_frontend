@@ -13,15 +13,15 @@ export const getAcceptedGalleries = async (): Promise<Gallery[]> => {
   }
 };
 
-export const getPendingGalleries = async (): Promise<Gallery[]> => {
+export const getAllGalleries = async (): Promise<Gallery[]> => {
   try {
     const response = await axios.get<Gallery[]>(
-      `${import.meta.env.VITE_BACKEND_URL}/pending-galleries`,
+      `${import.meta.env.VITE_BACKEND_URL}/all-galleries`,
       { withCredentials: true }
     );
     return response.data;
   } catch (error) {
-    console.error("Error fetching pending galleries:", error);
+    console.error("Error fetching galleries:", error);
     throw error;
   }
 };

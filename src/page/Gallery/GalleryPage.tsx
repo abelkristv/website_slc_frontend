@@ -2,8 +2,8 @@ import { Box, HStack, SimpleGrid, Text, VStack } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Gallery } from "../../types/Gallery";
 import { getAcceptedGalleries } from "../../services/GalleryService";
-import GalleryCard from "./components/GalleryCard";
 import { Skeleton } from "../../components/ui/skeleton";
+import GalleryCard from "../../components/GalleryCard";
 
 export default function GalleryPage() {
   const [galleries, setGalleries] = useState<Gallery[]>([]);
@@ -39,7 +39,7 @@ export default function GalleryPage() {
       </HStack>
       {loading ? (
         <SimpleGrid columns={{ base: 1, sm: 2, md: 3, lg: 4 }} gap={4} w="full">
-          {Array.from({ length: 6 }).map((_, index) => (
+          {Array.from({ length: 8 }).map((_, index) => (
             <Box
               key={index}
               borderWidth="1px"

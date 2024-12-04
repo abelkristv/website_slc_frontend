@@ -7,25 +7,35 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { useState } from "react";
-import { Gallery } from "../../../types/Gallery";
 import {
-  DialogBody,
-  DialogCloseTrigger,
-  DialogContent,
   DialogRoot,
-  DialogTitle,
   DialogTrigger,
-} from "../../../components/ui/dialog";
-import { Avatar } from "../../../components/ui/avatar";
-import { formatDate } from "../../../utils/dateUtils";
-import GalleryCardSlider from "../../../components/GalleryCardSlider";
-import GalleryDetailSlider from "../../../components/GalleryDetailSlider";
+  DialogContent,
+  DialogBody,
+  DialogTitle,
+  DialogCloseTrigger,
+} from "./ui/dialog";
+import { Gallery } from "../types/Gallery";
+import { Avatar } from "./ui/avatar";
+import { formatDate } from "../utils/dateUtils";
+import GalleryDetailSlider from "./GalleryDetailSlider";
+import GalleryCardSlider from "./GalleryCardSlider";
 
 interface GalleryCardProps {
   gallery: Gallery;
+  delay?: number;
+  vertical?: boolean;
+  rtl?: boolean;
+  showStatus?: boolean;
 }
 
-export default function GalleryCard({ gallery }: GalleryCardProps) {
+export default function GalleryCard({
+  gallery,
+  delay,
+  vertical,
+  rtl,
+  showStatus = false,
+}: GalleryCardProps) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -50,7 +60,7 @@ export default function GalleryCard({ gallery }: GalleryCardProps) {
           maxHeight={"98%"}
           position={"relative"}
         >
-          {gallery.GalleryStatus === "accepted" ? (
+          {gallery.GalleryStatus === "accepted" && showStatus ? (
             <Badge
               position="absolute"
               bottom={2}
@@ -60,7 +70,7 @@ export default function GalleryCard({ gallery }: GalleryCardProps) {
             >
               Accepted
             </Badge>
-          ) : gallery.GalleryStatus === "pending" ? (
+          ) : gallery.GalleryStatus === "pending" && showStatus ? (
             <Badge
               position="absolute"
               bottom={2}
@@ -70,7 +80,7 @@ export default function GalleryCard({ gallery }: GalleryCardProps) {
             >
               Pending
             </Badge>
-          ) : (
+          ) : gallery.GalleryStatus === "rejected" && showStatus ? (
             <Badge
               position="absolute"
               bottom={2}
@@ -80,8 +90,13 @@ export default function GalleryCard({ gallery }: GalleryCardProps) {
             >
               Rejected
             </Badge>
-          )}
-          <GalleryCardSlider images={gallery.GalleryImages} />
+          ) : null}
+          <GalleryCardSlider
+            images={gallery.GalleryImages}
+            delay={delay}
+            vertical={vertical}
+            rtl={rtl}
+          />
         </Box>
       </DialogTrigger>
       <DialogContent>

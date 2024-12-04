@@ -3,16 +3,26 @@ import Slider from "react-slick";
 
 interface GallerySliderProps {
   images: string[];
+  delay?: number;
+  vertical?: boolean;
+  rtl?: boolean;
 }
 
-export default function GalleryCardSlider({ images }: GallerySliderProps) {
+export default function GalleryCardSlider({
+  images,
+  delay = 0,
+  vertical = false,
+  rtl = false,
+}: GallerySliderProps) {
   const sliderSettings = {
     infinite: images.length > 1,
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: images.length > 1,
-    autoplaySpeed: 4000,
+    autoplaySpeed: 4000 + delay,
+    vertical: vertical,
+    rtl: rtl,
   };
 
   return (

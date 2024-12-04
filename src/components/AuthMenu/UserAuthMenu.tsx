@@ -94,16 +94,6 @@ export default function UserAuthMenu() {
               My Gallery
             </MenuItem>
             <MenuItem
-              value="nar"
-              cursor={"pointer"}
-              py={2}
-              px={4}
-              onClick={() => navigate("/join-us")}
-            >
-              <MdElectricBolt />
-              NAR Page
-            </MenuItem>
-            <MenuItem
               value="change-password"
               cursor={"pointer"}
               py={2}
@@ -112,6 +102,16 @@ export default function UserAuthMenu() {
             >
               <MdLockOpen />
               Change Password
+            </MenuItem>
+            <MenuItem
+              value="nar"
+              cursor={"pointer"}
+              py={2}
+              px={4}
+              onClick={() => navigate("/join-us")}
+            >
+              <MdElectricBolt />
+              NAR Page
             </MenuItem>
             <MenuItem
               value="toggle"
@@ -133,7 +133,9 @@ export default function UserAuthMenu() {
               <MdLogout />
               Logout
             </MenuItem>
-            {user.Username === "DT23-2" && <AdminMenu />}
+            {(user.Assistant.SLCPosition.PositionName ===
+              "Operations Management Officer" ||
+              user.Username == "DT23-2") && <AdminMenu />}
           </MenuContent>
         </MenuRoot>
         <Box display={{ base: "block", lg: "none" }}>

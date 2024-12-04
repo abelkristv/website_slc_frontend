@@ -120,7 +120,13 @@ export const FileUploadList = forwardRef<HTMLUListElement, FileUploadListProps>(
                 <img
                   src={imagePreviewUrl}
                   alt={file.name}
-                  style={{ objectFit: "cover", marginBottom: "0.5rem" }}
+                  style={{
+                    marginBottom: "0.5rem",
+                    width: "100%",
+                    height: "auto",
+                    aspectRatio: "1/1",
+                    objectFit: "cover",
+                  }}
                 />
               ) : null}
               <FileUploadItem

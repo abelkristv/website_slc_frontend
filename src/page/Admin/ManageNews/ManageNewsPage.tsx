@@ -4,9 +4,9 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { getNews } from "../../../services/NewsService";
 import { News } from "../../../types/News";
-import NewsCard from "./components/NewsCard";
 import { Skeleton } from "../../../components/ui/skeleton";
 import AddNewsModal from "./components/AddNewsModal";
+import AdminNewsCard from "./components/AdminNewsCard";
 
 export default function NewsPage() {
   const [news, setNews] = useState<News[]>([]);
@@ -72,7 +72,7 @@ export default function NewsPage() {
       ) : (
         <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} gap={4} w="full">
           {news.map((item, index) => (
-            <NewsCard key={index} news={item} fetchNews={fetchData} />
+            <AdminNewsCard key={index} news={item} fetchNews={fetchData} />
           ))}
         </SimpleGrid>
       )}

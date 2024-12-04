@@ -7,56 +7,61 @@ import {
   DialogRoot,
   DialogTitle,
   DialogTrigger,
-} from "../../../../components/ui/dialog";
-import {
-  Button,
-  VStack,
-  Flex,
-  IconButton,
-  Image,
-  Spinner,
-} from "@chakra-ui/react";
-import { LuTrash, LuPencil } from "react-icons/lu";
-import { Field } from "../../../../components/ui/field";
-import InputField from "../../../../components/InputField";
-import TextAreaField from "../../../../components/TextAreaField";
+} from "../../../components/ui/dialog";
+import { Button } from "../../../components/ui/button";
+import { Field } from "../../../components/ui/field";
+import InputField from "../../../components/InputField";
 import {
   FileUploadDropzone,
   FileUploadList,
   FileUploadRoot,
-} from "../../../../components/ui/file-button";
-import { updateNews } from "../../../../services/NewsService";
-import { showErrorToast, showSuccessToast } from "../../../../utils/toastUtils";
-import { convertFilesToBase64 } from "../../../../utils/imageUtils";
-import { News } from "../../../../types/News";
+} from "../../../components/ui/file-button";
+import {
+  FileUploadFileChangeDetails,
+  Spinner,
+  VStack,
+  Flex,
+  IconButton,
+  Image,
+} from "@chakra-ui/react";
+import {
+  showErrorToast,
+  showSuccessToast,
+  showWaringToast,
+} from "../../../utils/toastUtils";
+import { convertFilesToBase64 } from "../../../utils/imageUtils";
+import { updateGallery } from "../../../services/GalleryService";
+import { Gallery } from "../../../types/Gallery";
+import { LuTrash, LuPencil } from "react-icons/lu";
+import { useUser } from "../../../contexts/UserContext";
 
-interface UpdateNewsModalProps {
-  news: News;
+interface UpdateGalleryModalProps {
+  gallery: Gallery;
   fetchData: () => void;
 }
 
-export default function UpdateNewsModal({
-  news,
+export default function UpdateGalleryModal({
+  gallery,
   fetchData,
-}: UpdateNewsModalProps) {
+}: UpdateGalleryModalProps) {
   const [open, setOpen] = useState(false);
   const titleRef = useRef<HTMLInputElement>(null);
-  const descriptionRef = useRef<HTMLTextAreaElement>(null);
+  const { user } = useUser();
+
   const [isLoading, setIsLoading] = useState(false);
   const [images, setImages] = useState<File[]>([]);
   const [existingImages, setExistingImages] = useState<string[]>([]);
 
   useEffect(() => {
     setTimeout(() => {
-      if (titleRef.current && descriptionRef.current) {
-        titleRef.current.value = news.NewsTitle;
-        descriptionRef.current.value = news.NewsDescription;
-        setExistingImages(news.NewsImages || []);
+      if (titleRef.current) {
+        titleRef.current.value = gallery.GalleryTitle || "";
+        setExistingImages(gallery.GalleryImages || []);
       }
     }, 0);
-  }, [news, open]);
+  }, [gallery, open]);
 
-  const handleFileChange = (details: any) => {
+  const handleFileChange = (details: FileUploadFileChangeDetails) => {
     setImages(details.acceptedFiles);
   };
 
@@ -68,13 +73,8 @@ export default function UpdateNewsModal({
     e.preventDefault();
 
     const title = titleRef.current?.value || "";
-    const description = descriptionRef.current?.value || "";
 
-    if (
-      !title ||
-      !description ||
-      (images.length === 0 && existingImages.length === 0)
-    ) {
+    if (!title || (images.length === 0 && existingImages.length === 0)) {
       showErrorToast("All fields are required.");
       return;
     }
@@ -84,15 +84,21 @@ export default function UpdateNewsModal({
     try {
       const base64Images = await convertFilesToBase64(images);
 
-      const updatedNews = {
-        ID: news.ID,
-        NewsTitle: title,
-        NewsDescription: description,
-        NewsImages: [...existingImages, ...base64Images],
+      const updatedGallery = {
+        ID: gallery.ID,
+        GalleryTitle: title,
+        GalleryImages: [...existingImages, ...base64Images],
       };
 
-      await updateNews(updatedNews);
-      showSuccessToast("News updated successfully");
+      await updateGallery(updatedGallery);
+      if (
+        user?.Assistant.SLCPosition.PositionName ===
+        "Operations Management Officer"
+      ) {
+        showSuccessToast("Gallery updated successfully");
+      } else {
+        showWaringToast("Gallery is pending for approval");
+      }
       setOpen(false);
       fetchData();
     } catch (err: any) {
@@ -113,11 +119,11 @@ export default function UpdateNewsModal({
       <DialogTrigger asChild>
         <IconButton
           rounded="full"
-          position={"absolute"}
+          position="absolute"
           top={2}
-          right={"2.9rem"}
-          variant={"surface"}
-          size={"sm"}
+          right="2.9rem"
+          variant="surface"
+          size="sm"
           zIndex={10}
         >
           <LuPencil />
@@ -126,7 +132,7 @@ export default function UpdateNewsModal({
 
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Update News</DialogTitle>
+          <DialogTitle>Update Gallery</DialogTitle>
         </DialogHeader>
         <DialogBody
           as="form"
@@ -135,16 +141,10 @@ export default function UpdateNewsModal({
           flexDir="column"
           gap={4}
         >
-          <Field label="News Title" required>
-            <InputField ref={titleRef} placeholder="News Title" />
+          <Field label="Gallery Title" required>
+            <InputField ref={titleRef} placeholder="Gallery Title" />
           </Field>
-          <Field label="News Description" required>
-            <TextAreaField
-              ref={descriptionRef}
-              placeholder="News description..."
-              minHeight={80}
-            />
-          </Field>
+
           {existingImages.length > 0 && (
             <Field label="Existing Images">
               <VStack gap={4} width="full">
@@ -164,11 +164,11 @@ export default function UpdateNewsModal({
                     ></Image>
                     <IconButton
                       rounded="full"
-                      position={"absolute"}
+                      position="absolute"
                       top={2}
                       right={2}
-                      variant={"surface"}
-                      size={"sm"}
+                      variant="surface"
+                      size="sm"
                       onClick={() => handleDeleteExistingImage(image)}
                     >
                       <LuTrash />
@@ -179,7 +179,7 @@ export default function UpdateNewsModal({
             </Field>
           )}
 
-          <Field label="Add News Images">
+          <Field label="Add Gallery Images">
             <FileUploadRoot
               maxW="xl"
               alignItems="stretch"

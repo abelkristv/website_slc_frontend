@@ -4,8 +4,8 @@ import { getMyGalleries } from "../../services/GalleryService";
 import { Gallery } from "../../types/Gallery";
 import { SegmentedControl } from "../../components/ui/segmented-control";
 import { Skeleton } from "../../components/ui/skeleton";
-import GalleryCard from "./components/GalleryCard";
 import AddGalleryModal from "./components/AddGalleryModal";
+import MyGalleryCard from "./components/MyGalleryCard";
 
 export default function MyGalleryPage() {
   const [value, setValue] = useState("Accepted");
@@ -58,7 +58,7 @@ export default function MyGalleryPage() {
       </Flex>
       {loading ? (
         <SimpleGrid columns={{ base: 1, sm: 2, md: 3, lg: 4 }} gap={4} w="full">
-          {Array.from({ length: 6 }).map((_, index) => (
+          {Array.from({ length: 8 }).map((_, index) => (
             <Box
               key={index}
               borderWidth="1px"
@@ -78,7 +78,12 @@ export default function MyGalleryPage() {
       ) : (
         <SimpleGrid columns={{ base: 1, sm: 2, md: 3, lg: 4 }} gap={4} w="full">
           {filteredGalleries.map((item, index) => (
-            <GalleryCard key={index} gallery={item} />
+            <MyGalleryCard
+              key={index}
+              gallery={item}
+              showStatus
+              fetchData={fetchData}
+            />
           ))}
         </SimpleGrid>
       )}
