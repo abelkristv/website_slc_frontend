@@ -1,23 +1,23 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Template from "./templates/Template";
-import LoginPage from "./page/Login/LoginPage";
-import AssistantsPage from "./page/Assistants/AssistantsPage";
-import ErrorPage from "./page/Error/ErrorPage";
-import AssistantDetailPage from "./page/AssistantDetail/AssistantDetailPage";
+import LoginPage from "./pages/Login/LoginPage";
+import AssistantsPage from "./pages/Assistants/AssistantsPage";
+import ErrorPage from "./pages/Error/ErrorPage";
+import AssistantDetailPage from "./pages/AssistantDetail/AssistantDetailPage";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import ContactUsPage from "./page/ContactUs/ContactUsPage";
-import JoinUsPage from "./page/JoinUs/JoinUsPage";
+import ContactUsPage from "./pages/ContactUs/ContactUsPage";
+import JoinUsPage from "./pages/JoinUs/JoinUsPage";
 import ParticlesBackground from "./templates/ParticlesBackground";
-import ChangePasswordPage from "./page/ChangePassword/ChangePasswordPage";
-import ManageUsersPage from "./page/Admin/ManageUsers/ManageUsersPage";
-import HomePage from "./page/Home/HomePage";
-import ManageInboxPage from "./page/Admin/ManageInbox/ManageInboxPage";
-import ManageNewsPage from "./page/Admin/ManageNews/ManageNewsPage";
-import NewsPage from "./page/News/NewsPage";
-import GalleryPage from "./page/Gallery/GalleryPage";
-import ManageGalleryPage from "./page/Admin/ManageGallery/ManageGalleryPage";
-import MyGalleryPage from "./page/MyGallery/MyGalleryPage";
+import ChangePasswordPage from "./pages/ChangePassword/ChangePasswordPage";
+import ManageUsersPage from "./pages/Admin/ManageUsers/ManageUsersPage";
+import HomePage from "./pages/Home/HomePage";
+import ManageInboxPage from "./pages/Admin/ManageInbox/ManageInboxPage";
+import ManageNewsPage from "./pages/Admin/ManageNews/ManageNewsPage";
+import NewsPage from "./pages/News/NewsPage";
+import GalleryPage from "./pages/Gallery/GalleryPage";
+import ManageGalleryPage from "./pages/Admin/ManageGallery/ManageGalleryPage";
+import MyGalleryPage from "./pages/MyGallery/MyGalleryPage";
 
 function App() {
   return (
