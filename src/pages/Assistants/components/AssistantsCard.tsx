@@ -56,7 +56,7 @@ export default function AssistantsCard({ assistant }: AssistantsCardProps) {
             <Box textAlign="center">
               {assistant.Status == "active" ? (
                 <Badge variant={"plain"} color={"bluejack.200"} size={"md"}>
-                  {assistant.SLCPosition.PositionName != ""
+                  {assistant.SLCPosition
                     ? assistant.SLCPosition.PositionName
                     : "Laboratory Assistant"}
                 </Badge>

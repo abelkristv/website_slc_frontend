@@ -19,6 +19,6 @@ export type Assistant = {
   Status: string;
   TeachingHistories: TeachingHistory[];
   AssistantExperiences: AssistantExperience[];
-  SLCPosition: SLCPosition;
+  SLCPosition?: SLCPosition;
   SocialMedia: SocialMedia;
 };

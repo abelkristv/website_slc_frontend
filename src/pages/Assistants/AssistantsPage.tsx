@@ -66,12 +66,10 @@ export default function AssistantsPage() {
     const searchElement = searchInputRef.current;
 
     const handleInput = () => {
-      if (fetchDataTimeoutRef.current) {
-        clearTimeout(fetchDataTimeoutRef.current);
-      }
+      clearTimeout(fetchDataTimeoutRef.current as number);
       fetchDataTimeoutRef.current = setTimeout(() => {
         setSearchTerm(searchElement?.value || "");
-      }, 600);
+      }, 600) as unknown as number;
     };
 
     searchElement?.addEventListener("input", handleInput);

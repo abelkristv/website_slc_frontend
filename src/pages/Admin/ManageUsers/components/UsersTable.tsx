@@ -32,21 +32,24 @@ export default function UsersTable({
     const assistantIndex = assistants.findIndex(
       (assistant) => assistant.ID === AssistantID
     );
+    if (assistantIndex === -1) return;
 
-    if (assistantIndex !== -1) {
-      const assistant = assistants[assistantIndex];
-      const previousPosition = assistant.SLCPosition.ID;
-      assistant.SLCPosition.ID = SLCPositionID;
-      setAssistants([...assistants]);
+    const originalAssistant = { ...assistants[assistantIndex] };
+    const updatedAssistants = [...assistants];
+    updatedAssistants[assistantIndex] = {
+      ...originalAssistant,
+      SLCPosition:
+        SLCPositions.find((pos) => pos.ID === SLCPositionID) || undefined,
+    };
 
-      try {
-        await updateSLCPosition(AssistantID, SLCPositionID);
-        showSuccessToast("Position updated successfully!");
-      } catch (error) {
-        assistant.SLCPosition.ID = previousPosition;
-        setAssistants([...assistants]);
-        showErrorToast("Failed to update position. Please try again.");
-      }
+    setAssistants(updatedAssistants);
+
+    try {
+      await updateSLCPosition(AssistantID, SLCPositionID);
+      showSuccessToast("Position updated successfully!");
+    } catch (error) {
+      setAssistants(assistants);
+      showErrorToast("Failed to update position. Please try again.");
     }
   };
 
@@ -108,7 +111,11 @@ export default function UsersTable({
                 </Table.Cell>
                 <Table.Cell>
                   <select
-                    value={assistant.SLCPosition.ID.toString()}
+                    value={
+                      assistant.SLCPosition?.ID
+                        ? assistant.SLCPosition.ID.toString()
+                        : ""
+                    }
                     onChange={(e) =>
                       updatePosition(assistant.ID, parseInt(e.target.value))
                     }
