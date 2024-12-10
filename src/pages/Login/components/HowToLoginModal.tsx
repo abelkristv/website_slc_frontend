@@ -42,12 +42,12 @@ export default function HowToLoginModal() {
             </li>
             <li>
               <strong>Default Password:</strong> Your birthdate in the format{" "}
-              <strong>slc-DDMMYYYY</strong>.
+              <strong>dd-mm-yyyy</strong>.
             </li>
           </ul>
           <p style={{ marginTop: "10px" }}>
             <em>Example:</em> If your birthdate is June 23, 2003, your default
-            password would be <strong>slc-23062003</strong>.
+            password would be <strong>23-06-2003</strong>.
           </p>
         </DialogBody>
         <DialogFooter>

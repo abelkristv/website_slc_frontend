@@ -133,8 +133,9 @@ export default function UserAuthMenu() {
               <MdLogout />
               Logout
             </MenuItem>
-            {(user.Assistant.SLCPosition.PositionName ===
-              "Operations Management Officer" ||
+            {((user.Assistant.SLCPosition &&
+              user.Assistant.SLCPosition.PositionName ===
+                "Operations Management Officer") ||
               user.Username == "DT23-2") && <AdminMenu />}
           </MenuContent>
         </MenuRoot>
