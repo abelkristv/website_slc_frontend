@@ -18,6 +18,7 @@ import NewsPage from "./pages/News/NewsPage";
 import GalleryPage from "./pages/Gallery/GalleryPage";
 import ManageGalleryPage from "./pages/Admin/ManageGallery/ManageGalleryPage";
 import MyGalleryPage from "./pages/MyGallery/MyGalleryPage";
+import AwardsPage from "./pages/Awards/AwardsPage";
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
           <Route path="/assistants/:id" element={<AssistantDetailPage />} />
           <Route path="/news" element={<NewsPage />} />
           <Route path="/gallery" element={<GalleryPage />} />
+          <Route path="/awards" element={<AwardsPage />} />
           <Route path="/contact-us" element={<ContactUsPage />} />
           <Route path="/join-us" element={<JoinUsPage />} />
           <Route path="/my-gallery" element={<MyGalleryPage />} />
