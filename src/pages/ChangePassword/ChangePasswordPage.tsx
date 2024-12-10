@@ -10,8 +10,8 @@ import {
 import InputField from "../../components/InputField";
 import { showErrorToast, showSuccessToast } from "../../utils/toastUtils";
 import { Field } from "../../components/ui/field";
-import { MdLockOpen } from "react-icons/md";
 import { changePassword } from "../../services/UserService";
+import { FaLock } from "react-icons/fa";
 
 export default function ChangePasswordPage() {
   const oldPasswordRef = useRef<HTMLInputElement>(null);
@@ -72,7 +72,7 @@ export default function ChangePasswordPage() {
             type="password"
             ref={oldPasswordRef}
             placeholder="Old Password"
-            icon={<MdLockOpen color="gray.300" />}
+            icon={<FaLock color="gray.300" />}
           />
         </Field>
         <Field label="New Password" required>
@@ -80,7 +80,7 @@ export default function ChangePasswordPage() {
             type="password"
             ref={newPasswordRef}
             placeholder="New Password"
-            icon={<MdLockOpen color="gray.300" />}
+            icon={<FaLock color="gray.300" />}
           />
         </Field>
         <Field label="Confirm New Password" required>
@@ -88,7 +88,7 @@ export default function ChangePasswordPage() {
             type="password"
             ref={confirmPasswordRef}
             placeholder="Confirm New Password"
-            icon={<MdLockOpen color="gray.300" />}
+            icon={<FaLock color="gray.300" />}
           />
         </Field>
         <Button
