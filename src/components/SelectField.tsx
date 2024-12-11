@@ -11,7 +11,7 @@ interface SelectFieldProps {
   collection: any;
   placeholder: string;
   onChange: (value: string) => void;
-  width?: string;
+  width?: any;
   size?: string;
   value: string;
   clearable?: boolean;

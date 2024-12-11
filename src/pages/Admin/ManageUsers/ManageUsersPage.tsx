@@ -24,7 +24,8 @@ export default function ManageUsersPage() {
   const [status, setStatus] = useState<string>("");
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [generations, setGenerations] = useState<string[]>([]);
-  const [SLCPostions, setSLCPositions] = useState<SLCPosition[]>([]);
+  const [position, setPosition] = useState<string>("");
+  const [positions, setPositions] = useState<SLCPosition[]>([]);
   const [isMounted, setIsMounted] = useState(false);
 
   const fetchDataTimeoutRef = useRef<number>(0);
@@ -39,6 +40,7 @@ export default function ManageUsersPage() {
       orderby,
       status,
       page.toString(),
+      position,
       "100"
     );
     setAssistants(data.users);
@@ -52,6 +54,7 @@ export default function ManageUsersPage() {
     if (orderby) params.set("orderby", orderby);
     if (status) params.set("status", status);
     if (searchTerm) params.set("search", searchTerm);
+    if (position) params.set("position", position);
     params.set("page", page.toString());
     navigate(`?${params.toString()}`, { replace: true });
   };
@@ -61,19 +64,21 @@ export default function ManageUsersPage() {
       const data = await getGenerations();
       setGenerations(data);
     };
-    fetchGenerations();
 
-    const fetchSLCPositions = async () => {
+    const fetchPositions = async () => {
       const data = await getSLCPositions();
-      setSLCPositions(data);
+      setPositions(data);
     };
-    fetchSLCPositions();
+
+    fetchGenerations();
+    fetchPositions();
 
     const params = new URLSearchParams(location.search);
     setGeneration(params.get("generation") || "");
     setOrderby(params.get("orderby") || "");
     setStatus(params.get("status") || "");
     setSearchTerm(params.get("search") || "");
+    setPosition(params.get("position") || "");
     setPage(parseInt(params.get("page") || "1"));
 
     const searchElement = searchInputRef.current;
@@ -95,7 +100,7 @@ export default function ManageUsersPage() {
     updateSearchParams();
     fetchData();
     window.scrollTo(0, 0);
-  }, [generation, orderby, status, page, searchTerm]);
+  }, [generation, orderby, status, page, searchTerm, position]);
 
   useEffect(() => {
     if (isMounted) {
@@ -103,7 +108,7 @@ export default function ManageUsersPage() {
     } else {
       setIsMounted(true);
     }
-  }, [generation, orderby, status, searchTerm]);
+  }, [generation, orderby, status, searchTerm, position]);
 
   return (
     <VStack gap={4} bg="primary" p={6} borderRadius="lg" boxShadow="lg">
@@ -120,6 +125,9 @@ export default function ManageUsersPage() {
         generation={generation}
         status={status}
         orderby={orderby}
+        positions={positions}
+        position={position}
+        setPosition={setPosition}
       />
       <Flex overflowX={"scroll"} width={"full"}>
         <UsersTable
@@ -127,7 +135,7 @@ export default function ManageUsersPage() {
           page={page}
           itemsPerPage={itemsPerPage}
           loading={loading}
-          SLCPositions={SLCPostions}
+          SLCPositions={positions}
           setAssistants={setAssistants}
         />
       </Flex>

@@ -1,8 +1,17 @@
 import { createListCollection } from "@chakra-ui/react";
+import { SLCPosition } from "../../../types/SLCPosition";
 
-export const createGenerationsCollection = (generations: string[]) =>
+export const createGenerationCollection = (generations: string[]) =>
   createListCollection({
     items: generations.map((gen) => ({ label: gen, value: gen })),
+  });
+
+export const createPositionCollection = (positions: SLCPosition[]) =>
+  createListCollection({
+    items: positions.map((pos) => ({
+      label: pos.PositionName,
+      value: pos.ID.toString(),
+    })),
   });
 
 export const createOrderCollection = () =>

@@ -120,7 +120,7 @@ export default function UsersTable({
                       updatePosition(assistant.ID, parseInt(e.target.value))
                     }
                     style={{
-                      padding: "4px 8px",
+                      padding: "6px 8px",
                       fontSize: "14px",
                       borderRadius: "4px",
                       border: "1px solid #ccc",

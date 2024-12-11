@@ -9,6 +9,7 @@ export const getAssistants = async (
   orderby?: string,
   status?: string,
   page?: string,
+  position?: string,
   limit?: string
 ): Promise<AssistantPaginate> => {
   try {
@@ -29,9 +30,14 @@ export const getAssistants = async (
     if (page) {
       params.page = page;
     }
+    if (position) {
+      params.slcposition = position;
+    }
     if (limit) {
       params.limit = limit;
     }
+
+    console.log(params);
 
     const response = await axios.get<AssistantPaginate>(
       `${import.meta.env.VITE_BACKEND_URL}/assistants`,

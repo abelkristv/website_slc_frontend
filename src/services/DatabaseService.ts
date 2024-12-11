@@ -7,7 +7,7 @@ export const syncDatabase = async (login: Login) => {
       withCredentials: true,
     });
   } catch (error) {
-    console.error("Login failed:", error);
+    console.error("Sync failed:", error);
     throw error;
   }
 };

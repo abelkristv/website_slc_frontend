@@ -1,23 +1,28 @@
-import { Flex } from "@chakra-ui/react";
+import { Flex, SimpleGrid } from "@chakra-ui/react";
 import InputField from "../../../components/InputField";
 import { IoSearch } from "react-icons/io5";
 import SelectField from "../../../components/SelectField";
 import {
-  createGenerationsCollection,
+  createGenerationCollection,
   createOrderCollection,
+  createPositionCollection,
   createStatusCollection,
 } from "../collections/AssistantsFilterCollections";
+import { SLCPosition } from "../../../types/SLCPosition";
 
 interface AssistantsFiltersProps {
   searchInputRef: React.RefObject<HTMLInputElement>;
   generations: string[];
+  positions: SLCPosition[];
   searchTerm: string;
   generation: string;
   status: string;
+  position: string;
   orderby: string;
   setGeneration: (generation: string) => void;
   setOrderby: (orderby: string) => void;
   setStatus: (status: string) => void;
+  setPosition: (status: string) => void;
 }
 
 export default function AssistantsFilters({
@@ -27,9 +32,12 @@ export default function AssistantsFilters({
   generation,
   status,
   orderby,
+  position,
+  positions,
   setGeneration,
   setOrderby,
   setStatus,
+  setPosition,
 }: AssistantsFiltersProps) {
   return (
     <Flex
@@ -45,29 +53,36 @@ export default function AssistantsFilters({
         icon={<IoSearch color="gray.400" />}
         value={searchTerm}
       />
-      <Flex gap={4} width={{ base: "100%", md: "60%" }}>
+      <SimpleGrid
+        gap={4}
+        width={{ base: "100%", md: "65%" }}
+        columns={{ base: 2, md: 4 }}
+      >
         <SelectField
           collection={createStatusCollection()}
           placeholder="All Statuses"
           onChange={setStatus}
           value={status}
-          width="33%"
         />
         <SelectField
-          collection={createGenerationsCollection(generations)}
+          collection={createGenerationCollection(generations)}
           placeholder="All Generations"
           onChange={setGeneration}
           value={generation}
-          width="33%"
+        />
+        <SelectField
+          collection={createPositionCollection(positions)}
+          placeholder="All Positions"
+          onChange={setPosition}
+          value={position}
         />
         <SelectField
           collection={createOrderCollection()}
           placeholder="Order By"
           onChange={setOrderby}
           value={orderby}
-          width="33%"
         />
-      </Flex>
+      </SimpleGrid>
     </Flex>
   );
 }
