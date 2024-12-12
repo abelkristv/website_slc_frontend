@@ -33,7 +33,7 @@ export default function AwardsSection({ assistant }: AwardsProps) {
             bg="card"
             shadow="xs"
             overflow="hidden"
-            cursor="pointer"
+            cursor="default"
             key={idx}
           >
             <Box
