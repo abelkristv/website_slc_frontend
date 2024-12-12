@@ -1,3 +1,4 @@
+import { AssistantAward } from "./AssistantAward";
 import { AssistantExperience } from "./AssistantExperience";
 import { SLCPosition } from "./SLCPosition";
 import { SocialMedia } from "./SocialMedia";
@@ -15,10 +16,10 @@ export type Assistant = {
   Initial: string;
   Generation: string;
   CarrerPath: string | null;
-  Award: string | null;
   Status: string;
   TeachingHistories: TeachingHistory[];
   AssistantExperiences: AssistantExperience[];
+  Awards: AssistantAward[];
   SLCPosition?: SLCPosition;
   SocialMedia: SocialMedia;
 };

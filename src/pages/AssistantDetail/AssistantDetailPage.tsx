@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Assistant } from "../../types/Assistant";
 import { getAssistantById } from "../../services/AssistantService";
-import { Flex } from "@chakra-ui/react";
+import { Box, Flex, Heading, Text } from "@chakra-ui/react";
 import TeachingHistorySection from "./components/TeachingHistorySection";
 import AwardsSection from "./components/AwardsSection";
 import ProfileSection from "./components/ProfileSection";
@@ -77,7 +77,38 @@ export default function AssistantDetailPage() {
           fetchAssistant={fetchAssistant}
         />
         <TeachingHistorySection assistant={assistant} />
-        <AwardsSection />
+        <AwardsSection assistant={assistant} />
+        {!assistant.AssistantExperiences?.length &&
+          !assistant.Awards?.length &&
+          !assistant.TeachingHistories?.length && (
+            <Box
+              bg="primary"
+              p={8}
+              borderRadius="lg"
+              boxShadow="lg"
+              textAlign="center"
+            >
+              <Heading
+                as="h1"
+                size="lg"
+                color={{ base: "gray.900", _dark: "gray.200" }}
+                mb={4}
+              >
+                No Data Available
+              </Heading>
+              <Text
+                fontSize="lg"
+                color={{ base: "gray.700", _dark: "gray.400" }}
+                mb={2}
+              >
+                It seems there is no information to display for this assistant
+                at the moment.
+              </Text>
+              <Text color="gray.500" fontStyle="italic">
+                Please check back later.
+              </Text>
+            </Box>
+          )}
       </Flex>
     </Flex>
   );

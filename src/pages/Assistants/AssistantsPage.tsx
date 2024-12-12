@@ -33,7 +33,6 @@ export default function AssistantsPage() {
   const location = useLocation();
 
   const fetchData = async () => {
-    console.log("pos", position);
     setLoading(true);
     const data = await getAssistants(
       generation,

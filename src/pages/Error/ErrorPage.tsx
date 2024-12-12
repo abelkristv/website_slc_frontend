@@ -2,7 +2,7 @@ import { Box, Heading, Text } from "@chakra-ui/react";
 
 export default function ErrorPage() {
   return (
-    <Box bg="primary" p={6} borderRadius="lg" boxShadow="lg" textAlign="center">
+    <Box bg="primary" p={8} borderRadius="lg" boxShadow="lg" textAlign="center">
       <Heading
         as="h1"
         size="lg"
@@ -18,7 +18,7 @@ export default function ErrorPage() {
       >
         An unexpected error has occurred.
       </Text>
-      <Text color="gray.500" fontStyle="italic" mb={2}>
+      <Text color="gray.500" fontStyle="italic">
         Page not found
       </Text>
     </Box>

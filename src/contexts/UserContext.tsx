@@ -39,7 +39,6 @@ export default function UserProvider({
       );
       setUser(response.data);
     } catch (error) {
-      console.error("Token validation failed:", error);
       setUser(null);
     }
   };

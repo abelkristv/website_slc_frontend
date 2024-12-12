@@ -37,8 +37,6 @@ export const getAssistants = async (
       params.limit = limit;
     }
 
-    console.log(params);
-
     const response = await axios.get<AssistantPaginate>(
       `${import.meta.env.VITE_BACKEND_URL}/assistants`,
       { params }

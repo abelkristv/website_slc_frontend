@@ -1,4 +1,4 @@
-import { Flex, SimpleGrid } from "@chakra-ui/react";
+import { Flex, GridItem, SimpleGrid } from "@chakra-ui/react";
 import { IoSearch } from "react-icons/io5";
 import InputField from "../../../../components/InputField";
 import SelectField from "../../../../components/SelectField";
@@ -47,41 +47,47 @@ export default function UsersFilters({
       width="100%"
       gap={4}
     >
-      <InputField
-        ref={searchInputRef}
-        placeholder="Search"
-        icon={<IoSearch color="gray.400" />}
-        value={searchTerm}
-      />
-      <SimpleGrid
-        gap={4}
-        width={{ base: "100%", md: "65%" }}
-        columns={{ base: 2, md: 4 }}
-      >
-        <SelectField
-          collection={createStatusCollection()}
-          placeholder="All Statuses"
-          onChange={setStatus}
-          value={status}
-        />
-        <SelectField
-          collection={createGenerationCollection(generations)}
-          placeholder="All Generations"
-          onChange={setGeneration}
-          value={generation}
-        />
-        <SelectField
-          collection={createPositionCollection(positions)}
-          placeholder="All Positions"
-          onChange={setPosition}
-          value={position}
-        />
-        <SelectField
-          collection={createOrderCollection()}
-          placeholder="Order By"
-          onChange={setOrderby}
-          value={orderby}
-        />
+      <SimpleGrid gap={4} width={"full"} columns={{ base: 3, md: 12 }}>
+        <GridItem colSpan={{ base: 3, md: 3 }}>
+          <InputField
+            ref={searchInputRef}
+            placeholder="Search"
+            icon={<IoSearch color="gray.400" />}
+            value={searchTerm}
+          />
+        </GridItem>
+        <GridItem colSpan={{ base: 3, md: 3 }}>
+          <SelectField
+            collection={createPositionCollection(positions)}
+            placeholder="All Positions"
+            onChange={setPosition}
+            value={position}
+          />
+        </GridItem>
+        <GridItem colSpan={{ base: 1, md: 2 }}>
+          <SelectField
+            collection={createGenerationCollection(generations)}
+            placeholder="All Generations"
+            onChange={setGeneration}
+            value={generation}
+          />
+        </GridItem>
+        <GridItem colSpan={{ base: 1, md: 2 }}>
+          <SelectField
+            collection={createStatusCollection()}
+            placeholder="All Statuses"
+            onChange={setStatus}
+            value={status}
+          />
+        </GridItem>
+        <GridItem colSpan={{ base: 1, md: 2 }}>
+          <SelectField
+            collection={createOrderCollection()}
+            placeholder="Order By"
+            onChange={setOrderby}
+            value={orderby}
+          />
+        </GridItem>
       </SimpleGrid>
     </Flex>
   );

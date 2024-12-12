@@ -1,22 +1,14 @@
 import { Box, Text, VStack, SimpleGrid } from "@chakra-ui/react";
+import { Assistant } from "../../../types/Assistant";
 
-const awards = [
-  {
-    id: 1,
-    title: "Best Performing Assistant",
-    semester: "Odd Semester 2023/2024",
-  },
-  {
-    id: 2,
-    title: "Best Test Progressive Assistant",
-    semester: "Even Semester 2023/2024",
-  },
-];
+interface AwardsProps {
+  assistant: Assistant;
+}
 
-export default function AwardsSection() {
-  if (awards.length === 0) {
-    return null;
-  }
+export default function AwardsSection({ assistant }: AwardsProps) {
+  const awards = assistant.Awards || [];
+
+  if (awards.length === 0) return null;
 
   return (
     <Box
@@ -57,10 +49,10 @@ export default function AwardsSection() {
             />
             <VStack align="start" p={4} gap={1} position="relative" zIndex={1}>
               <Text fontSize="md" fontWeight="bold" color="secondary">
-                {award.title}
+                {award.AwardTitle}
               </Text>
               <Text fontSize="sm" color="secondary">
-                {award.semester}
+                {award.Period}
               </Text>
             </VStack>
           </Box>
