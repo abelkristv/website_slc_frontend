@@ -38,7 +38,7 @@ export default function AdminMenu() {
         cursor={"pointer"}
         py={2}
         px={4}
-        onClick={() => navigate("/user/my-profile")}
+        onClick={() => navigate("/admin/manage-awards")}
       >
         <AiOutlineTrophy />
         Manage Awards

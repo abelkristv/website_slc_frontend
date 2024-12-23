@@ -20,6 +20,7 @@ import ManageGalleryPage from "./pages/Admin/ManageGallery/ManageGalleryPage";
 import MyGalleryPage from "./pages/MyGallery/MyGalleryPage";
 import AwardsPage from "./pages/Awards/AwardsPage";
 import ManageDatabasePage from "./pages/Admin/ManageDatabase/ManageDatabasePage";
+import ManageAwardsPage from "./pages/Admin/ManageAwards/ManageAwardsPage";
 
 function App() {
   return (
@@ -41,6 +42,7 @@ function App() {
           <Route path="/admin/manage-inbox" element={<ManageInboxPage />} />
           <Route path="/admin/manage-news" element={<ManageNewsPage />} />
           <Route path="/admin/manage-gallery" element={<ManageGalleryPage />} />
+          <Route path="/admin/manage-awards" element={<ManageAwardsPage />} />
           <Route
             path="/admin/manage-database"
             element={<ManageDatabasePage />}
