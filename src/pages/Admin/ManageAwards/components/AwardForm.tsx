@@ -1,4 +1,4 @@
-import { Flex } from "@chakra-ui/react";
+import { Flex, VStack } from "@chakra-ui/react";
 import { Button } from "../../../../components/ui/button";
 import { useState } from "react";
 import { Award } from "../../../../types/Award";
@@ -26,7 +26,7 @@ export default function AwardForm({
   const [selectedPeriod, setSelectedPeriod] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = async (e: React.FormEvent<HTMLDivElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
     const assistantAward = {
@@ -57,89 +57,95 @@ export default function AwardForm({
       gap={4}
     >
       <Flex flexDir="column" gap={4} width="full">
-        <label htmlFor="awardSelect" style={{ fontWeight: "bold" }}>
-          Select Award
-        </label>
-        <select
-          id="awardSelect"
-          value={selectedAward}
-          onChange={(e) => setSelectedAward(e.target.value)}
-          style={{
-            padding: "6px 8px",
-            fontSize: "14px",
-            borderRadius: "4px",
-            border: "1px solid #ccc",
-            minWidth: "100%",
-          }}
-        >
-          <option value="" disabled>
-            -- Select an Award --
-          </option>
-          {awards.map((award) => (
-            <option key={award.ID} value={award.ID}>
-              {award.AwardTitle.toUpperCase()}
+        <VStack gap={2} alignItems={"start"}>
+          {" "}
+          <label htmlFor="awardSelect" style={{ fontWeight: "bold" }}>
+            Select Award
+          </label>
+          <select
+            id="awardSelect"
+            value={selectedAward}
+            onChange={(e) => setSelectedAward(e.target.value)}
+            style={{
+              padding: "6px 8px",
+              fontSize: "14px",
+              borderRadius: "4px",
+              border: "1px solid #ccc",
+              minWidth: "100%",
+            }}
+          >
+            <option value="" disabled>
+              -- Select an Award --
             </option>
-          ))}
-        </select>
-
-        <label htmlFor="assistantSelect" style={{ fontWeight: "bold" }}>
-          Select Assistant
-        </label>
-        <select
-          id="assistantSelect"
-          value={selectedAssistant}
-          onChange={(e) => setSelectedAssistant(e.target.value)}
-          style={{
-            padding: "6px 8px",
-            fontSize: "14px",
-            borderRadius: "4px",
-            border: "1px solid #ccc",
-            minWidth: "100%",
-          }}
-        >
-          <option value="" disabled>
-            -- Select an Assistant --
-          </option>
-          {assistants.map((assistant) => (
-            <option
-              key={assistant.ID}
-              value={assistant.ID}
-            >{`${assistant.Initial} (${assistant.Generation})`}</option>
-          ))}
-        </select>
-
-        <label htmlFor="awardSelect" style={{ fontWeight: "bold" }}>
-          Select Period
-        </label>
-        <select
-          id="periodSelect"
-          value={selectedPeriod}
-          onChange={(e) => setSelectedPeriod(e.target.value)}
-          style={{
-            padding: "6px 8px",
-            fontSize: "14px",
-            borderRadius: "4px",
-            border: "1px solid #ccc",
-            minWidth: "100%",
-          }}
-        >
-          <option value="" disabled>
-            -- Select Period --
-          </option>
-
-          {periods.map((period) => (
-            <option key={period.ID} value={period.ID}>
-              {period.PeriodTitle}
+            {awards.map((award) => (
+              <option key={award.ID} value={award.ID}>
+                {award.AwardTitle.toUpperCase()}
+              </option>
+            ))}
+          </select>
+        </VStack>
+        <VStack gap={2} alignItems={"start"}>
+          <label htmlFor="assistantSelect" style={{ fontWeight: "bold" }}>
+            Select Assistant
+          </label>
+          <select
+            id="assistantSelect"
+            value={selectedAssistant}
+            onChange={(e) => setSelectedAssistant(e.target.value)}
+            style={{
+              padding: "6px 8px",
+              fontSize: "14px",
+              borderRadius: "4px",
+              border: "1px solid #ccc",
+              minWidth: "100%",
+            }}
+          >
+            <option value="" disabled>
+              -- Select an Assistant --
             </option>
-          ))}
-        </select>
+            {assistants.map((assistant) => (
+              <option
+                key={assistant.ID}
+                value={assistant.ID}
+              >{`${assistant.Initial} (${assistant.Generation})`}</option>
+            ))}
+          </select>
+        </VStack>
+        <VStack gap={2} alignItems={"start"}>
+          <label htmlFor="awardSelect" style={{ fontWeight: "bold" }}>
+            Select Period
+          </label>
+          <select
+            id="periodSelect"
+            value={selectedPeriod}
+            onChange={(e) => setSelectedPeriod(e.target.value)}
+            style={{
+              padding: "6px 8px",
+              fontSize: "14px",
+              borderRadius: "4px",
+              border: "1px solid #ccc",
+              minWidth: "100%",
+            }}
+          >
+            <option value="" disabled>
+              -- Select Period --
+            </option>
 
+            {periods.map((period) => (
+              <option key={period.ID} value={period.ID}>
+                {period.PeriodTitle}
+              </option>
+            ))}
+          </select>
+        </VStack>
         <Button
           onClick={handleSubmit}
-          disabled={
-            isLoading || !selectedAward || !selectedAssistant || !selectedPeriod
-          }
+          disabled={isLoading}
           className="w-full"
+          mt={4}
+          bg="bluejack.100"
+          color="white"
+          _hover={{ bg: "bluejack.200" }}
         >
           Submit
         </Button>

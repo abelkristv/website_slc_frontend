@@ -47,10 +47,9 @@ export function AboutUsSection() {
             "Diverse Team of Undergrad and Graduate Students",
           ].map((item, index) => (
             <ListItem key={index} display="flex" alignItems="center">
-              <List.Indicator color="green.500">
+              <List.Indicator color="green.500" transform={"translateY(4px)"}>
                 <LuCheckCircle />
               </List.Indicator>
-              {/* <ListIcon as={ArrowRight} color="blue.500" /> */}
               <Text color="gray.600">{item}</Text>
             </ListItem>
           ))}

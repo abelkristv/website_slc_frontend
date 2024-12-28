@@ -1,5 +1,5 @@
 import { VStack, Text, HStack, Box } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { getAwards } from "../../../services/AwardService";
 import AddAwardsModal from "./components/AddAwardsModal";
 import Slider from "react-slick";
@@ -62,7 +62,6 @@ export default function ManageAwardsPage() {
 
   return (
     <VStack gap={4}>
-      {/* Header Section */}
       <HStack
         justifyContent={{ base: "space-between", md: "center" }}
         width="full"
@@ -80,7 +79,6 @@ export default function ManageAwardsPage() {
         <AddAwardsModal fetchData={fetchData} />
       </HStack>
 
-      {/* Slider Section */}
       <div className="slider-container" style={{ width: "96%" }}>
         <Slider {...sliderSettings}>
           {awardPeriods.map((awardPeriod, index) => (
@@ -125,7 +123,6 @@ export default function ManageAwardsPage() {
         </Slider>
       </div>
 
-      {/* Awards Display Section */}
       {awards.length > 0 && (
         <VStack gap={2} mt={4}>
           {awards.map((award, index) => (
