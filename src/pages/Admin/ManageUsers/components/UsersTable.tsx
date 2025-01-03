@@ -1,7 +1,6 @@
 import { Table, Skeleton } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import { Button } from "../../../../components/ui/button";
-import { useColorModeValue } from "../../../../components/ui/color-mode";
 import { SLCPosition } from "../../../../types/SLCPosition";
 import { showErrorToast, showSuccessToast } from "../../../../utils/toastUtils";
 import { updateSLCPosition } from "../../../../services/AssistantService";
@@ -24,10 +23,6 @@ export default function UsersTable({
   SLCPositions,
   setAssistants,
 }: UsersTableProps) {
-  const resetPasswordHoverBg = useColorModeValue(
-    { bg: "blue.50" },
-    { bg: "gray.800" }
-  );
   const updatePosition = async (AssistantID: number, SLCPositionID: number) => {
     const assistantIndex = assistants.findIndex(
       (assistant) => assistant.ID === AssistantID
@@ -149,7 +144,7 @@ export default function UsersTable({
                       View Profile
                     </Button>
                   </Link>
-                  <Button
+                  {/* <Button
                     variant="outline"
                     borderColor="bluejack.100"
                     color="bluejack.100"
@@ -158,7 +153,7 @@ export default function UsersTable({
                     _hover={resetPasswordHoverBg}
                   >
                     Reset Password
-                  </Button>
+                  </Button> */}
                 </Table.Cell>
               </Table.Row>
             ))}
