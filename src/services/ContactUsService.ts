@@ -31,6 +31,7 @@ export const updateIsRead = async (id: number): Promise<void> => {
   try {
     await axios.patch(
       `${import.meta.env.VITE_BACKEND_URL}/contacts/isread/${id}`,
+      {},
       { withCredentials: true }
     );
   } catch (error) {

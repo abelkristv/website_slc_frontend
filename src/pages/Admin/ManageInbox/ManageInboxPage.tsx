@@ -18,6 +18,8 @@ export default function ManageInboxPage() {
   const fetchInboxes = async () => {
     const data = await getContactUs();
     setInboxes(data);
+    setSelectedInbox(null);
+    setDrawerOpen(false);
   };
 
   useEffect(() => {
